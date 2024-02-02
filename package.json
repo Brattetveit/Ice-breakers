@@ -6,7 +6,6 @@
   "scripts": {
     "client": "npm run --prefix ./client dev",
     "server": "npm run --prefix ./server start",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write client && prettier --write server"
   },
   "keywords": [],
