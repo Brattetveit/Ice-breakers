@@ -6,9 +6,12 @@
   "scripts": {
     "client": "npm run --prefix ./client dev",
     "server": "npm run --prefix ./server start",
-    "format": "prettier --write client && prettier --write server"
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
 }

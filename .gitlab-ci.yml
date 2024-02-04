@@ -1,0 +1,42 @@
+stages:
+  - prepare
+  - lint
+  - format
+
+variables:
+  NODE_IMAGE: node:latest
+
+before_script:
+  - echo "CI job started on $(date)"
+
+install_dependencies:
+  stage: prepare
+  image: $NODE_IMAGE
+  script:
+    - npm install
+    - cd server && npm install
+    - cd ../client && npm install
+  artifacts:
+    paths:
+      - server/node_modules/
+      - client/node_modules/
+  cache:
+    paths:
+      - server/node_modules/
+      - client/node_modules/
+
+lint:
+  stage: lint
+  image: $NODE_IMAGE
+  script:
+    - cd client && npm run lint
+  dependencies:
+    - install_dependencies
+
+format:
+  stage: format
+  image: $NODE_IMAGE
+  script:
+    - npm run format
+  dependencies:
+    - install_dependencies
