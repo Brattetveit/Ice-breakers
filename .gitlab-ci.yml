@@ -1,27 +1,41 @@
-default:
-  image: node:18
-  before_script:
-    - npm i
-    - cd client
-    - npm i
+stages:
+  - prepare
+  - lint
+  - format
 
-stages:          
-  - build
-  - test
+variables:
+  NODE_IMAGE: node:latest
 
-build-job:      
-  stage: build
+before_script:
+  - 'echo "CI job started on $(date)"'
+
+install_dependencies:
+  stage: prepare
+  image: $NODE_IMAGE
   script:
-    - cd client
-    - npm run build
+    - cd server && npm install
+    - cd ../client && npm install
+  artifacts:
+    paths:
+      - server/node_modules/
+      - client/node_modules/
+  cache:
+    paths:
+      - server/node_modules/
+      - client/node_modules/
 
-lint-test-job:  
-  stage: test    
+lint:
+  stage: lint
+  image: $NODE_IMAGE
   script:
-    - cd client
-    - npm run lint
+    - cd client && npm run lint
+  dependencies:
+    - install_dependencies
 
-format-test-job:
-  stage: test
+format:
+  stage: format
+  image: $NODE_IMAGE
   script:
     - npm run format
+  dependencies:
+    - install_dependencies
