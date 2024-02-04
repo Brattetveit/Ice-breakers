@@ -1,3 +1,8 @@
+default:
+  image: node:18
+  before_script:
+    - npm i
+
 stages:          
   - build
   - test
