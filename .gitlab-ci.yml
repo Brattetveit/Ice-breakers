@@ -7,7 +7,7 @@ variables:
   NODE_IMAGE: node:latest
 
 before_script:
-  - 'echo "CI job started on $(date)"'
+  - echo "CI job started on $(date)"
 
 install_dependencies:
   stage: prepare
