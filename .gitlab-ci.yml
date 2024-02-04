@@ -13,6 +13,7 @@ install_dependencies:
   stage: prepare
   image: $NODE_IMAGE
   script:
+    - npm install
     - cd server && npm install
     - cd ../client && npm install
   artifacts:
