@@ -1,3 +1,4 @@
+import { H1 } from "@/components/typography/H1";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -14,8 +15,8 @@ const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
 export const Home = () => {
   return (
     <div className="flex flex-col gap-10 items-center w-full">
-      <div className="bg-[#507DBC] w-[200px] p-3 rounded text-white">
-        <h1 className="text-2xl">Ice Breakers</h1>
+      <div className="bg-[#507DBC] text-white p-6 w-1/2 rounded">
+        <H1>Ice Breakers</H1>
       </div>
 
       <Carousel
