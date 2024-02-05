@@ -14,11 +14,11 @@ const port = process.env.PORT || 3500;
 app.use(cors());
 app.use(express.json());
 
-app.use("/", userRoutes);
-
 app.get("/", (req, res) => {
-  res.status(234).json({ message: "Hello World" });
+  res.status(234).json({ message: "Welcome to the Ice Breakers API!" });
 });
+
+app.use("/api/users", userRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
