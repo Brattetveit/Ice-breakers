@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { fetchIcebreakers } from "@/api/fetchIcebreakers";
-
-export type Icebreaker = {
-  name: string;
-};
+import { fetchIcebreakers } from "@/services/icebreakers";
+import { type Icebreaker } from "@/types";
 
 export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);

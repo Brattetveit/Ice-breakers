@@ -7,8 +7,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { type Icebreaker } from "@/hooks/useGetIcebreakers";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
+import { type Icebreaker } from "@/types";
 import { useEffect } from "react";
 
 const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
