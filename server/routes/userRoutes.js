@@ -1,17 +1,36 @@
 const express = require("express");
+const User = require("../models/userModel.js");
+
 const router = express.Router();
-const User = require("../models/User.js");
 
-router.post("/", (req, res) => {
-  const newUser = new User({
-    username: req.body.username,
-    password: req.body.password,
-  });
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find({});
 
-  newUser
-    .save()
-    .then((user) => res.status(200).json(user))
-    .catch((err) => res.status(400).json({ error: err.message }));
+    return res.status(200).json({
+      count: users.length,
+      data: users,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const newUser = {
+      username: req.body.username,
+      password: req.body.password,
+    };
+
+    const user = await User.create(newUser);
+
+    return res.status(201).send(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
 });
 
 module.exports = router;
