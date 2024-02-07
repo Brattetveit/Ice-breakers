@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { fetchIcebreakers } from "@/services/icebreakers";
 import { type Icebreaker } from "@/types";
+import { useState } from "react";
 
 export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);

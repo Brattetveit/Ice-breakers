@@ -53,8 +53,8 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen gap-14 p-4">
-      <div className="bg-[#507DBC] text-white p-6 w-1/2 rounded flex justify-center">
+    <div className="flex min-h-screen w-full flex-col items-center gap-14 p-4">
+      <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
         <H1>Ice Breakers</H1>
       </div>
       <div className="sm:w-1/3 lg:w-2/3">
@@ -77,8 +77,8 @@ export const Home = () => {
                           CAROUSEL_COLORS[idx % CAROUSEL_COLORS.length],
                       }}
                     >
-                      <CardContent className="flex items-center justify-center p-6 aspect-square">
-                        <span className="text-3xl text-white font-semibold">
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <span className="text-3xl font-semibold text-white">
                           {icebreakersTest[idx].name}
                         </span>
                       </CardContent>
