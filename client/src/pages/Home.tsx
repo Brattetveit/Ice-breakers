@@ -7,13 +7,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useFetchCategories } from "@/hooks/useFetchCategory";
 import { type Icebreaker } from "@/types";
+import { useEffect } from "react";
 
 const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
 
-const CATEGORIES = ["All", "Funny", "Serious", "Random"];
+const CATEGORY_NAMES = ["All", "Funny", "Serious", "Random"];
 
 export const Home = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { isLoading, categories, getCategories } = useFetchCategories();
+
+  useEffect(() => {
+    getCategories(CATEGORY_NAMES);
+  });
+
   const icebreakersTest: Icebreaker[] = [
     {
       name: "Icebreaker",
@@ -50,23 +59,25 @@ export const Home = () => {
         <H1>Ice Breakers</H1>
       </div>
       <div className="flex w-5/6 flex-col gap-6">
-        {CATEGORIES.map((category, idx) => {
-          return (
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          CATEGORY_NAMES.map((category, idx) => (
             <div key={idx}>
               <h2>{category}</h2>
               <Carousel>
                 <CarouselContent>
-                  {icebreakersTest.map((icebreaker, idx) => (
-                    <CarouselItem key={idx} className="basis-1/5">
+                  {icebreakersTest.map((icebreaker, jdx) => (
+                    <CarouselItem key={jdx} className="w-14 basis-1/5">
                       <div className="">
                         <Card
                           style={{
                             backgroundColor:
-                              CAROUSEL_COLORS[idx % CAROUSEL_COLORS.length],
+                              CAROUSEL_COLORS[jdx % CAROUSEL_COLORS.length],
                           }}
                         >
-                          <CardContent className="flex aspect-video items-center justify-center p-6">
-                            <span className="text-3xl font-semibold text-white">
+                          <CardContent className="flex aspect-video items-center justify-center p-2">
+                            <span className="text-lg font-semibold text-white">
                               {icebreaker.name}
                             </span>
                           </CardContent>
@@ -79,8 +90,8 @@ export const Home = () => {
                 <CarouselNext />
               </Carousel>
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );
