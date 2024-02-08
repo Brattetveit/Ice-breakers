@@ -70,7 +70,7 @@ export const Home = () => {
                 <CarouselContent>
                   {icebreakersTest.map((icebreaker, jdx) => (
                     <CarouselItem key={jdx} className="basis-1/5">
-                      <div className="">
+                      <div className="p-1">
                         <Card
                           style={{
                             backgroundColor:
@@ -78,9 +78,9 @@ export const Home = () => {
                           }}
                         >
                           <CardContent className="flex aspect-video items-center justify-center p-2">
-                            <span className="text-lg text-white">
+                            <button className="text-lg text-white" id="button">
                               {icebreaker.name}
-                            </span>
+                            </button>
                           </CardContent>
                         </Card>
                       </div>
