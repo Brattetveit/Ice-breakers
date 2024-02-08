@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "client": "npm run --prefix ./client dev",
-    "server": "npm run --prefix ./server start",
-    "format": "npx prettier --write ."
+    "server": "npm run --prefix ./server dev",
+    "lint": "npm run --prefix ./client lint",
+    "format": "npm run --prefix ./client format && npm run --prefix ./server format"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "prettier": "^3.2.5"
-  }
+  "license": "ISC"
 }
