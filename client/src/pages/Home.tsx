@@ -1,4 +1,5 @@
 import { H1 } from "@/components/typography/H1";
+import { H2 } from "@/components/typography/H2";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -13,7 +14,7 @@ import { useEffect } from "react";
 
 const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
 
-const CATEGORY_NAMES = ["All", "Funny", "Serious", "Random"];
+const CATEGORY_NAMES = ["All", "Funny", "Serious"];
 
 export const Home = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,7 +55,7 @@ export const Home = () => {
   ];
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center gap-14 p-4">
+    <div className="flex min-h-screen w-full flex-col items-center gap-14 bg-slate-100 p-4">
       <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
         <H1>Ice Breakers</H1>
       </div>
@@ -64,11 +65,11 @@ export const Home = () => {
         ) : (
           CATEGORY_NAMES.map((category, idx) => (
             <div key={idx}>
-              <h2>{category}</h2>
+              <H2>{category}</H2>
               <Carousel>
                 <CarouselContent>
                   {icebreakersTest.map((icebreaker, jdx) => (
-                    <CarouselItem key={jdx} className="w-14 basis-1/5">
+                    <CarouselItem key={jdx} className="basis-1/5">
                       <div className="">
                         <Card
                           style={{
@@ -77,7 +78,7 @@ export const Home = () => {
                           }}
                         >
                           <CardContent className="flex aspect-video items-center justify-center p-2">
-                            <span className="text-lg font-semibold text-white">
+                            <span className="text-lg text-white">
                               {icebreaker.name}
                             </span>
                           </CardContent>
