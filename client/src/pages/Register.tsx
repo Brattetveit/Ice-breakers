@@ -1,10 +1,3 @@
-//* const Login = () => {
-//   return <div>Login page</div>;
-// };
-
-//* export default Login;
-
-// import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const Login = () => {
+const Register = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Log in</CardTitle>
+          <CardTitle>Register user</CardTitle>
         </CardHeader>
         <CardContent>
           <form>
@@ -40,17 +33,19 @@ const Login = () => {
         </CardContent>
         <CardFooter className="flex flex-col items-center">
           <p className="text-sm text-gray-600 mt-2">
-            Not a user?{" "}
-            <Link to="/register" className="text-blue-500">
-              Register here
+            Already registered?{" "}
+            <Link to="/login" className="text-blue-500">
+              Log in
             </Link>
           </p>
           <div className="flex justify-between w-full mt-4">
             <Button variant="outline">Cancel</Button>
-            <Button>Log in</Button>
+            <Button>Register</Button>
           </div>
         </CardFooter>
       </Card>
     </div>
   );
 };
+
+export default Register;
