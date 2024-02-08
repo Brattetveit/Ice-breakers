@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { handleSubmitt } from "@/services/registerService";
 
 export const Register = () => {
   return (
@@ -18,7 +19,7 @@ export const Register = () => {
           <CardTitle>Register user</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmitt}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="username">Username</Label>
@@ -29,8 +30,6 @@ export const Register = () => {
                 <Input id="password" type="password" placeholder="Password" />
               </div>
             </div>
-          </form>
-        </CardContent>
         <CardFooter className="flex flex-col items-center">
           <p className="mt-2 text-sm text-gray-600">
             Already registered?{" "}
@@ -40,9 +39,11 @@ export const Register = () => {
           </p>
           <div className="mt-4 flex w-full justify-between">
             <Button variant="outline">Cancel</Button>
-            <Button>Register</Button>
+            <Button type="submit">Register</Button>
           </div>
-        </CardFooter>
+            </CardFooter>
+          </form>
+        </CardContent>
       </Card>
     </div>
   );
