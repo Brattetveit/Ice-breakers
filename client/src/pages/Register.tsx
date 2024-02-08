@@ -10,9 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const Register = () => {
+export const Register = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex h-screen items-center justify-center">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Register user</CardTitle>
@@ -32,13 +32,13 @@ const Register = () => {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center">
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="mt-2 text-sm text-gray-600">
             Already registered?{" "}
             <Link to="/login" className="text-blue-500">
               Log in
             </Link>
           </p>
-          <div className="flex justify-between w-full mt-4">
+          <div className="mt-4 flex w-full justify-between">
             <Button variant="outline">Cancel</Button>
             <Button>Register</Button>
           </div>
@@ -47,5 +47,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
