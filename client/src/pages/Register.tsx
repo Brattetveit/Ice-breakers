@@ -30,17 +30,17 @@ export const Register = () => {
                 <Input id="password" type="password" placeholder="Password" />
               </div>
             </div>
-        <CardFooter className="flex flex-col items-center">
-          <p className="mt-2 text-sm text-gray-600">
-            Already registered?{" "}
-            <Link to="/login" className="text-blue-500">
-              Log in
-            </Link>
-          </p>
-          <div className="mt-4 flex w-full justify-between">
-            <Button variant="outline">Cancel</Button>
-            <Button type="submit">Register</Button>
-          </div>
+            <CardFooter className="flex flex-col items-center">
+              <p className="mt-2 text-sm text-gray-600">
+                Already registered?{" "}
+                <Link to="/login" className="text-blue-500">
+                  Log in
+                </Link>
+              </p>
+              <div className="mt-4 flex w-full justify-between">
+                <Button variant="outline">Cancel</Button>
+                <Button type="submit">Register</Button>
+              </div>
             </CardFooter>
           </form>
         </CardContent>
