@@ -18,8 +18,8 @@ export const Register = () => {
         <CardHeader>
           <CardTitle className="place-self-center text-4xl mt-3">Register user</CardTitle>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmitt}>
+        <CardContent className="m-5">
+          <form className="m-5" onSubmit={handleSubmitt}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="username">Username</Label>
