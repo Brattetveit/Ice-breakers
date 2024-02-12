@@ -60,17 +60,17 @@ export const Home = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const categoryList = (categories: string[]) => {
-    return categories
-      .map((category) =>
-        icebreakers.filter((icebreaker) => icebreaker.category === category),
-      )
-      .slice(0, MAX_ITEMS);
+    return categories.map((category) =>
+      icebreakers.filter((icebreaker) => icebreaker.category === category),
+    );
   };
 
   const filteredIcebreakers = (query: string) => {
-    const filtered = icebreakersTest.filter((icebreaker) =>
-      icebreaker.name.toLowerCase().includes(query.toLowerCase()),
-    );
+    const filtered = icebreakersTest
+      .filter((icebreaker) =>
+        icebreaker.name.toLowerCase().includes(query.toLowerCase()),
+      )
+      .slice(0, MAX_ITEMS);
 
     return filtered.length === 0 || query === "" ? (
       <div />
