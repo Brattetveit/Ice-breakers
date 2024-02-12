@@ -22,7 +22,6 @@ const CATEGORY_NAMES = ["All", "Funny", "Serious"];
 const MAX_ITEMS = 9;
 
 export const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,7 +77,6 @@ export const Home = () => {
       .slice(0, MAX_ITEMS);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredIcebreakers = (query: string) => {
     const filtered = icebreakersTest.filter((icebreaker) =>
       icebreaker.name.toLowerCase().includes(query.toLowerCase()),
