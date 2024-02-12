@@ -1,3 +1,4 @@
+import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,40 +10,70 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import login from "@/services/loginService";
 
 export const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const data = await login(username, password);
+      console.log("Login successful:", data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="flex h-screen items-center justify-center">
-      <Card className="w-1/2 h-3/5 bg-[#6096BA]">
+      <Card className="h-3/5 w-1/2 bg-[#6096BA]">
         <CardHeader>
-          <CardTitle className="place-self-center text-4xl mt-3">Log in</CardTitle>
+          <CardTitle className="mt-3 place-self-center text-4xl">
+            Log in
+          </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
-          <form className="mt-5">
+          <form className="mt-5" onSubmit={handleLogin}>
             <div className="grid w-full gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="Username" className="bg-[#d9d9d9]" />
+                <Input
+                  id="username"
+                  value={username}
+                  placeholder="Username"
+                  className="bg-[#d9d9d9]"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password" className="mt-5">Password</Label>
-                <Input id="password" type="password" placeholder="Password" className="bg-[#d9d9d9]" />
+                <Label htmlFor="password" className="mt-5">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className="bg-[#d9d9d9]"
+                />
               </div>
             </div>
+            <CardFooter className="m-5 flex flex-col items-center">
+              <p className="text-sm text-gray-600">
+                Not a user?{" "}
+                <Link to="/register" className="text-white">
+                  Register here
+                </Link>
+              </p>
+              <div className="mt-4 flex w-4/5 justify-between">
+                <Button variant="outline">Cancel</Button>
+                <Button type="submit">Log in</Button>
+              </div>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col items-center m-5">
-          <p className="text-sm text-gray-600">
-            Not a user?{" "}
-            <Link to="/register" className="text-white">
-              Register here
-            </Link>
-          </p>
-          <div className="mt-4 flex w-4/5 justify-between">
-            <Button variant="outline">Cancel</Button>
-            <Button>Log in</Button>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );
