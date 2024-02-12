@@ -33,4 +33,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await User.findByIdAndDelete(id);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(204).send(); // 204 No Content
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
 module.exports = router;
