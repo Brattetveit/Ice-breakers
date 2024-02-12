@@ -93,20 +93,23 @@ export const Home = () => {
         </Link>
       </div>
 
-      <NavMenu />
+      <div className="flex w-1/2 items-center justify-around">
+        <NavMenu />
 
-      <div className="flex w-1/2 flex-col items-center gap-10">
-        <Input
-          placeholder="finn en icebreaker..."
-          className="w-1/3"
-          type="text"
-          value={searchQuery}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearchQuery(e.target.value)
-          }
-        />
-        <div className="w-full">{filteredIcebreakers(searchQuery)}</div>
+        <div className="flex w-1/3 flex-col items-center gap-10">
+          <Input
+            placeholder="finn en icebreaker..."
+            className="w-full"
+            type="text"
+            value={searchQuery}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
+          />
+        </div>
       </div>
+
+      <div className="w-full">{filteredIcebreakers(searchQuery)}</div>
 
       <div className="flex w-5/6 flex-col gap-6">
         {isLoading ? (
