@@ -97,6 +97,7 @@ export const Home = () => {
 
       <div className="flex w-1/2 flex-col items-center gap-10">
         <Input
+          placeholder="finn en icebreaker..."
           className="w-1/3"
           type="text"
           value={searchQuery}
