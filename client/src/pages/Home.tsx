@@ -8,9 +8,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Input } from "@/components/ui/input";
 import { useFetchCategories } from "@/hooks/useFetchCategory";
 import { type Icebreaker } from "@/types";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
 
@@ -19,6 +21,8 @@ const CATEGORY_NAMES = ["All", "Funny", "Serious"];
 export const Home = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLoading, categories, getCategories } = useFetchCategories();
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getCategories(CATEGORY_NAMES);
@@ -57,11 +61,24 @@ export const Home = () => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center gap-14 bg-slate-100 p-4">
       <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
-        <H1>Ice Breakers</H1>
+        <Link to=".">
+          <H1>Ice Breakers</H1>
+        </Link>
       </div>
+
+      <div>
+        <Input
+          type="text"
+          value={searchQuery}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchQuery(e.target.value)
+          }
+        />
+      </div>
+
       <div className="flex w-5/6 flex-col gap-6">
-        {isLoading ? (
-          <div>Loading...</div>
+        {isLoading || searchQuery !== "" ? (
+          <div />
         ) : (
           CATEGORY_NAMES.map((category, idx) => (
             <div key={idx}>
