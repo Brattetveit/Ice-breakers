@@ -1,21 +1,11 @@
 import { H1 } from "@/components/typography/H1";
-import { H2 } from "@/components/typography/H2";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { type Icebreaker } from "@/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
+import { CategoryCarousel } from "@/components/CategoryCarousel";
 
 const CATEGORY_NAMES = ["All", "Funny", "Serious"];
 
@@ -120,38 +110,17 @@ export const Home = () => {
       <div className="flex w-5/6 flex-col gap-6">
         {isLoading ? (
           <div>Loading...</div>
-        ) : searchQuery !== "" ? (
-          ""
-        ) : (
+        ) : searchQuery === "" ? (
           CATEGORY_NAMES.map((category, idx) => (
             <div key={idx}>
-              <H2>{category}</H2>
-              <Carousel>
-                <CarouselContent>
-                  {icebreakersTest.map((icebreaker, jdx) => (
-                    <CarouselItem key={jdx} className="basis-1/5">
-                      <div className="p-1">
-                        <Card
-                          style={{
-                            backgroundColor:
-                              CAROUSEL_COLORS[jdx % CAROUSEL_COLORS.length],
-                          }}
-                        >
-                          <CardContent className="flex aspect-video items-center justify-center p-2">
-                            <button className="text-lg text-white" id="button">
-                              {icebreaker.name}
-                            </button>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
+              <CategoryCarousel
+                category={category}
+                icebreakers={icebreakersTest}
+              />
             </div>
           ))
+        ) : (
+          <div />
         )}
       </div>
     </div>
