@@ -1,15 +1,15 @@
 import { type Icebreaker } from "@/types";
 import { useState } from "react";
+import { fetchIcebreakers } from "@/api/icebreakers";
 
-export const useFetchAllIcebreakers = () => {
+export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getIcebreakers = () => {
     setIsLoading(false);
 
-    fetch("/api/icebreakers")
-      .then((response) => response.json())
+    fetchIcebreakers()
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };
