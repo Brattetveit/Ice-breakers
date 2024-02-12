@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("../models/icebreakerModel.js");
+const Icebreaker = require("../models/icebreakerModel.js");
 
 const router = express.Router();
 
