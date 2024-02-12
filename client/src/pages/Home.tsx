@@ -4,8 +4,8 @@ import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { type Icebreaker } from "@/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
+import { NavMenu } from "@/components/NavMenu";
 
 const CATEGORY_NAMES = ["All", "Funny", "Serious"];
 
@@ -75,15 +75,13 @@ export const Home = () => {
     return filtered.length === 0 || query === "" ? (
       <div />
     ) : (
-      <ScrollArea>
-        <div className="grid grid-cols-3 items-center gap-6 p-4">
-          {filtered.map((icebreaker) => (
-            <div className="flex aspect-video items-center justify-center rounded bg-blue-300 p-2">
-              {icebreaker.name}
-            </div>
-          ))}
-        </div>
-      </ScrollArea>
+      <div className="grid grid-cols-3 items-center gap-6 p-4">
+        {filtered.map((icebreaker) => (
+          <div className="flex aspect-video items-center justify-center rounded bg-blue-300 p-2">
+            {icebreaker.name}
+          </div>
+        ))}
+      </div>
     );
   };
 
@@ -94,6 +92,8 @@ export const Home = () => {
           <H1>Ice Breakers</H1>
         </Link>
       </div>
+
+      <NavMenu />
 
       <div className="flex w-1/2 flex-col items-center gap-10">
         <Input
