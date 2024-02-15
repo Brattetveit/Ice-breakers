@@ -90,7 +90,7 @@ router.get('/delete/:name', async (req, res) => {
 })
 */
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     console.log(req.body.author);
     const author = await User.findOne({ username: req.body.author });
