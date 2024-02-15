@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const newUser = {
       username: req.body.username,
@@ -46,6 +46,29 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username, password });
+    if (!user) {
+      res.status(401).json({
+        message: "Login not successful",
+        error: "User not found",
+      });
+    } else {
+      res.status(200).json({
+        message: "login successful",
+        user,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "An error has occured",
+      error: error.message,
+    });
   }
 });
 
