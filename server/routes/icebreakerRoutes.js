@@ -18,6 +18,61 @@ router.get("/", async (req, res) => {
   }
 })
 
+router.get('/', (req, res, next) => { 
+  const filters = req.query; 
+  const filteredIcebreakers = Icebreaker.filter(icebreaker => { 
+    let isValid = true; 
+    for (key in filters) { 
+      console.log(key, icebreaker[key], filters[key]); 
+      isValid = isValid && icebreaker[key] == filters[key]; 
+    } 
+    return isValid; 
+  }); 
+  res.status(201).send(filteredIcebreakers); 
+}); 
+
+/*
+router.get('/search/:name', function(req, res, next) {
+  var name = req.params.name;
+  Icebreaker.find({name: name}, function (err, icebreakers) {
+      if(err) {
+          return res.render('/search', {icebreakers: null});
+      }
+      res.render('/search', {icebreakers: icebreakers});
+  });
+});
+
+router.get('/search/:category', function(req, res, next) {
+  var category = req.params.category;
+  Icebreaker.find({category: category}, function (err, icebreakers) {
+      if(err) {
+          return res.render('/search', {icebreakers: null});
+      }
+      res.render('/search', {icebreakers: icebreakers});
+  });
+});
+
+router.delete("/", (req, res) => {
+
+    const icebreakerIndex = getIcebreakerIndex(req.params.icebreaker.name);
+    
+    if (icebreakerIndex === -1) return res.status(404).json({})
+
+    Icebreaker.splice(icebreakerIndex, 1)
+    res.json(Icebreaker)
+})
+
+router.get('/delete/:name', async (req, res) => {
+  try {
+      const icebreakerIndex = await Icebreaker.getIcebreakerIndex(req.params.icebreaker.name)
+      await Topic.remove({ _id: req.params.id })
+      res.redirect('/dashboard')
+  } catch (error) {
+     console.log(error) 
+  }    
+})
+*/
+
 router.post("/", async (req, res) => {
   try {
     const newIcebreaker = {
