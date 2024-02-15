@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/userRoutes");
+const icebreakerRoutes = require("./routes/icebreakerRoutes");
 
 const cors = require("cors");
 const colors = require("colors");
@@ -19,13 +20,14 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/icebreakers", icebreakerRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected".underline.green);
     app.listen(port, () =>
-      console.log(`Server running on http://localhost:${port}`.underline.cyan),
+      console.log(`Server running on http://localhost:${port}`.underline.cyan)
     );
   })
   .catch((error) => console.log(error));

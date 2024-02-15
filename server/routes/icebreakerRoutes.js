@@ -1,5 +1,6 @@
 const express = require("express");
 const Icebreaker = require("../models/icebreakerModel.js");
+const User = require("../models/userModel.js");
 
 const router = express.Router();
 
@@ -9,32 +10,31 @@ router.get("/", async (req, res) => {
 
     return res.status(200).json({
       count: icebreakers.length,
-      data: icebreakers
-    })
-  }
-  catch (error) {
+      data: icebreakers,
+    });
+  } catch (error) {
     console.log(error.message);
-    res.status(500).send({message: error.message});
+    res.status(500).send({ message: error.message });
   }
-})
+});
 
-router.get('/', (req, res, next) => { 
-  const filters = req.query; 
-  const filteredIcebreakers = Icebreaker.filter(icebreaker => { 
-    let isValid = true; 
-    for (key in filters) { 
-      console.log(key, icebreaker[key], filters[key]); 
-      isValid = isValid && icebreaker[key] == filters[key]; 
-    } 
-    return isValid; 
-  }); 
-  res.status(201).send(filteredIcebreakers); 
-}); 
+router.get("/", (req, res, next) => {
+  const filters = req.query;
+  const filteredIcebreakers = Icebreaker.filter((icebreaker) => {
+    let isValid = true;
+    for (key in filters) {
+      console.log(key, icebreaker[key], filters[key]);
+      isValid = isValid && icebreaker[key] == filters[key];
+    }
+    return isValid;
+  });
+  res.status(201).send(filteredIcebreakers);
+});
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:name", async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await Icebreaker.findByIdAndDelete(id);
+    const { name } = req.params;
+    const result = await Icebreaker.deleteOne({ name: name });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Icebreaker not found" });
@@ -92,23 +92,30 @@ router.get('/delete/:name', async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body.author);
+    const author = await User.findOne({ username: req.body.author });
+    console.log(author);
+
+    if (!author) {
+      return res.status(404).json({ message: "Author not found" });
+    }
+
     const newIcebreaker = {
       name: req.body.name,
       description: req.body.description,
-      author: req.body.author ?? "",
-      category: req.body.category ?? "",
-      feedback: req.body[feedback] ?? [],
-      rating: req.body.rating ?? ""
+      author: author,
+      category: req.body.category,
+      feedback: req.body.feedback,
+      rating: req.body.rating,
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
 
     return res.status(201).send(icebreaker);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error.message);
-    res.status(500).send({message: error.message});
+    res.status(500).send({ message: error.message });
   }
-})
+});
 
 module.exports = router;
