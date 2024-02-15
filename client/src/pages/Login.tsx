@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import login from "@/services/loginService";
-
+import useLogin from "@/hooks/useLogin";
 export const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { username, setUsername, password, setPassword, handleLogin } =
+    useLogin();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,17 +25,6 @@ export const Login = () => {
     }
   }, [navigate]);
 
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const data = await login(username, password);
-      console.log("Login successful:", data.message);
-
-      localStorage.setItem("user", JSON.stringify(data.user));
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <div className="flex h-screen items-center justify-center">
       <Card className="h-3/5 w-1/2 bg-[#6096BA]">
