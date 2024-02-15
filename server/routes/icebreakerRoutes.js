@@ -47,7 +47,6 @@ router.delete("/:name", async (req, res) => {
   }
 });
 
-module.exports = router;
 /*
 router.get('/search/:name', function(req, res, next) {
   var name = req.params.name;
@@ -92,21 +91,21 @@ router.get('/delete/:name', async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    console.log(req.body.author);
-    const author = await User.findOne({ username: req.body.author });
-    console.log(author);
+    const { name, description, author, category, feedback, rating } = req.body;
 
-    if (!author) {
+    const authorUser = await User.findOne({ username: author });
+
+    if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
     }
 
     const newIcebreaker = {
-      name: req.body.name,
-      description: req.body.description,
-      author: author,
-      category: req.body.category,
-      feedback: req.body.feedback,
-      rating: req.body.rating,
+      name,
+      description,
+      author: authorUser,
+      category,
+      feedback,
+      rating,
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
