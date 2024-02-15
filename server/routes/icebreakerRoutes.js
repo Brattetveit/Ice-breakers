@@ -31,6 +31,23 @@ router.get('/', (req, res, next) => {
   res.status(201).send(filteredIcebreakers); 
 }); 
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Icebreaker.findByIdAndDelete(id);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Icebreaker not found" });
+    }
+
+    res.status(204).send(); // 204 No Content
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+module.exports = router;
 /*
 router.get('/search/:name', function(req, res, next) {
   var name = req.params.name;
