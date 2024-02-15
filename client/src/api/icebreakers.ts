@@ -1,4 +1,5 @@
 export const fetchIcebreakers = async () => {
   const response = await fetch("api/icebreakers");
-  return response.json();
+  const { data } = await response.json();
+  return data;
 };
