@@ -109,7 +109,7 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="w-full">{filteredIcebreakers(searchQuery)}</div>
+      <div className="w-2/3">{filteredIcebreakers(searchQuery)}</div>
 
       <div className="flex w-5/6 flex-col gap-6">
         {isLoading ? (
