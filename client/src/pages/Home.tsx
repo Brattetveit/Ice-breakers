@@ -1,7 +1,6 @@
 import { H1 } from "@/components/typography/H1";
 import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
-import { type Icebreaker } from "@/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -13,50 +12,10 @@ const MAX_ITEMS = 9;
 
 export const Home = () => {
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
-
   const [searchQuery, setSearchQuery] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getIcebreakers(), []);
-
-  const icebreakersTest: Icebreaker[] = [
-    {
-      name: "Icebreaker",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 2",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 3",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 4",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 5",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 6",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 7",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 8",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 9",
-      category: "Some Category",
-    },
-  ];
+  useEffect(() => getIcebreakers(searchQuery), [searchQuery, getIcebreakers]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const categoryList = (categories: string[]) => {
@@ -66,7 +25,7 @@ export const Home = () => {
   };
 
   const filteredIcebreakers = (query: string) => {
-    const filtered = icebreakersTest
+    const filtered = icebreakers
       .filter((icebreaker) =>
         icebreaker.name.toLowerCase().includes(query.toLowerCase()),
       )
@@ -77,8 +36,11 @@ export const Home = () => {
     ) : (
       <ScrollArea>
         <div className="grid grid-cols-3 items-center gap-6 p-4">
-          {filtered.map((icebreaker) => (
-            <div className="flex aspect-video items-center justify-center rounded bg-blue-300 p-2">
+          {filtered.map((icebreaker, index) => (
+            <div
+              key={index}
+              className="flex aspect-video items-center justify-center rounded bg-blue-300 p-2"
+            >
               {icebreaker.name}
             </div>
           ))}
@@ -114,10 +76,7 @@ export const Home = () => {
         ) : searchQuery === "" ? (
           CATEGORY_NAMES.map((category, idx) => (
             <div key={idx}>
-              <CategoryCarousel
-                category={category}
-                icebreakers={icebreakersTest}
-              />
+              <CategoryCarousel category={category} icebreakers={icebreakers} />
             </div>
           ))
         ) : (
