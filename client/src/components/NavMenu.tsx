@@ -9,8 +9,11 @@ import {
 } from "./ui/navigation-menu";
 
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { useUser } from "@/hooks/useUser";
 
 export const NavMenu = () => {
+  const { isLoggedIn, logOut } = useUser();
+
   const MenuLinkItem = ({
     to,
     title,
@@ -38,32 +41,44 @@ export const NavMenu = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-popover text-popover-foreground">
-            Logg inn
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <div className="flex w-[400px] gap-3 p-6">
-              <div className="flex w-1/2 justify-center rounded bg-muted p-3 text-muted-foreground">
-                <p>
-                  Med en bruker kan du opprette nye leker, kommentere og mye mer
-                </p>
+        {isLoggedIn ? (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger
+              onClick={logOut}
+              className="bg-popover text-popover-foreground"
+            >
+              Logg ut
+            </NavigationMenuTrigger>
+          </NavigationMenuItem>
+        ) : (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="bg-popover text-popover-foreground">
+              Logg inn
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <div className="flex w-[400px] gap-3 p-6">
+                <div className="flex w-1/2 justify-center rounded bg-muted p-3 text-muted-foreground">
+                  <p>
+                    Med en bruker kan du opprette nye leker, kommentere og mye
+                    mer
+                  </p>
+                </div>
+                <div className="flex flex-col justify-between">
+                  <MenuLinkItem
+                    to="/login"
+                    title="Logg inn"
+                    description="Logg inn på eksisterende bruker"
+                  />
+                  <MenuLinkItem
+                    to="/register"
+                    title="Registrer"
+                    description="Lag en helt ny bruker ved å registere deg her"
+                  />
+                </div>
               </div>
-              <div className="flex flex-col justify-between">
-                <MenuLinkItem
-                  to="/login"
-                  title="Logg inn"
-                  description="Logg inn på eksisterende bruker"
-                />
-                <MenuLinkItem
-                  to="/register"
-                  title="Registrer"
-                  description="Lag en helt ny bruker ved å registere deg her"
-                />
-              </div>
-            </div>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-popover text-popover-foreground">
             Om oss
