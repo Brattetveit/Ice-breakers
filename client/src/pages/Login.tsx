@@ -70,9 +70,11 @@ export const Login = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-between">
-                <Button variant="outline" className="">
-                  Cancel
-                </Button>
+                <Link to="/">
+                  <Button variant="outline" className="">
+                    Avbryt
+                  </Button>
+                </Link>
                 <Button type="submit" className="">
                   Log in
                 </Button>
