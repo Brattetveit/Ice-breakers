@@ -18,9 +18,9 @@ export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
 
   return (
     <Card className="flex aspect-square flex-col items-center justify-between">
-      <CardHeader>
+      <CardHeader className="text-center">
         <CardTitle>{name}</CardTitle>
-        <CardDescription className="text-center">{category}</CardDescription>
+        <CardDescription>{category}</CardDescription>
       </CardHeader>
       <CardContent>
         <p>Icebreaker bilde</p>

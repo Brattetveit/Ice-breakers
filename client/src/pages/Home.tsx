@@ -1,7 +1,6 @@
 import { H1 } from "@/components/typography/H1";
 import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
-import { type Icebreaker } from "@/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
@@ -9,134 +8,17 @@ import { IcebreakerCard } from "@/components/IcebreakerCard";
 const MAX_ITEMS = 9;
 
 export const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
-
   const [searchQuery, setSearchQuery] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getIcebreakers(), []);
 
-  const icebreakersTest: Icebreaker[] = [
-    {
-      name: "Icebreaker",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 2",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 3",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 4",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 5",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 6",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 7",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 8",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 9",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 10",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 2",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 3",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 4",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 5",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 6",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 7",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 8",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 9",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 10",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 2",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 3",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 4",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 5",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 6",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 7",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 8",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 9",
-      category: "Some Category",
-    },
-    {
-      name: "Icebreaker 10",
-      category: "Some Category",
-    },
-  ];
-
   const renderFilteredIcebreakers = (query: string) => {
     const filtered =
       query === ""
-        ? icebreakersTest
-        : icebreakersTest
+        ? icebreakers
+        : icebreakers
             .filter((icebreaker) =>
               icebreaker.name.toLowerCase().includes(query.toLowerCase()),
             )
@@ -146,8 +28,8 @@ export const Home = () => {
       <div />
     ) : (
       <div className="g grid w-2/3 grid-cols-3 gap-6">
-        {filtered.map((icebreakerTest, idx) => (
-          <IcebreakerCard key={idx} icebreaker={icebreakerTest} />
+        {filtered.map((icebreaker, idx) => (
+          <IcebreakerCard key={idx} icebreaker={icebreaker} />
         ))}
       </div>
     );
