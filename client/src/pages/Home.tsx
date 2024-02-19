@@ -1,4 +1,3 @@
-import { H1 } from "@/components/typography/H1";
 import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { ChangeEvent, useEffect, useState } from "react";
