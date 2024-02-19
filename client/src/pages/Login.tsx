@@ -30,7 +30,7 @@ export const Login = () => {
       <Card className="w-11/12 bg-[#A3CEF1] p-2 md:w-3/5 md:p-4 lg:w-2/5 lg:p-6">
         <CardHeader>
           <CardTitle className="mt-3 place-self-center text-3xl md:text-4xl lg:text-5xl">
-            Log in
+            Logg inn
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
