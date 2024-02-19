@@ -46,7 +46,7 @@ export const NavMenu = () => {
           <>
             <NavigationMenuItem>
               <Link to="/IceBreakerForm">
-                <Button>Lag en ny Icebreaker!</Button>
+                <Button>Lag en ny ice breaker!</Button>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
