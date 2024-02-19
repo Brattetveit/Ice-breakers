@@ -53,9 +53,11 @@ export const Register = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-between">
-                <Button variant="outline" className="">
-                  Avbryt
-                </Button>
+                <Link to="/">
+                  <Button variant="outline" className="">
+                    Avbryt
+                  </Button>
+                </Link>
                 <Button type="submit" className="">
                   Registrer
                 </Button>
