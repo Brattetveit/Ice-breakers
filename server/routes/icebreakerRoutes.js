@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     if (req.query.name) {
       query.name = { $regex: req.query.name, $options: "i" };
     }
-    const icebreakers = await Icebreaker.find({});
+    const icebreakers = await Icebreaker.find(query);
 
     return res.status(200).json({
       count: icebreakers.length,

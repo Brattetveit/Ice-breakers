@@ -17,7 +17,6 @@ export const useGetIcebreakers = () => {
       })
       .catch((error) => {
         console.error("Error fetching icebreakers:", error);
-        setIcebreakers([]);
       })
       .finally(() => setIsLoading(false));
   };
