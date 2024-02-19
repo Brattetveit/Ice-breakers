@@ -1,3 +1,5 @@
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,40 +11,75 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import useLogin from "@/hooks/useLogin";
 export const Login = () => {
+  const { username, setUsername, password, setPassword, handleLogin } =
+    useLogin();
+
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [navigate]);
+
   return (
-    <div className="flex h-screen items-center justify-center">
-      <Card className="w-1/2 h-3/5 bg-[#6096BA]">
+    <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
+      <Card className="w-11/12 bg-[#A3CEF1] p-2 md:w-3/5 md:p-4 lg:w-2/5 lg:p-6">
         <CardHeader>
-          <CardTitle className="place-self-center text-4xl mt-3">Log in</CardTitle>
+          <CardTitle className="mt-3 place-self-center text-3xl md:text-4xl lg:text-5xl">
+            Log in
+          </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
-          <form className="mt-5">
-            <div className="grid w-full gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="Username" className="bg-[#d9d9d9]" />
+          <form className="m-6" onSubmit={handleLogin}>
+            <div className="grid w-full items-center gap-4 md:gap-6">
+              <div className="flex flex-col gap-1 md:gap-2">
+                <Label htmlFor="username" className="text-lg md:text-xl">
+                  Username
+                </Label>
+                <Input
+                  id="username"
+                  value={username}
+                  placeholder="Username"
+                  className="bg-[#d9d9d9]"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password" className="mt-5">Password</Label>
-                <Input id="password" type="password" placeholder="Password" className="bg-[#d9d9d9]" />
+              <div className="flex flex-col gap-1 md:gap-2">
+                <Label htmlFor="password" className="text-lg md:text-xl">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className="bg-[#d9d9d9]"
+                />
               </div>
             </div>
+            <CardFooter className="m-5 flex flex-col items-center gap-2 md:gap-3">
+              <p className="text-sm text-gray-600">
+                Not a user?{" "}
+                <Link to="/register" className="text-blue-500">
+                  Register here
+                </Link>
+              </p>
+              <div className="flex w-full justify-between">
+                <Button variant="outline" className="">
+                  Cancel
+                </Button>
+                <Button type="submit" className="">
+                  Log in
+                </Button>
+              </div>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col items-center m-5">
-          <p className="text-sm text-gray-600">
-            Not a user?{" "}
-            <Link to="/register" className="text-white">
-              Register here
-            </Link>
-          </p>
-          <div className="mt-4 flex w-4/5 justify-between">
-            <Button variant="outline">Cancel</Button>
-            <Button>Log in</Button>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );

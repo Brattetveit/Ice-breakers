@@ -1,95 +1,64 @@
-import { H1 } from "@/components/typography/H1";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
-import { type Icebreaker } from "@/types";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { IcebreakerCard } from "@/components/IcebreakerCard";
+import { NavMenu } from "@/components/NavMenu";
 
-const CAROUSEL_COLORS = ["#A3CEF1", "#ADE8F4", "#6096BA"];
+const MAX_ITEMS = 9;
 
 export const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const icebreakersTest: Icebreaker[] = [
-    {
-      name: "Icebreaker",
-    },
-    {
-      name: "Icebreaker 2",
-    },
-    {
-      name: "Icebreaker 3",
-    },
-    {
-      name: "Icebreaker 4",
-    },
-    {
-      name: "Icebreaker 5",
-    },
-    {
-      name: "Icebreaker 6",
-    },
-    {
-      name: "Icebreaker 7",
-    },
-    {
-      name: "Icebreaker 8",
-    },
-    {
-      name: "Icebreaker 9",
-    },
-  ];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getIcebreakers(), []);
 
-  useEffect(() => {
-    getIcebreakers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const renderFilteredIcebreakers = (query: string) => {
+    const filtered =
+      query === ""
+        ? icebreakers
+        : icebreakers
+            .filter((icebreaker) =>
+              icebreaker.name.toLowerCase().includes(query.toLowerCase()),
+            )
+            .slice(0, MAX_ITEMS);
+
+    return filtered.length === 0 ? (
+      <div />
+    ) : (
+      <div className="g grid grid-cols-3 gap-6">
+        {filtered.map((icebreaker, idx) => (
+          <IcebreakerCard key={idx} icebreaker={icebreaker} />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center gap-14 p-4">
-      <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
-        <H1>Ice Breakers</H1>
-      </div>
-      <div className="sm:w-1/3 lg:w-2/3">
+    <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
+      <div className="flex w-2/3 flex-col gap-12">
+        <div className="flex items-center justify-center gap-4">
+          <Link to="/" className="text-lg font-semibold">
+            Ice Breakers
+          </Link>
+          <NavMenu />
+
+          <Input
+            placeholder="finn en ice breaker..."
+            className="text-input-foreground w-1/3 rounded-md bg-input p-3"
+            type="text"
+            value={searchQuery}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
+          />
+        </div>
+
         {isLoading ? (
-          "Loading..."
+          <div>Loading...</div>
         ) : (
-          <Carousel
-            opts={{
-              loop: true,
-              startIndex: 1,
-            }}
-          >
-            <CarouselContent>
-              {Array.from({ length: icebreakersTest.length }).map((_, idx) => (
-                <CarouselItem key={idx} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card
-                      style={{
-                        backgroundColor:
-                          CAROUSEL_COLORS[idx % CAROUSEL_COLORS.length],
-                      }}
-                    >
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-3xl font-semibold text-white">
-                          {icebreakersTest[idx].name}
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          renderFilteredIcebreakers(searchQuery)
         )}
       </div>
     </div>
