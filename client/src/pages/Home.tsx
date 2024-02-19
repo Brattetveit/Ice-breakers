@@ -15,7 +15,7 @@ export const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getIcebreakers(searchQuery), [searchQuery, getIcebreakers]);
+  useEffect(() => getIcebreakers(), []);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const categoryList = (categories: string[]) => {
