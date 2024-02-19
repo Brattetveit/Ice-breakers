@@ -10,9 +10,11 @@ import {
 
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useUser } from "@/hooks/useUser";
+import useLogout from "@/hooks/useLogout";
 
 export const NavMenu = () => {
-  const { isLoggedIn, logOut } = useUser();
+  const { isLoggedIn } = useUser();
+  const { logOut } = useLogout();
 
   const MenuLinkItem = ({
     to,
@@ -24,17 +26,15 @@ export const NavMenu = () => {
     description: string;
   }) => {
     return (
-      <NavigationMenuLink>
-        <Link
-          to={to}
-          className="block h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-        >
-          {title}
-          <p className="text-sm leading-snug text-muted-foreground">
-            {description}
-          </p>
-        </Link>
-      </NavigationMenuLink>
+      <Link
+        to={to}
+        className="block h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+      >
+        {title}
+        <p className="text-sm leading-snug text-muted-foreground">
+          {description}
+        </p>
+      </Link>
     );
   };
 
@@ -43,12 +43,11 @@ export const NavMenu = () => {
       <NavigationMenuList>
         {isLoggedIn ? (
           <NavigationMenuItem>
-            <NavigationMenuTrigger
-              onClick={logOut}
-              className="bg-popover text-popover-foreground"
-            >
-              Logg ut
-            </NavigationMenuTrigger>
+            <button onClick={() => logOut()}>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Logg ut
+              </NavigationMenuLink>
+            </button>
           </NavigationMenuItem>
         ) : (
           <NavigationMenuItem>
