@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "./ui/card";
 
+import vite from "../../public/vite.svg";
+
 import type { Icebreaker } from "@/types";
 
 type IcebreakerCardProps = {
@@ -15,7 +17,7 @@ type IcebreakerCardProps = {
 };
 
 export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
-  const { name, category } = icebreaker;
+  const { name, category, shortDescription, imageName } = icebreaker;
 
   return (
     <Link to="/aboutGame" state={{ icebreaker: icebreaker }}>
@@ -25,10 +27,13 @@ export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
           <CardDescription>{category}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Icebreaker bilde</p>
+          <img
+            src={imageName ? `../../public/${imageName}` : vite}
+            alt="Ice breaker bilde"
+          />
         </CardContent>
         <CardFooter>
-          <p>Icebreaker kort beskrivelse</p>
+          {shortDescription ?? "Ice breaker kort beskrivelse"}
         </CardFooter>
       </Card>
     </Link>
