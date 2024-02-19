@@ -24,15 +24,9 @@ export const Home = () => {
             )
             .slice(0, MAX_ITEMS);
 
-    return filtered.length === 0 ? (
-      <div />
-    ) : (
-      <div className="g grid grid-cols-3 gap-6">
-        {filtered.map((icebreaker, idx) => (
-          <IcebreakerCard key={idx} icebreaker={icebreaker} />
-        ))}
-      </div>
-    );
+    return filtered.map((icebreaker) => (
+      <IcebreakerCard icebreaker={icebreaker} />
+    ));
   };
 
   return (
@@ -61,7 +55,9 @@ export const Home = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          renderFilteredIcebreakers(searchQuery)
+          <div className="grid grid-cols-3 gap-6">
+            {renderFilteredIcebreakers(searchQuery)}
+          </div>
         )}
       </div>
     </div>

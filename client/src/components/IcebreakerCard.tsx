@@ -18,7 +18,7 @@ export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
   const { name, category } = icebreaker;
 
   return (
-    <Link to="/aboutGame">
+    <Link to="/aboutGame" state={{ icebreaker: icebreaker }}>
       <Card className="flex aspect-square flex-col items-center justify-between bg-card text-card-foreground">
         <CardHeader className="text-center">
           <CardTitle>{name}</CardTitle>

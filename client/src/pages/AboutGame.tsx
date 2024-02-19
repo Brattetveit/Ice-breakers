@@ -1,5 +1,6 @@
 import { H1 } from "@/components/typography/H1";
 import { H2 } from "@/components/typography/H2";
+import { Icebreaker } from "@/types";
 
 // import {
 //   Card,
@@ -15,9 +16,12 @@ import { H2 } from "@/components/typography/H2";
 
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const AboutGame = () => {
+  const location = useLocation();
+  const { icebreaker } = location.state as { icebreaker: Icebreaker };
+
   return (
     <div className="flex min-h-screen w-full items-center gap-4 bg-[#E3F2FD]">
       <div className="flex w-full flex-col gap-4 p-4">
@@ -33,7 +37,7 @@ export const AboutGame = () => {
         </div>
         <div className="flex flex-row place-self-center">
           <div className="flex flex-col">
-            <H1>Leken</H1>
+            <H1>{icebreaker.name}</H1>
             <p className="place-self-center">Kategori: </p>
           </div>
         </div>
