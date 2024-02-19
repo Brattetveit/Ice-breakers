@@ -9,7 +9,7 @@ import React, { useState } from "react";
 // import { useDropzone } from "react-dropzone";
 // import type { File } from "buffer";
 
-export const IceBreakerForm = () => {
+export const IcebreakerForm = () => {
   const [nameText, setNameText] = useState("");
   const [ruleText, setRuleText] = useState("");
   const [summaryText, setSumaryText] = useState("");

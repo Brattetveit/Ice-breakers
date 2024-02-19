@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "./ui/card";
 
-import vite from "../../public/vite.svg";
+import react from "../assets/react.svg";
 
 import type { Icebreaker } from "@/types";
 
@@ -28,7 +28,7 @@ export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
         </CardHeader>
         <CardContent>
           <img
-            src={imageName ? `../../public/${imageName}` : vite}
+            src={imageName ? `../src/${imageName}` : react}
             alt="Ice breaker bilde"
           />
         </CardContent>
