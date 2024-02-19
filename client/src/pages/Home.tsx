@@ -4,6 +4,7 @@ import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
+import { NavMenu } from "@/components/NavMenu";
 
 const MAX_ITEMS = 9;
 
@@ -36,17 +37,16 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center gap-14 bg-slate-100 p-4">
-      <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
-        <Link to="/">
-          <H1>Ice Breakers</H1>
-        </Link>
-      </div>
+    <div className="flex min-h-screen w-full flex-col items-center gap-14 bg-background p-4 text-foreground">
+      <Link to="/">
+        <H1>Ice Breakers</H1>
+      </Link>
 
-      <div className="flex w-1/2 flex-col items-center gap-10">
+      <div className="flex w-1/2 justify-center gap-10">
+        <NavMenu />
         <Input
-          placeholder="finn en icebreaker..."
-          className="w-1/3"
+          placeholder="finn en ice breaker..."
+          className="text-input-foreground w-1/3 rounded-md bg-input p-3"
           type="text"
           value={searchQuery}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
