@@ -11,6 +11,7 @@ import {
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useUser } from "@/hooks/useUser";
 import useLogout from "@/hooks/useLogout";
+import { Button } from "./ui/button";
 
 export const NavMenu = () => {
   const { isLoggedIn } = useUser();
@@ -104,6 +105,13 @@ export const NavMenu = () => {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        {isLoggedIn && (
+          <NavigationMenuItem>
+            <Link to="/IceBreakerForm">
+              <Button>Lag en ny Icebreaker!</Button>
+            </Link>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );
