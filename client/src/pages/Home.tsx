@@ -54,6 +54,82 @@ export const Home = () => {
       name: "Icebreaker 9",
       category: "Some Category",
     },
+    {
+      name: "Icebreaker 10",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 2",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 3",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 4",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 5",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 6",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 7",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 8",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 9",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 10",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 2",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 3",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 4",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 5",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 6",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 7",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 8",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 9",
+      category: "Some Category",
+    },
+    {
+      name: "Icebreaker 10",
+      category: "Some Category",
+    },
   ];
 
   const renderFilteredIcebreakers = (query: string) => {
