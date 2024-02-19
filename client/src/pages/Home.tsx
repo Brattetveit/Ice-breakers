@@ -8,7 +8,6 @@ import { IcebreakerCard } from "@/components/IcebreakerCard";
 const MAX_ITEMS = 9;
 
 export const Home = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
   const [searchQuery, setSearchQuery] = useState("");
 
