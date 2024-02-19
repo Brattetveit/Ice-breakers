@@ -27,9 +27,9 @@ export const Login = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
-      <Card className="w-11/12 md:w-3/5 lg:w-2/5 bg-[#A3CEF1] p-2 md:p-4 lg:p-6">
+      <Card className="w-11/12 bg-[#A3CEF1] p-2 md:w-3/5 md:p-4 lg:w-2/5 lg:p-6">
         <CardHeader>
-          <CardTitle className="place-self-center text-3xl md:text-4xl lg:text-5xl mt-3">
+          <CardTitle className="mt-3 place-self-center text-3xl md:text-4xl lg:text-5xl">
             Log in
           </CardTitle>
         </CardHeader>
