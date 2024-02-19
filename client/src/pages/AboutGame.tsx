@@ -24,21 +24,21 @@ export const AboutGame = () => {
         <div>
           <div className="flex flex-row justify-between">
             <Link to="/">
-              <b>&#8249; Back to homepage</b>
+              <b>&#8249; Tilbake til hjemmeside</b>
             </Link>
             <div>
-              <b>Made by:</b>
+              <b>Laget av:</b>
             </div>
           </div>
         </div>
         <div className="flex flex-row place-self-center">
           <div className="flex flex-col">
             <H1>Leken</H1>
-            <p className="place-self-center">Category: </p>
+            <p className="place-self-center">Kategori: </p>
           </div>
         </div>
         <div className="flex h-dvh flex-col gap-6 rounded bg-[#A3CEF1] p-4">
-          <H2>How to play:</H2>
+          <H2>Beskrivelse:</H2>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
             beatae, consequuntur nostrum quas quod aperiam minima laudantium

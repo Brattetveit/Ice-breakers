@@ -17,7 +17,7 @@ export const Register = () => {
       <Card className="w-11/12 md:w-3/5 lg:w-2/5 bg-[#A3CEF1] p-2 md:p-4 lg:p-6">
         <CardHeader>
           <CardTitle className="place-self-center text-3xl md:text-4xl lg:text-5xl mt-3">
-            Register user
+            Registrer bruker
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
@@ -25,39 +25,41 @@ export const Register = () => {
             <div className="grid w-full items-center gap-4 md:gap-6">
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="username" className="text-lg md:text-xl">
-                  Username
+                  Brukernavn
                 </Label>
                 <Input
                   id="username"
-                  placeholder="Username"
+                  placeholder="Brukernavn"
                   className="bg-[#d9d9d9]"
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="password" className="text-lg md:text-xl">
-                  Password
+                  Passord
                 </Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Passord"
                   className="bg-[#d9d9d9]"
                 />
               </div>
             </div>
             <CardFooter className="m-5 flex flex-col items-center gap-2 md:gap-3">
               <p className="text-sm text-gray-600">
-                Already registered?{" "}
+                Allerede bruker?{" "}
                 <Link to="/login" className="text-blue-500">
-                  Log in
+                  Logg inn
                 </Link>
               </p>
               <div className="flex w-full justify-between">
-                <Button variant="outline" className="">
-                  Cancel
-                </Button>
+                <Link to="/">
+                  <Button variant="outline" className="">
+                    Avbryt
+                  </Button>
+                </Link>
                 <Button type="submit" className="">
-                  Register
+                  Registrer
                 </Button>
               </div>
             </CardFooter>

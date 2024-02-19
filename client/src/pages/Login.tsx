@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,14 +16,14 @@ export const Login = () => {
   const { username, setUsername, password, setPassword, handleLogin } =
     useLogin();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      navigate("/");
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
@@ -70,9 +70,11 @@ export const Login = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-between">
-                <Button variant="outline" className="">
-                  Cancel
-                </Button>
+                <Link to="/">
+                  <Button variant="outline" className="">
+                    Avbryt
+                  </Button>
+                </Link>
                 <Button type="submit" className="">
                   Log in
                 </Button>
