@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 const useLogout = () => {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logOut = () => {
     localStorage.removeItem("user");
     navigate("/");
   };
 
-  return logout;
+  return { logOut };
 };
 export default useLogout;

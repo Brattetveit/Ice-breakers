@@ -38,11 +38,10 @@ export const Home = () => {
   return (
     <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
       <div className="flex w-2/3 flex-col gap-12">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center gap-4 pl-4">
           <Link to="/" className="text-lg font-semibold">
             Ice Breakers
           </Link>
-          <NavMenu />
 
           <Input
             placeholder="finn en ice breaker..."
@@ -53,6 +52,7 @@ export const Home = () => {
               setSearchQuery(e.target.value)
             }
           />
+          <NavMenu />
         </div>
 
         {isLoading ? (
