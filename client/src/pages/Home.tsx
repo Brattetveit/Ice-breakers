@@ -1,9 +1,9 @@
-import { H1 } from "@/components/typography/H1";
 import { Input } from "@/components/ui/input";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
+import { NavMenu } from "@/components/NavMenu";
 
 const MAX_ITEMS = 9;
 
@@ -27,7 +27,7 @@ export const Home = () => {
     return filtered.length === 0 ? (
       <div />
     ) : (
-      <div className="g grid w-2/3 grid-cols-3 gap-6">
+      <div className="g grid grid-cols-3 gap-6">
         {filtered.map((icebreaker, idx) => (
           <IcebreakerCard key={idx} icebreaker={icebreaker} />
         ))}
@@ -36,30 +36,31 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center gap-14 bg-slate-100 p-4">
-      <div className="flex w-1/2 justify-center rounded bg-[#507DBC] p-6 text-white">
-        <Link to="/">
-          <H1>Ice Breakers</H1>
-        </Link>
-      </div>
+    <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
+      <div className="flex w-2/3 flex-col gap-12">
+        <div className="flex items-center justify-center gap-4">
+          <Link to="/" className="text-lg font-semibold">
+            Ice Breakers
+          </Link>
+          <NavMenu />
 
-      <div className="flex w-1/2 flex-col items-center gap-10">
-        <Input
-          placeholder="finn en icebreaker..."
-          className="w-1/3"
-          type="text"
-          value={searchQuery}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearchQuery(e.target.value)
-          }
-        />
-      </div>
+          <Input
+            placeholder="finn en ice breaker..."
+            className="text-input-foreground w-1/3 rounded-md bg-input p-3"
+            type="text"
+            value={searchQuery}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
+          />
+        </div>
 
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        renderFilteredIcebreakers(searchQuery)
-      )}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          renderFilteredIcebreakers(searchQuery)
+        )}
+      </div>
     </div>
   );
 };
