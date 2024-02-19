@@ -6,8 +6,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Message } from "@/components/Message";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { useDropzone } from "react-dropzone";
-import type { File } from "buffer";
+// import { useDropzone } from "react-dropzone";
+// import type { File } from "buffer";
 
 export const IceBreakerForm = () => {
   const [nameText, setNameText] = useState("");
@@ -15,7 +15,7 @@ export const IceBreakerForm = () => {
   const [summaryText, setSumaryText] = useState("");
   const [category, setCategory] = useState("");
   const [visibility, setVisibility] = useState("0");
-  const [files, setFiles] = useState<(File & { preview: string })[]>([]);
+  // const [files, setFiles] = useState<(File & { preview: string })[]>([]);
 
   const navigate = useNavigate();
   const handleExit = () => {
@@ -23,18 +23,18 @@ export const IceBreakerForm = () => {
     navigate(path);
   };
 
-  const hasFiles = files.length > 0;
+  // const hasFiles = files.length > 0;
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: { "image/*": [] },
-    onDrop: (<File>(acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) }),
-        ),
-      );
-    }),
-  });
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   accept: { "image/*": [] },
+  //   onDrop: (acceptedFiles) => {
+  //     setFiles(
+  //       acceptedFiles.map((file) =>
+  //         Object.assign(file, { preview: URL.createObjectURL(file) }),
+  //       ),
+  //     );
+  //   },
+  // });
 
   //placeholder
   const categories: string[] = ["drikkelek", "barnelek", "navnelek"];
@@ -108,7 +108,6 @@ export const IceBreakerForm = () => {
       console.log(ruleText);
       console.log(category);
       console.log(visibility);
-      console.log(files);
       handleExit();
     }
   }
@@ -215,7 +214,7 @@ export const IceBreakerForm = () => {
             </div>
           </RadioGroup>
         </div>
-        <div className="m-4 min-h-40 md:grid md:grid-cols-5  md:gap-12">
+        {/* <div className="m-4 min-h-40 md:grid md:grid-cols-5  md:gap-12">
           <h2 className="text-xl md:text-right">Last opp bilder:</h2>
           <div
             {...getRootProps()}
@@ -235,7 +234,7 @@ export const IceBreakerForm = () => {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
