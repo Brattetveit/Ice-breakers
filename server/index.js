@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/userRoutes");
-const loginRoutes = require("./routes/loginRoutes");
+const icebreakerRoutes = require("./routes/icebreakerRoutes");
 
 const cors = require("cors");
 const colors = require("colors");
@@ -20,7 +20,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
-app.use("/api/login", loginRoutes);
+app.use("/api/icebreakers", icebreakerRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
