@@ -26,18 +26,20 @@ export const Login = () => {
   }, [navigate]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <Card className="h-3/5 w-1/2 bg-[#6096BA]">
+    <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
+      <Card className="w-11/12 md:w-3/5 lg:w-2/5 bg-[#A3CEF1] p-2 md:p-4 lg:p-6">
         <CardHeader>
-          <CardTitle className="mt-3 place-self-center text-4xl">
+          <CardTitle className="place-self-center text-3xl md:text-4xl lg:text-5xl mt-3">
             Log in
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
-          <form className="mt-5" onSubmit={handleLogin}>
-            <div className="grid w-full gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">Username</Label>
+          <form className="m-6" onSubmit={handleLogin}>
+            <div className="grid w-full items-center gap-4 md:gap-6">
+              <div className="flex flex-col gap-1 md:gap-2">
+                <Label htmlFor="username" className="text-lg md:text-xl">
+                  Username
+                </Label>
                 <Input
                   id="username"
                   value={username}
@@ -46,8 +48,8 @@ export const Login = () => {
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password" className="mt-5">
+              <div className="flex flex-col gap-1 md:gap-2">
+                <Label htmlFor="password" className="text-lg md:text-xl">
                   Password
                 </Label>
                 <Input
@@ -60,16 +62,20 @@ export const Login = () => {
                 />
               </div>
             </div>
-            <CardFooter className="m-5 flex flex-col items-center">
+            <CardFooter className="m-5 flex flex-col items-center gap-2 md:gap-3">
               <p className="text-sm text-gray-600">
                 Not a user?{" "}
-                <Link to="/register" className="text-white">
+                <Link to="/register" className="text-blue-500">
                   Register here
                 </Link>
               </p>
-              <div className="mt-4 flex w-4/5 justify-between">
-                <Button variant="outline">Cancel</Button>
-                <Button type="submit">Log in</Button>
+              <div className="flex w-full justify-between">
+                <Button variant="outline" className="">
+                  Cancel
+                </Button>
+                <Button type="submit" className="">
+                  Log in
+                </Button>
               </div>
             </CardFooter>
           </form>
