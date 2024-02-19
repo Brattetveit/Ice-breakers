@@ -4,12 +4,15 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { NavMenu } from "@/components/NavMenu";
+import { Button } from "@/components/ui/button";
+import { useUser } from "@/hooks/useUser";
 
 const MAX_ITEMS = 9;
 
 export const Home = () => {
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
   const [searchQuery, setSearchQuery] = useState("");
+  const { isLoggedIn } = useUser();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getIcebreakers(), []);
@@ -53,6 +56,15 @@ export const Home = () => {
               setSearchQuery(e.target.value)
             }
           />
+          {isLoggedIn ? (
+            <Link to="/IceBreakerForm">
+              <Button className="bg-primary text-primary-foreground">
+                Lag en ny Icebreaker!
+              </Button>
+            </Link>
+          ) : (
+            <div />
+          )}
         </div>
 
         {isLoading ? (
