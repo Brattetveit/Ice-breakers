@@ -4,6 +4,7 @@ import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { type Icebreaker } from "@/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { IcebreakerCard } from "@/components/IcebreakerCard";
 
 const MAX_ITEMS = 9;
 
@@ -55,21 +56,22 @@ export const Home = () => {
     },
   ];
 
-  const filteredIcebreakers = (query: string) => {
-    const filtered = icebreakersTest
-      .filter((icebreaker) =>
-        icebreaker.name.toLowerCase().includes(query.toLowerCase()),
-      )
-      .slice(0, MAX_ITEMS);
+  const renderFilteredIcebreakers = (query: string) => {
+    const filtered =
+      query === ""
+        ? icebreakersTest
+        : icebreakersTest
+            .filter((icebreaker) =>
+              icebreaker.name.toLowerCase().includes(query.toLowerCase()),
+            )
+            .slice(0, MAX_ITEMS);
 
-    return filtered.length === 0 || query === "" ? (
+    return filtered.length === 0 ? (
       <div />
     ) : (
-      <div className="grid grid-cols-3 items-center gap-6 p-4">
-        {filtered.map((icebreaker) => (
-          <div className="flex aspect-video items-center justify-center rounded bg-blue-300 p-2">
-            {icebreaker.name}
-          </div>
+      <div className="g grid w-2/3 grid-cols-3 gap-6">
+        {filtered.map((icebreakerTest, idx) => (
+          <IcebreakerCard key={idx} icebreaker={icebreakerTest} />
         ))}
       </div>
     );
@@ -93,18 +95,13 @@ export const Home = () => {
             setSearchQuery(e.target.value)
           }
         />
-        <div className="w-full">{filteredIcebreakers(searchQuery)}</div>
       </div>
 
-      <div className="flex w-5/6 flex-col gap-6">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : searchQuery === "" ? (
-          <div>Home</div>
-        ) : (
-          <div />
-        )}
-      </div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        renderFilteredIcebreakers(searchQuery)
+      )}
     </div>
   );
 };
