@@ -30,7 +30,7 @@ export const Login = () => {
       <Card className="w-11/12 md:w-3/5 lg:w-2/5 bg-[#A3CEF1] p-2 md:p-4 lg:p-6">
         <CardHeader>
           <CardTitle className="place-self-center text-3xl md:text-4xl lg:text-5xl mt-3">
-            Log in
+            Logg inn
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
@@ -38,43 +38,43 @@ export const Login = () => {
             <div className="grid w-full items-center gap-4 md:gap-6">
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="username" className="text-lg md:text-xl">
-                  Username
+                  Brukernavn
                 </Label>
                 <Input
                   id="username"
                   value={username}
-                  placeholder="Username"
+                  placeholder="Brukernavn"
                   className="bg-[#d9d9d9]"
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="password" className="text-lg md:text-xl">
-                  Password
+                  Passord
                 </Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder="Passord"
                   className="bg-[#d9d9d9]"
                 />
               </div>
             </div>
             <CardFooter className="m-5 flex flex-col items-center gap-2 md:gap-3">
               <p className="text-sm text-gray-600">
-                Not a user?{" "}
+                Ikke bruker?{" "}
                 <Link to="/register" className="text-blue-500">
-                  Register here
+                  Registrer deg her
                 </Link>
               </p>
               <div className="flex w-full justify-between">
                 <Button variant="outline" className="">
-                  Cancel
+                  Avbryt
                 </Button>
                 <Button type="submit" className="">
-                  Log in
+                  Logg inn
                 </Button>
               </div>
             </CardFooter>
