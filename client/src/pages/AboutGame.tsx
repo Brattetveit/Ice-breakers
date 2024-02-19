@@ -24,6 +24,7 @@ export const AboutGame = () => {
   }> = useLocation();
 
   const { icebreaker } = location.state;
+  const { name, author, category, fullDescription } = icebreaker;
 
   return (
     <div className="flex min-h-screen w-full items-center gap-4 bg-[#E3F2FD]">
@@ -34,24 +35,19 @@ export const AboutGame = () => {
               <b>&#8249; Tilbake til hjemmeside</b>
             </Link>
             <div>
-              <b>Laget av:</b>
+              <b>{`Laget av: ${author ? author.username : "Anonymous"}`}</b>
             </div>
           </div>
         </div>
         <div className="flex flex-row place-self-center">
           <div className="flex flex-col">
-            <H1>{icebreaker.name}</H1>
-            <p className="place-self-center">Kategori: </p>
+            <H1>{name}</H1>
+            <p className="place-self-center">{`Kategori: ${category}`}</p>
           </div>
         </div>
         <div className="flex h-dvh flex-col gap-6 rounded bg-[#A3CEF1] p-4">
           <H2>Beskrivelse:</H2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-            beatae, consequuntur nostrum quas quod aperiam minima laudantium
-            necessitatibus ab dolores assumenda mollitia laboriosam, officiis
-            sed ipsam! Beatae inventore nobis ab?
-          </p>
+          <p>{fullDescription}</p>
         </div>
       </div>
       {/* <div className="w-1/3 p-4">
