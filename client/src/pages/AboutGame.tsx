@@ -16,11 +16,14 @@ import { Icebreaker } from "@/types";
 
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { Input } from "@/components/ui/input";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, type Location } from "react-router-dom";
 
 export const AboutGame = () => {
-  const location = useLocation();
-  const { icebreaker } = location.state as { icebreaker: Icebreaker };
+  const location: Location<{
+    icebreaker: Icebreaker;
+  }> = useLocation();
+
+  const { icebreaker } = location.state;
 
   return (
     <div className="flex min-h-screen w-full items-center gap-4 bg-[#E3F2FD]">
