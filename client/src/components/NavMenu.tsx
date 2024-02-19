@@ -107,7 +107,7 @@ export const NavMenu = () => {
         </NavigationMenuItem>
         {isLoggedIn && (
           <NavigationMenuItem className="pl-4">
-            <Link to="/IceBreakerForm">
+            <Link to="/icebreakerForm">
               <Button>Lag en ny ice breaker!</Button>
             </Link>
           </NavigationMenuItem>
