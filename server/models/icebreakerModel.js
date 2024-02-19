@@ -10,7 +10,7 @@ const icebreakerSchema = Schema({
   feedback: [String],
   rating: Number,
   visableToOthers: Boolean,
-  
+  imageName: String
 });
 
 const Icebreaker = mongoose.model("Icebreaker", icebreakerSchema);
