@@ -37,21 +37,24 @@ export const Home = () => {
 
   return (
     <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
-      <div className="flex w-2/3 flex-col gap-12">
-        <div className="flex items-center gap-4 pl-4">
-          <Link to="/" className="text-lg font-semibold">
-            Ice Breakers
-          </Link>
+      <div className="flex w-2/3 flex-col gap-10">
+        <div className="flex items-center justify-between gap-4 p-4">
+          <div className="flex w-1/3 items-center gap-4">
+            <Link to="/" className="text-lg font-semibold">
+              Ice Breakers
+            </Link>
 
-          <Input
-            placeholder="finn en ice breaker..."
-            className="text-input-foreground w-1/3 rounded-md bg-input p-3"
-            type="text"
-            value={searchQuery}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setSearchQuery(e.target.value)
-            }
-          />
+            <Input
+              placeholder="finn en ice breaker..."
+              className="text-input-foreground w-1/3 grow rounded-md bg-input p-3"
+              type="text"
+              value={searchQuery}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.target.value)
+              }
+            />
+          </div>
+
           <NavMenu />
         </div>
 

@@ -43,13 +43,20 @@ export const NavMenu = () => {
     <NavigationMenu>
       <NavigationMenuList>
         {isLoggedIn ? (
-          <NavigationMenuItem>
-            <button onClick={() => logOut()}>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Logg ut
-              </NavigationMenuLink>
-            </button>
-          </NavigationMenuItem>
+          <>
+            <NavigationMenuItem>
+              <Link to="/IceBreakerForm">
+                <Button>Lag en ny Icebreaker!</Button>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <button onClick={() => logOut()}>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Logg ut
+                </NavigationMenuLink>
+              </button>
+            </NavigationMenuItem>
+          </>
         ) : (
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-popover text-popover-foreground">
@@ -105,13 +112,6 @@ export const NavMenu = () => {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        {isLoggedIn && (
-          <NavigationMenuItem>
-            <Link to="/IceBreakerForm">
-              <Button>Lag en ny Icebreaker!</Button>
-            </Link>
-          </NavigationMenuItem>
-        )}
       </NavigationMenuList>
     </NavigationMenu>
   );
