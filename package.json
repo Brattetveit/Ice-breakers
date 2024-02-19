@@ -11,5 +11,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@radix-ui/react-label": "^2.0.2",
+    "cmdk": "^0.2.1",
+    "embla-carousel-react": "^8.0.0-rc22",
+    "react-admin": "^4.16.11"
+  }
 }
