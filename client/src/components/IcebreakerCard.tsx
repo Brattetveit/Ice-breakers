@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -17,17 +18,19 @@ export const IcebreakerCard = ({ icebreaker }: IcebreakerCardProps) => {
   const { name, category } = icebreaker;
 
   return (
-    <Card className="flex aspect-square flex-col items-center justify-between">
-      <CardHeader className="text-center">
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{category}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>Icebreaker bilde</p>
-      </CardContent>
-      <CardFooter>
-        <p>Icebreaker kort beskrivelse</p>
-      </CardFooter>
-    </Card>
+    <Link to="/aboutGame">
+      <Card className="flex aspect-square flex-col items-center justify-between bg-card text-card-foreground">
+        <CardHeader className="text-center">
+          <CardTitle>{name}</CardTitle>
+          <CardDescription>{category}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Icebreaker bilde</p>
+        </CardContent>
+        <CardFooter>
+          <p>Icebreaker kort beskrivelse</p>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 };
