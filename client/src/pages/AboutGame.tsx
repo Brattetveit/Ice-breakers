@@ -35,7 +35,7 @@ export const AboutGame = () => {
               <b>&#8249; Tilbake til hjemmeside</b>
             </Link>
             <div>
-              <b>{`Laget av: ${author ? author.username : "Anonymous"}`}</b>
+              <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
             </div>
           </div>
         </div>
