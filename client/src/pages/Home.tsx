@@ -31,7 +31,7 @@ export const Home = () => {
 
   return (
     <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
-      <div className="flex w-2/3 flex-col gap-10">
+      <div className="flex w-2/3 flex-col gap-6">
         <div className="flex items-center justify-between gap-4 p-4">
           <div className="flex w-1/2 items-center gap-4">
             <Link to="/" className="text-lg font-semibold">
