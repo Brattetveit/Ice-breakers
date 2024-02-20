@@ -18,7 +18,7 @@ Mange unge synes det kan være vanskelig å knytte nye bekjentskap. Målet med a
 ## Teknologier og rammeverk
 Fullstack [Node.js](https://nodejs.org/en) miljø med [JavaScript](https://www.javascript.com/) på server og [TypeScript](https://www.typescriptlang.org/) i klienten.
 ### Frontend
-- [React (Vite)](https://react.dev/)
+- [React](https://react.dev/) [(Vite)](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn/ui](https://ui.shadcn.com/)
 
