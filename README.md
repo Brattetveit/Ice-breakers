@@ -16,7 +16,7 @@ Mange unge synes det kan være vanskelig å knytte nye bekjentskap. Målet med a
 - [Olav Hirth Brattetveit](https://gitlab.stud.idi.ntnu.no/olavhbr)
 
 ## Teknologier og rammeverk
-Fullstack [JavaScript](https://www.javascript.com/) med [Node.js](https://nodejs.org/en) som miljø.
+Fullstack [Node.js](https://nodejs.org/en) miljø med [JavaScript](https://www.javascript.com/) på server og [TypeScript](https://www.typescriptlang.org/) i klienten.
 ### Frontend
 - [React (Vite)](https://react.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
