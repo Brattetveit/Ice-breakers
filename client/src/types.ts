@@ -3,10 +3,10 @@ export type Icebreaker = {
   fullDescription: string;
   shortDescription: string;
   author?: User;
-  category?: string[];
+  category?: Category;
   feedback?: string[];
   rating?: number;
-  visableToOthers?: boolean;
+  visibleToOthers?: boolean;
   imageName?: string;
 };
 
@@ -14,3 +14,5 @@ export type User = {
   username: string;
   password: string;
 };
+
+export type Category = "Drikkelek" | "Barnelek" | "Navnelek";
