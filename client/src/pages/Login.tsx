@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useLogin from "@/hooks/useLogin";
+import { FormEvent, useState } from "react";
+import { useUser } from "@/hooks/useUser";
 export const Login = () => {
-  const { username, setUsername, password, setPassword, handleLogin } =
-    useLogin();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const navigate = useNavigate();
+  const { login } = useUser();
 
   // useEffect(() => {
   //   const user = localStorage.getItem("user");
@@ -34,7 +35,13 @@ export const Login = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
-          <form className="m-6" onSubmit={handleLogin}>
+          <form
+            className="m-6"
+            onSubmit={(e: FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              login(username, password);
+            }}
+          >
             <div className="grid w-full items-center gap-4 md:gap-6">
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="username" className="text-lg md:text-xl">

@@ -10,8 +10,8 @@ const useLogin = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = await loginService(username, password);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    const user = await loginService(username, password);
+    localStorage.setItem("user", JSON.stringify(user));
     console.log(username, "logged in");
     navigate("/");
   };
