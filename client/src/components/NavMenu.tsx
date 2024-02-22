@@ -13,7 +13,7 @@ import { useUser } from "@/hooks/useUser";
 import { Button } from "./ui/button";
 
 export const NavMenu = () => {
-  const { isLoggedIn, logout } = useUser();
+  const { isSignedIn, logout } = useUser();
 
   const MenuLinkItem = ({
     to,
@@ -40,7 +40,7 @@ export const NavMenu = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {isLoggedIn ? (
+        {isSignedIn ? (
           <NavigationMenuItem>
             <button
               onClick={() => {
@@ -107,7 +107,7 @@ export const NavMenu = () => {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        {isLoggedIn && (
+        {isSignedIn && (
           <NavigationMenuItem className="pl-4">
             <Link to="/icebreakerForm">
               <Button>Lag en ny ice breaker!</Button>

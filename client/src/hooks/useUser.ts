@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useUser = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
+  const [isSignedIn, setIsSignedIn] = useState(
     localStorage.getItem("user") ? true : false,
   );
   const [user, setUser] = useState(localStorage.getItem("user"));
@@ -16,17 +16,17 @@ export const useUser = () => {
     const userString = JSON.stringify(response);
     localStorage.setItem("user", userString);
     setUser(userString);
-    setIsLoggedIn(true);
+    setIsSignedIn(true);
     navigate("/");
   };
 
   const logout = () => {
     localStorage.removeItem("user");
-    setIsLoggedIn(false);
+    setIsSignedIn(false);
   };
 
   return {
-    isLoggedIn,
+    isSignedIn,
     user: user ? (JSON.parse(user) as User) : null,
     login,
     logout,
