@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { NavMenu } from "@/components/NavMenu";
 
-const MAX_ITEMS = 9;
-
 export const Home = () => {
   const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,13 +13,11 @@ export const Home = () => {
   useEffect(() => getIcebreakers(), []);
 
   const renderFilteredIcebreakers = (query: string) => {
-    const filtered = query
+    const filtered = !query
       ? icebreakers
-      : icebreakers
-          .filter((icebreaker) =>
-            icebreaker.name.toLowerCase().includes(query.toLowerCase()),
-          )
-          .slice(0, MAX_ITEMS);
+      : icebreakers.filter((icebreaker) =>
+          icebreaker.name.toLowerCase().includes(query.toLowerCase()),
+        );
 
     return filtered.map((icebreaker, idx) => (
       <IcebreakerCard key={idx} icebreaker={icebreaker} />

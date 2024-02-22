@@ -10,6 +10,7 @@ export const useGetIcebreakers = () => {
     setIsLoading(true);
 
     fetchIcebreakers()
+      .then((array) => array.sort(() => Math.random() - 0.5))
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };
