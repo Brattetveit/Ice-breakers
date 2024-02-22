@@ -15,6 +15,7 @@ export const useUser = () => {
     const response = await loginService(username, password);
     const userString = JSON.stringify(response);
     localStorage.setItem("user", userString);
+    
     setUser(userString);
     setIsSignedIn(true);
     navigate("/");

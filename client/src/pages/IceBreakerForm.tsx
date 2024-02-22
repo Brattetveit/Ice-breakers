@@ -6,15 +6,18 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Message } from "@/components/Message";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { handleCreateIcebreaker } from "@/services/icebreakerMakeService";
+import { useUser } from "@/hooks/useUser"
 // import { useDropzone } from "react-dropzone";
 // import type { File } from "buffer";
 
 export const IcebreakerForm = () => {
+  const user = useUser().user
   const [nameText, setNameText] = useState("");
   const [ruleText, setRuleText] = useState("");
   const [summaryText, setSumaryText] = useState("");
   const [category, setCategory] = useState("");
-  const [visibility, setVisibility] = useState("0");
+  const [visibility, setVisibility] = useState(true);
   // const [files, setFiles] = useState<(File & { preview: string })[]>([]);
 
   const navigate = useNavigate();
@@ -57,7 +60,12 @@ export const IcebreakerForm = () => {
 
   function handleRadio(event: React.MouseEvent<HTMLButtonElement>) {
     const target = event.target as HTMLInputElement;
-    setVisibility(target.value);
+    if (target.value === "0") {
+      setVisibility(true)
+    } else {
+      setVisibility(false);
+
+    }
   }
 
   function handleCreate() {
@@ -102,18 +110,15 @@ export const IcebreakerForm = () => {
         mCategory.style.display = "none";
       }
     }
-    if (make) {
-      //placeholder
-      console.log(nameText);
-      console.log(ruleText);
-      console.log(category);
-      console.log(visibility);
+    if (make && user !== null) {
+      handleCreateIcebreaker(user.username, nameText, ruleText, summaryText, category, visibility)
+   
       handleExit();
     }
   }
 
   return (
-    <div className="lex flex h-full flex-col bg-[#E3F2FD]">
+    <div className="lex flex h-screen flex-col bg-[#E3F2FD]">
       <h1 className="text-center text-4xl">Opprett ny lek</h1>
       <div className="lex h-full bg-[#C9DEEE]   ">
         <div className="m-4 flex justify-end md:grid md:grid-cols-5 md:gap-12">
