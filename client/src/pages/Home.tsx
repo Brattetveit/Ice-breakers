@@ -15,14 +15,13 @@ export const Home = () => {
   useEffect(() => getIcebreakers(), []);
 
   const renderFilteredIcebreakers = (query: string) => {
-    const filtered =
-      query === ""
-        ? icebreakers
-        : icebreakers
-            .filter((icebreaker) =>
-              icebreaker.name.toLowerCase().includes(query.toLowerCase()),
-            )
-            .slice(0, MAX_ITEMS);
+    const filtered = query
+      ? icebreakers
+      : icebreakers
+          .filter((icebreaker) =>
+            icebreaker.name.toLowerCase().includes(query.toLowerCase()),
+          )
+          .slice(0, MAX_ITEMS);
 
     return filtered.map((icebreaker, idx) => (
       <IcebreakerCard key={idx} icebreaker={icebreaker} />
