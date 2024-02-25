@@ -6,11 +6,10 @@ export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getIcebreakers = () => {
+  const getIcebreakers = (userId?: string) => {
     setIsLoading(true);
 
-    fetchIcebreakers()
-      .then((array) => array.sort(() => Math.random() - 0.5))
+    fetchIcebreakers(userId)
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };

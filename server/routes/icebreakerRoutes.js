@@ -22,6 +22,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:userId", async (req, res) => {
+  console.log("GET /userId");
+  try {
+    const icebreakers = await Icebreaker.find({ author: req.params.userId });
+
+    return res.status(200).json({
+      count: icebreakers.length,
+      data: icebreakers,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 router.delete("/:name", async (req, res) => {
   try {
     const { name } = req.params;
@@ -40,7 +55,17 @@ router.delete("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const { name, fullDescription, shortDescription, author, category, feedback, rating, visable, imageName } = req.body;
+    const {
+      name,
+      fullDescription,
+      shortDescription,
+      author,
+      category,
+      feedback,
+      rating,
+      visable,
+      imageName,
+    } = req.body;
 
     const authorUser = await User.findOne({ username: author });
 
@@ -57,7 +82,7 @@ router.post("/create", async (req, res) => {
       feedback,
       rating,
       visable,
-      imageName
+      imageName,
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);

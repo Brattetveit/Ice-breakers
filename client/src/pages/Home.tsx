@@ -4,10 +4,14 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { NavMenu } from "@/components/NavMenu";
+import { useUser } from "@/hooks/useUser";
+import { Button } from "@/components/ui/button";
 
 export const Home = () => {
-  const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
+  const { isSignedIn, logout } = useUser();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getIcebreakers(), []);
@@ -32,17 +36,24 @@ export const Home = () => {
             <Link to="/" className="text-lg font-semibold">
               Ice Breakers
             </Link>
-            <NavMenu />
+            <NavMenu isSignedIn={isSignedIn} onLogout={() => logout()} />
           </div>
-          <Input
-            placeholder="finn en ice breaker..."
-            className="text-input-foreground w-3/12 rounded-md bg-input p-3"
-            type="text"
-            value={searchQuery}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setSearchQuery(e.target.value)
-            }
-          />
+          <div className="flex justify-around gap-4">
+            {isSignedIn && (
+              <Link to="/profile">
+                <Button>Min side</Button>
+              </Link>
+            )}
+            <Input
+              placeholder="finn en ice breaker..."
+              className="text-input-foreground w-3/12 grow rounded-md bg-input p-3"
+              type="text"
+              value={searchQuery}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.target.value)
+              }
+            />
+          </div>
         </div>
 
         {isLoading ? (
