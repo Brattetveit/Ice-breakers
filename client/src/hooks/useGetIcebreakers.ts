@@ -1,4 +1,4 @@
-import { Icebreaker } from "@/types";
+import { Icebreaker, User } from "@/types";
 import { useState } from "react";
 import { fetchIcebreakers } from "@/services/icebreakers";
 
@@ -6,10 +6,10 @@ export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getIcebreakers = (userId?: string) => {
+  const getIcebreakers = (author?: User) => {
     setIsLoading(true);
 
-    fetchIcebreakers(userId)
+    fetchIcebreakers(author)
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };

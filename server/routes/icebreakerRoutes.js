@@ -6,11 +6,13 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    let query = {};
-    if (req.query.name) {
-      query.name = { $regex: req.query.name, $options: "i" };
+    const author = req.body ?? {};
+
+    const icebreakers = await Icebreaker.find(author);
+
+    if (!icebreakers) {
+      return res.status(404).json({ message: "No icebreakers found" });
     }
-    const icebreakers = await Icebreaker.find(query);
 
     return res.status(200).json({
       count: icebreakers.length,
