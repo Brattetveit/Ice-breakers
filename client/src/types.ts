@@ -1,5 +1,4 @@
 export type Icebreaker = {
-  _id: string;
   name: string;
   fullDescription: string;
   shortDescription: string;
@@ -12,7 +11,6 @@ export type Icebreaker = {
 };
 
 export type User = {
-  _id: string;
   username: string;
   password: string;
 };

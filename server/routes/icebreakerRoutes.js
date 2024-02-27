@@ -6,15 +6,20 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const author = req.body ?? {};
+    const author = await User.findOne({ username: req.body.username });
 
-    const icebreakers = await Icebreaker.find(author);
+    console.log(author);
+
+    const filter = author ? { author } : {};
+
+    const icebreakers = await Icebreaker.find(filter);
 
     if (!icebreakers) {
       return res.status(404).json({ message: "No icebreakers found" });
     }
 
     return res.status(200).json({
+      author: author ?? undefined,
       count: icebreakers.length,
       data: icebreakers,
     });
