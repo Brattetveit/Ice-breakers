@@ -2,6 +2,7 @@ import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { useUser } from "@/hooks/useUser";
 import { useEffect } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const Profile = () => {
   const { isSignedIn, user } = useUser();
@@ -23,11 +24,14 @@ export const Profile = () => {
           {user.username}
         </h1>
         <div className="flex h-1/2 w-full items-center bg-green-500">
-          <div className="grid w-full grid-cols-3 gap-4 bg-blue-500 p-6">
-            {icebreakers.map((icebreaker, idx) => (
-              <IcebreakerCard key={idx} icebreaker={icebreaker} />
-            ))}
-          </div>
+          <ScrollArea>
+            <h1>Mine Ice Breakers</h1>
+            <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
+              {icebreakers.map((icebreaker, idx) => (
+                <IcebreakerCard key={idx} icebreaker={icebreaker} />
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>
