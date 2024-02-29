@@ -19,11 +19,12 @@ router.get("/", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, isAdmin } = req.body;
 
     const newUser = {
       username,
       password,
+      isAdmin
     };
 
     const user = await User.create(newUser);
@@ -73,5 +74,35 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+router.post("/admin", async (req, res) => {
+  try {
+    let query = {};
+    if (req.query.isAdmin) {
+      query.isAdmin = { $regex: req.query.isAdmin, $options: "i" };
+    }
+    const admins = await User.find(query);
+    
+    const { username, password, isAdmin } = req.body;
+    const admin = await admins.findOne({ username, password, isAdmin });
+
+    if (!admin) {
+      res.status(401).json({
+        message: "No admin authorization",
+        error: "Admin not found",
+      });
+    } else {
+      res.status(200).json({
+        message: "Admin access successful",
+        admin,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "An error has occured",
+      error: error.message,
+    });
+  }
+})
 
 module.exports = router;
