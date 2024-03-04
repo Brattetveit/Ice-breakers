@@ -1,6 +1,6 @@
 import { type User } from "@/types";
 
-export const fetchIcebreakers = async (author?: User) => {
+export const fetchIcebreakers = async (author: User | null) => {
   const response = await fetch("api/icebreakers", {
     body: JSON.stringify(author?.username),
   });

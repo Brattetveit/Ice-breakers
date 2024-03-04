@@ -8,11 +8,7 @@ router.get("/", async (req, res) => {
   try {
     const author = await User.findOne({ username: req.body.username });
 
-    console.log(author);
-
-    const filter = author ? { author } : {};
-
-    const icebreakers = await Icebreaker.find(filter);
+    const icebreakers = await Icebreaker.find(author ? { author } : {});
 
     if (!icebreakers) {
       return res.status(404).json({ message: "No icebreakers found" });

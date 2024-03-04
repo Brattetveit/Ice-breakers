@@ -1,8 +1,23 @@
 import { useUser } from "@/hooks/useUser";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
+import { useEffect, useState } from "react";
+import { IcebreakerCard } from "@/components/IcebreakerCard";
+import { Icebreaker } from "@/types";
 
 export const Profile = () => {
+  const [authored, setAuthored] = useState<Icebreaker[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [favorites, setFavorites] = useState<Icebreaker[]>([]);
+
   const { user } = useUser();
+  const { icebreakers, getIcebreakers } = useGetIcebreakers();
+
+  useEffect(() => {
+    getIcebreakers(user);
+    setAuthored(icebreakers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) return <h1>not signed in</h1>;
 
@@ -16,9 +31,9 @@ export const Profile = () => {
           <ScrollArea>
             <h1>Mine Ice Breakers</h1>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
-              {/*icebreakers.map((icebreaker, idx) => (
+              {authored.map((icebreaker, idx) => (
                 <IcebreakerCard key={idx} icebreaker={icebreaker} />
-              ))*/}
+              ))}
             </div>
           </ScrollArea>
         </div>

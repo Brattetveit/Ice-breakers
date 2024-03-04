@@ -6,7 +6,7 @@ export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getIcebreakers = (author?: User) => {
+  const getIcebreakers = (author: User | null) => {
     setIsLoading(true);
 
     fetchIcebreakers(author)
