@@ -15,5 +15,17 @@ export const useGetIcebreakers = () => {
       .then(() => setIsLoading(false));
   };
 
-  return { isLoading, icebreakers, getIcebreakers };
+  const getIcebreakersByCategory = (category: string) => {
+    setIsLoading(true);
+
+    fetchIcebreakers()
+      .then((array: Icebreaker[]) =>
+        array.filter((icebreaker) => icebreaker.category === category),
+      )
+      .then((array) => array.sort(() => Math.random() - 0.5))
+      .then(setIcebreakers)
+      .then(() => setIsLoading(false));
+  };
+
+  return { isLoading, icebreakers, getIcebreakers, getIcebreakersByCategory };
 };
