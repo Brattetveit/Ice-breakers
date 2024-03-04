@@ -21,6 +21,8 @@ import { Link, useLocation, type Location } from "react-router-dom";
 import { Checkbox  } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator  } from "@/components/ui/separator";
+// import { addRating } from "@/services/icebreakers";
+import { useState } from "react";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -30,6 +32,7 @@ export const AboutGame = () => {
   const { icebreaker } = location.state;
   const { name, author, category, fullDescription, feedback } = icebreaker;
 
+  const [rating, setRating] = useState(0);
   const comments = feedback || [];
 
   return (
@@ -67,13 +70,23 @@ export const AboutGame = () => {
           </div>
           <div className="w-2/5 p-4">
             <Card className="flex flex-col h-dvh bg-[#bad4ea] gap-2">
-              <CardHeader className="flex flex-col gap-4">
-                <CardTitle>Rangering</CardTitle>
-                <CardDescription className="flex flex-col gap-3">
-                  <Input placeholder="Gi leken en rangering fra 0 til 100" type="number" max={100} min={0}></Input>
-                  <Button className="w-1/3 place-self-center">Publiser</Button>
-                </CardDescription>
-              </CardHeader>
+              {/* <form onSubmit={addRating(name, rating)}> */}
+              <form>
+                <CardHeader className="flex flex-col gap-4">
+                  <CardTitle>Rangering</CardTitle>
+                  <CardDescription className="flex flex-col gap-3">
+                    <Input 
+                      placeholder="Gi leken en rangering fra 0 til 100" 
+                      type="number" 
+                      max={100} 
+                      min={0}
+                      value={rating}
+                      onChange={(e) => setRating(parseInt(e.target.value))}
+                    ></Input>
+                    <Button className="w-1/3 place-self-center" type="submit">Publiser</Button>
+                  </CardDescription>
+                </CardHeader>
+              </form>
               <CardContent className="flex flex-col gap-4">
                 <CardTitle>Kommentarer</CardTitle>
                 <div className="max-h-48">
