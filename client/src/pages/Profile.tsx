@@ -14,7 +14,11 @@ export const Profile = () => {
   const { icebreakers, getIcebreakers } = useGetIcebreakers();
 
   useEffect(() => {
-    getIcebreakers(user);
+    getIcebreakers((icebreaker) => {
+      if (!user || !icebreaker.author) return false;
+
+      return icebreaker.author.username === user.username;
+    });
     setAuthored(icebreakers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
