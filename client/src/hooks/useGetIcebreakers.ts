@@ -22,7 +22,6 @@ export const useGetIcebreakers = () => {
       .then((array: Icebreaker[]) =>
         array.filter((icebreaker) => icebreaker.category === category),
       )
-      .then((array) => array.sort(() => Math.random() - 0.5))
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };
