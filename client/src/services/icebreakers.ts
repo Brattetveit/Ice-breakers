@@ -4,7 +4,7 @@ export const fetchIcebreakers = async () => {
   return data;
 };
 
-export const updateRating = async (name: string, rating: number) => {
+export const addRating = async (name: string, rating: number) => {
   const response = await fetch("/api/icebreakers/rating/" + name, {
     method: "POST",
     body: JSON.stringify({ rating }),
