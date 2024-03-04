@@ -40,19 +40,11 @@ router.delete("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const {
-      name,
-      fullDescription,
-      shortDescription,
-      author,
-      category,
-      feedback,
-      rating,
-      visable,
-      imageName,
-    } = req.body;
+    const { name, fullDescription, shortDescription, author, category, feedback, rating, visable, imageName, timesReported, defaultTime } = req.body;
 
     const authorUser = await User.findOne({ username: author });
+
+    const feedbacks = [];
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -64,10 +56,12 @@ router.post("/create", async (req, res) => {
       shortDescription,
       author: authorUser,
       category,
-      feedback,
+      feedback: feedbacks,
       rating,
       visable,
       imageName,
+      timesReported,
+      defaultTime,
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
