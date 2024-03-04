@@ -18,8 +18,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Link, useLocation, type Location } from "react-router-dom";
 
-import { useState, useEffect } from "react";
-
 import { Checkbox  } from "@/components/ui/checkbox";
 import { Label } from "@radix-ui/react-label";
 
@@ -31,14 +29,6 @@ export const AboutGame = () => {
   const { icebreaker } = location.state;
   const { name, author, category, fullDescription } = icebreaker;
 
-  const [isFavourite, setIsFavourite] = useState(() => {
-    const storedValue = localStorage.getItem(`isFavourite_${name}`);
-    return storedValue ? JSON.parse(storedValue) : false;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(`isFavourite_${name}`, JSON.stringify(isFavourite));
-  }, [name, isFavourite]);
 
   return (
     <div className="bg-[#E3F2FD]">
@@ -57,8 +47,6 @@ export const AboutGame = () => {
             <div className="flex gap-1">
               <Checkbox 
                 id="favourite"
-                checked={isFavourite}
-                onCheckedChange={(e) => setIsFavourite(e)}
               ></Checkbox>
               <Label htmlFor="favourite">Legg til i favoritter</Label>
             </div>
