@@ -17,19 +17,21 @@ export const Profile = () => {
     getIcebreakers();
 
     if (icebreakers.length) {
-      const filtered = icebreakers.filter((icebreaker) => {
-        if (!user || !icebreaker.author) return false;
+      setAuthored(
+        icebreakers.filter((icebreaker) => {
+          if (!icebreaker.author) return false;
 
-        return icebreaker.author.username === user.username;
-      });
+          return icebreaker.author.username === user?.username;
+        }),
+      );
 
-      setAuthored(filtered);
+      //TODO: setFavorites
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!user) return <h1>not signed in</h1>;
+  if (!user) return <div>not signed in</div>;
 
   return (
     <div className="flex min-h-screen w-full justify-center">
