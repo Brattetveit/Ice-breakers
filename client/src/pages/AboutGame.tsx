@@ -21,8 +21,9 @@ import { Link, useLocation, type Location } from "react-router-dom";
 import { Checkbox  } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator  } from "@/components/ui/separator";
-// import { addRating } from "@/services/icebreakers";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+
+import { useRating } from "@/hooks/useRating";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -34,6 +35,9 @@ export const AboutGame = () => {
 
   const [rating, setRating] = useState(0);
   const comments = feedback || [];
+
+  const { meanRating, submitRating } = useRating(icebreaker);
+
 
   return (
     <div className="bg-[#E3F2FD]">
@@ -58,7 +62,7 @@ export const AboutGame = () => {
           </div>
           <div className="bg-[#ebd1d1] p-2 rounded">
             <p>{`Kategori: ${category}`}</p>
-            <p>Rangering: ??</p>
+            <p>{`Rangering: ${meanRating}`}</p>
             <p>Anbefalt tidsbruk: ??</p>
           </div>
         </div>
@@ -70,8 +74,12 @@ export const AboutGame = () => {
           </div>
           <div className="w-2/5 p-4">
             <Card className="flex flex-col h-dvh bg-[#bad4ea] gap-2">
-              {/* <form onSubmit={addRating(name, rating)}> */}
-              <form>
+              <form 
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                  e.preventDefault();
+                  submitRating(rating);
+                }}
+              >
                 <CardHeader className="flex flex-col gap-4">
                   <CardTitle>Rangering</CardTitle>
                   <CardDescription className="flex flex-col gap-3">
@@ -81,7 +89,7 @@ export const AboutGame = () => {
                       max={100} 
                       min={0}
                       value={rating}
-                      onChange={(e) => setRating(parseInt(e.target.value))}
+                      onChange={(e) => setRating(e.target.valueAsNumber)}
                     ></Input>
                     <Button className="w-1/3 place-self-center" type="submit">Publiser</Button>
                   </CardDescription>
