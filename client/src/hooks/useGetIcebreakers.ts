@@ -1,4 +1,4 @@
-import { Icebreaker, User } from "@/types";
+import { Icebreaker } from "@/types";
 import { useState } from "react";
 import { fetchIcebreakers } from "@/services/icebreakers";
 
@@ -6,10 +6,12 @@ export const useGetIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getIcebreakers = (author: User | null) => {
+  const getIcebreakers = (filter: boolean = true) => {
     setIsLoading(true);
 
-    fetchIcebreakers(author)
+    fetchIcebreakers()
+      .then((array: Icebreaker[]) => array.filter(() => filter))
+      .then((array) => array.sort(() => Math.random() - 0.5))
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
   };
