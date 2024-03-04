@@ -3,12 +3,12 @@ import { useState } from "react";
 
 import { addRating } from "@/services/icebreakers";
 
-export const useRatings = (icebreaker: Icebreaker) => {
+export const useRating = (icebreaker: Icebreaker) => {
   const calculateMean = (ratings: number[]) =>
     ratings.reduce((acc: number, value: number) => acc + value, 0) /
     ratings.length;
 
-  const [meanRating, setMeanRating] = useState<number>(
+  const [meanRating, setMeanRating] = useState(
     calculateMean(icebreaker.ratings),
   );
 
