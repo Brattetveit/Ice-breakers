@@ -62,7 +62,7 @@ export const AboutGame = () => {
           </div>
           <div className="bg-[#ebd1d1] p-2 rounded">
             <p>{`Kategori: ${category}`}</p>
-            <p>{`Rangering: ${meanRating.toFixed(2)}`}</p>
+            <p>{`Rangering: ${meanRating.toFixed(1)}`}</p>
             <p>Anbefalt tidsbruk: ??</p>
           </div>
         </div>
