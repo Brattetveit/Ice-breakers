@@ -179,7 +179,7 @@ export const IcebreakerForm = () => {
 
   useEffect(() => {
     displayTime()
- }, [time])
+ }, [time, displayTime])
 
 
 
