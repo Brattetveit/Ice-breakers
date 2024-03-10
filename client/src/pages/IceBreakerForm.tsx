@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Message } from "@/components/Message";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { handleCreateIcebreaker } from "@/services/icebreakerMakeService";
 import { useUser } from "@/hooks/useUser"
 // import { useDropzone } from "react-dropzone";
@@ -119,7 +119,7 @@ export const IcebreakerForm = () => {
     }
   }
 
-  function displayTime() {
+  const displayTime: () => void = useCallback(() => {
     let display: string = "";
     const hours: number = Math.floor(time / 3600);
     const minutes: number = Math.floor((time % 3600) / 60)
@@ -132,7 +132,8 @@ export const IcebreakerForm = () => {
       clock.textContent = display
       hiddeError();
     }
-  }
+
+  }, [time]);
 
 
 
@@ -289,15 +290,15 @@ export const IcebreakerForm = () => {
           <h2 className="text-xl md:text-right">Anbefalt klokke:</h2>
           <div>
             <h2 className="text-4xl" id="clock">00:00:00</h2>
-            <span className="flex inline p-1">
+            <span className="flex p-1">
               <input className="w-8" id="hours" type="text" />
               <p>timer</p>
             </span>
-            <span className="flex inline p-1">
+            <span className="flex p-1">
               <input className="w-8" id="minutes" type="text" />
               <p>minutter</p>
             </span>
-            <span className="flex inline p-1">
+            <span className="flex p-1">
               <input className="w-8" id="seconds" type="text" />
               <p>sekunder</p>
             </span>

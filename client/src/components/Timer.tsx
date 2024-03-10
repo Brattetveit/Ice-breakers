@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Message } from "@/components/Message";
 import alarmSound from "@/assets/alarm.wav"
@@ -12,7 +12,7 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
   const [time, setTime] = useState(timeProp);
   const [clockRunning, setClockRunning] = useState(false)
 
-  function displayTime() {
+  const displayTime: () => void = useCallback(() => {
     let display: string = "";
     const hours: number = Math.floor(time / 3600);
     const minutes: number = Math.floor((time % 3600) / 60)
@@ -25,9 +25,9 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
       clock.textContent = display
       hiddeError();
     }
-  }
+  }, [time]);
 
-  function clockSwitch() {
+  const clockSwitch: () => void = useCallback(() => {
     const clockSwitchButton = document.getElementById("clockSwitchButton") as HTMLButtonElement
     if (clockRunning) {
       setClockRunning(false);
@@ -36,7 +36,7 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
       setClockRunning(true);
       clockSwitchButton.textContent = "Stop klokken"
     }
-  }
+  }, [clockRunning]);
 
   function timeChange(newTime: number) {
     turnClockColor("black");
@@ -109,22 +109,22 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
     }
 
     return () => clearInterval(timer);
-  }, [time, clockRunning]);
+  }, [time, clockRunning, displayTime, endOfTimerAction, clockSwitch]);
 
   return (
     <div className="bg-cyan-300 p-4 rounded-lg shadow-lg">
       <h2 className="text-4xl" id="clock">00:00:00</h2>
       <Button onClick={clockSwitch} id="clockSwitchButton">Start Klokken</Button>
       <div>
-        <span className="flex inline p-1">
+        <span className="flex p-1">
           <input className="w-8" id="hours" type="text" />
           <p>timer</p>
         </span>
-        <span className="flex inline p-1">
+        <span className="flex p-1">
           <input className="w-8" id="minutes" type="text" />
           <p>minutter</p>
         </span>
-        <span className="flex inline p-1">
+        <span className="flex p-1">
           <input className="w-8" id="seconds" type="text" />
           <p>sekunder</p>
         </span>
