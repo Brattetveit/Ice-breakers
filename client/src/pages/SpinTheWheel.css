@@ -15,9 +15,8 @@
   justify-content: center;
   align-items: center;
   height: 80vh;
-}¨
-
-.spin-wheel {
+}
+¨ .spin-wheel {
   width: 300px;
   height: 300px;
   border: 10px solid #000;
@@ -77,4 +76,29 @@
   width: 200px;
   height: 50px;
   margin: 20px auto;
+}
+
+.search-results {
+  max-height: 200px;
+  width: 220px; /* Tilpass denne bredden til bredden på søkefeltet ditt */
+  overflow-y: auto;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+  top: 60px; /* Juster denne verdien basert på høyden på søkefeltet for å posisjonere listen korrekt */
+  left: 0; /* Juster om nødvendig for å justere listen horisontalt */
+}
+
+.search-results li {
+  padding: 10px; /* Tilpass som nødvendig */
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0; /* Lys høydepunktsfarge når musen er over */
 }
