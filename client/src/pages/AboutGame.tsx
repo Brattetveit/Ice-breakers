@@ -14,6 +14,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
+import { Timer } from "@/components/Timer";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Link, useLocation, type Location } from "react-router-dom";
@@ -36,6 +38,8 @@ export const AboutGame = () => {
   const [rating, setRating] = useState(0);
   const comments = feedback || [];
 
+  // const dummyComments = ["Gøy lek", "Denne leken suger", "10/10", "Gøy lek", "Denne leken suger", "10/10"];
+
   const { meanRating, submitRating } = useRating(icebreaker);
 
 
@@ -50,20 +54,28 @@ export const AboutGame = () => {
             <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
           </div>
         </div>
-        <div className="flex flex-row place-self-center gap-8">
-          <div className="flex flex-col gap-2">
-            <H1>{name}</H1>
-            <div className="flex gap-1">
-              <Checkbox 
-                id="favourite"
-              ></Checkbox>
-              <Label htmlFor="favourite">Legg til i favoritter</Label>
+         <div className="grid grid-cols-5">
+          <div className="flex flex-row place-self-center gap-4 col-start-2 col-span-3">
+            <div className="flex flex-col gap-2">
+              <H1>{name}</H1>
+              <div className="flex gap-1">
+                <Checkbox 
+                  id="favourite"
+                ></Checkbox>
+                <Label htmlFor="favourite">Legg til i favoritter</Label>
+              </div>
             </div>
+            <div className="bg-[#ebd1d1] p-2 rounded">
+              <p>{`Kategori: ${category}`}</p>
+              <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
+              <p>Anbefalt tidsbruk: ??</p>
+            </div>    
           </div>
-          <div className="bg-[#ebd1d1] p-2 rounded">
-            <p>{`Kategori: ${category}`}</p>
-            <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
-            <p>Anbefalt tidsbruk: ??</p>
+          <div className=" col-start-5">
+            <Timer 
+              timeProp={10}
+              endOfTimerAction={() => {}}
+            ></Timer>
           </div>
         </div>
         <div className="flex gap-2">
@@ -97,7 +109,7 @@ export const AboutGame = () => {
               </form>
               <CardContent className="flex flex-col gap-4">
                 <CardTitle>Kommentarer</CardTitle>
-                <div className="max-h-48">
+                <div className="max-h-40">
                   <div className="max-h-full overflow-auto">
                     <ScrollArea className=" p-3 border border-white rounded">
                         {comments.map((comment) => (
