@@ -18,14 +18,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
 
   const { login } = useUser();
-
-  // useEffect(() => {
-  //   const user = localStorage.getItem("user");
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [navigate]);
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
       <Card className="w-11/12 bg-[#A3CEF1] p-2 md:w-3/5 md:p-4 lg:w-2/5 lg:p-6">
