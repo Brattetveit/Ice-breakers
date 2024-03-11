@@ -74,4 +74,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/;userId/favorites", async (req, res) => {
+  const { userID } = req.params;
+  try {
+    const userWithFavorites = await User.findById(userID).populate("Favorites");
+    res.status(200).json(userWithFavorites.favorites);
+  } catch (error) {
+    res.status(500).send("server error");
+  }
+});
+
+router.post("/;userId/favorites", async (req, res) => {
+  const { userID } = req.params;
+  const { icebreakerID } = req.body;
+  try {
+    await User.findByIdandUpdate(userID, {
+      $addToSet: { favorites: icebreakerID },
+    });
+    res.status(200).send("Added Icebreaker to favorites");
+  } catch (error) {
+    res.status(500).send("server error");
+  }
+});
+
 module.exports = router;
