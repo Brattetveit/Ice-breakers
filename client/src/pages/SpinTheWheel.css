@@ -1,0 +1,80 @@
+.tittel {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #c9e1fa;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 20px;
+  font-size: 70px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin: 50px auto;
+}
+
+.spin-wheel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.spin-wheel {
+  width: 300px;
+  height: 300px;
+  border: 10px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  background: #fff;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Legg til en margin øverst for å sentrere hjulet vertikalt */
+}
+
+.reset-button {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #e1bbf5;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  display: block;
+}
+
+.alt,
+.alternativene,
+.legg,
+.inp {
+  font-family: "ZCOOL XiaoWei";
+  text-align: center;
+}
+
+.alt,
+.alternativene {
+  background-color: #b2c6e9;
+  border-radius: 20px;
+  font-size: 20px;
+  width: 250px;
+  height: auto;
+  padding: 10px;
+  margin: 20px auto;
+}
+
+.alternativene {
+  background-color: #b5b3b3;
+}
+
+.legg,
+.inp {
+  background-color: #ffe2e2;
+  border-radius: 20px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+}
