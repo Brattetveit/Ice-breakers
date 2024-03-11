@@ -18,7 +18,10 @@
 }
 .icebreaker-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(20%, 1fr)); /* Tre kort per rad, justert størrelse */
+  grid-template-columns: repeat(
+    3,
+    minmax(20%, 1fr)
+  ); /* Tre kort per rad, justert størrelse */
   grid-gap: 5%; /* Mer plass mellom kortene */
   margin: 5%; /* Sentrer kortene og legg til margen for å gi mer plass rundt dem */
 }
