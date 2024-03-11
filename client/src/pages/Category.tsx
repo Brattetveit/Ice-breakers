@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import { useEffect } from "react";
 import { useLocation, type Location } from "react-router-dom";
-import { Category, Icebreaker } from "@/types";
+import { Category } from "@/types";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 export function InCategory() {
 
