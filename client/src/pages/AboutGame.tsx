@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription
+  CardDescription,
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Link, useLocation, type Location } from "react-router-dom";
 
-import { Checkbox  } from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Separator  } from "@/components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { FormEvent, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
+import { addToFavorites } from "@/services/userService";
+// import { addToFavorites } from "@/services/userService";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -32,12 +34,32 @@ export const AboutGame = () => {
 
   const { icebreaker } = location.state;
   const { name, author, category, fullDescription, feedback } = icebreaker;
-
+  const [isFavorite, setIsFavorite] = useState(false);
   const [rating, setRating] = useState(0);
   const comments = feedback || [];
-
+  const userId = localStorage.getItem("userId");
   const { meanRating, submitRating } = useRating(icebreaker);
 
+  // const handleAddToFavorites = async () => {
+  //   try {
+  //     addToFavorites(icebreaker._id);
+  //     console.log("added");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const handleCheckboxChange = async () => {
+    try {
+      setIsFavorite(!isFavorite);
+      await addToFavorites(userId, icebreaker._id.toString());
+      console.log("added");
+    } catch (error) {
+      console.error("Failed to add to favorites:", error);
+      // Optionally: Revert checkbox state in case of failure
+      setIsFavorite(isFavorite);
+    }
+  };
 
   return (
     <div className="bg-[#E3F2FD]">
@@ -50,31 +72,34 @@ export const AboutGame = () => {
             <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
           </div>
         </div>
-        <div className="flex flex-row place-self-center gap-8">
+        <div className="flex flex-row gap-8 place-self-center">
           <div className="flex flex-col gap-2">
             <H1>{name}</H1>
             <div className="flex gap-1">
-              <Checkbox 
+              <Checkbox
                 id="favourite"
+                onChange={handleCheckboxChange}
               ></Checkbox>
               <Label htmlFor="favourite">Legg til i favoritter</Label>
             </div>
           </div>
-          <div className="bg-[#ebd1d1] p-2 rounded">
+          <div className="rounded bg-[#ebd1d1] p-2">
             <p>{`Kategori: ${category}`}</p>
             <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
             <p>Anbefalt tidsbruk: ??</p>
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4 m-4">
+          <div className="m-4 flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4">
             <H2>Beskrivelse:</H2>
             <p>{fullDescription}</p>
-            <Button className="w-1/6 place-self-center bg-[#ce3c3c]">Rapporter lek</Button>
+            <Button className="w-1/6 place-self-center bg-[#ce3c3c]">
+              Rapporter lek
+            </Button>
           </div>
           <div className="w-2/5 p-4">
-            <Card className="flex flex-col h-dvh bg-[#bad4ea] gap-2">
-              <form 
+            <Card className="flex h-dvh flex-col gap-2 bg-[#bad4ea]">
+              <form
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                   e.preventDefault();
                   submitRating(rating);
@@ -83,15 +108,17 @@ export const AboutGame = () => {
                 <CardHeader className="flex flex-col gap-4">
                   <CardTitle>Rangering</CardTitle>
                   <CardDescription className="flex flex-col gap-3">
-                    <Input 
-                      placeholder="Gi leken en rangering fra 0 til 100" 
-                      type="number" 
-                      max={100} 
+                    <Input
+                      placeholder="Gi leken en rangering fra 0 til 100"
+                      type="number"
+                      max={100}
                       min={0}
                       value={rating}
                       onChange={(e) => setRating(e.target.valueAsNumber)}
                     ></Input>
-                    <Button className="w-1/3 place-self-center" type="submit">Publiser</Button>
+                    <Button className="w-1/3 place-self-center" type="submit">
+                      Publiser
+                    </Button>
                   </CardDescription>
                 </CardHeader>
               </form>
@@ -99,16 +126,18 @@ export const AboutGame = () => {
                 <CardTitle>Kommentarer</CardTitle>
                 <div className="max-h-48">
                   <div className="max-h-full overflow-auto">
-                    <ScrollArea className=" p-3 border border-white rounded">
-                        {comments.map((comment) => (
-                          <div>
-                            <div className="flex gap-2">
-                              <p>{comment}</p>
-                              <Button className="w-1/6 bg-[#ce3c3c]">Rapporter</Button>
-                            </div>
-                            <Separator className="my-2"></Separator>
-                          </div>                        
-                        ))}
+                    <ScrollArea className=" rounded border border-white p-3">
+                      {comments.map((comment) => (
+                        <div>
+                          <div className="flex gap-2">
+                            <p>{comment}</p>
+                            <Button className="w-1/6 bg-[#ce3c3c]">
+                              Rapporter
+                            </Button>
+                          </div>
+                          <Separator className="my-2"></Separator>
+                        </div>
+                      ))}
                     </ScrollArea>
                   </div>
                 </div>

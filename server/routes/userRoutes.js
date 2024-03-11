@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel.js");
+const Icebreaker = require("../models/icebreakerModel.js");
 
 const router = express.Router();
 
@@ -74,26 +75,44 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/;userId/favorites", async (req, res) => {
-  const { userID } = req.params;
+router.get("/:userId/favorites", async (req, res) => {
+  const { userId } = req.params;
   try {
-    const userWithFavorites = await User.findById(userID).populate("Favorites");
-    res.status(200).json(userWithFavorites.favorites);
+    const user = await User.findById(userId);
+    if (!user || !user.favorites.length) {
+      return res.status(404).send("User not found or no favorites");
+    }
+
+    const favorites = await Icebreaker.aggregate([
+      { $match: { _id: { $in: user.favorites } } },
+    ]);
+
+    res.json(favorites);
   } catch (error) {
-    res.status(500).send("server error");
+    console.error(error);
+    res.status(500).send("Server error");
   }
 });
 
-router.post("/;userId/favorites", async (req, res) => {
-  const { userID } = req.params;
-  const { icebreakerID } = req.body;
+router.post("/:userId/favorites", async (req, res) => {
+  const { userId } = req.params; // Corrected to match the route parameter name
+  const { icebreakerId } = req.body;
+
   try {
-    await User.findByIdandUpdate(userID, {
-      $addToSet: { favorites: icebreakerID },
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { favorites: icebreakerId } },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).send("User not found");
+    }
+
     res.status(200).send("Added Icebreaker to favorites");
   } catch (error) {
-    res.status(500).send("server error");
+    console.error(error); // Log the error for debugging
+    res.status(500).send("Server error");
   }
 });
 
