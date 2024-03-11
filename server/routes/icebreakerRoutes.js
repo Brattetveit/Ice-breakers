@@ -40,7 +40,19 @@ router.delete("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const { name, fullDescription, shortDescription, author, category, feedback, rating, visable, imageName, timesReported, defaultTime } = req.body;
+    const {
+      name,
+      fullDescription,
+      shortDescription,
+      author,
+      category,
+      feedback,
+      rating,
+      visable,
+      imageName,
+      timesReported,
+      defaultTime,
+    } = req.body;
 
     const authorUser = await User.findOne({ username: author });
 
@@ -67,6 +79,28 @@ router.post("/create", async (req, res) => {
     const icebreaker = await Icebreaker.create(newIcebreaker);
 
     return res.status(201).send(icebreaker);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/rating/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    let icebreaker = await Icebreaker.findOneAndUpdate(
+      { name },
+      { $push: { ratings: req.body.rating } }
+    );
+
+    if (!icebreaker) {
+      return res.status(404).json({ message: "Icebreaker not found" });
+    }
+
+    icebreaker = await Icebreaker.findOne({ name });
+
+    res.status(200).send(icebreaker);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });

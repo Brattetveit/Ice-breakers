@@ -2,21 +2,28 @@ import { H1 } from "@/components/typography/H1";
 import { H2 } from "@/components/typography/H2";
 import { Icebreaker } from "@/types";
 
-// import {
-//   Card,
-//   CardContent,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-//   CardDescription
-// } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from "@/components/ui/card";
 
-// import { Button } from "@/components/ui/button";
-// import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
-// import { ScrollArea } from "@/components/ui/scroll-area";
-// import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
 import { Link, useLocation, type Location } from "react-router-dom";
+
+import { Checkbox  } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Separator  } from "@/components/ui/separator";
+import { FormEvent, useState } from "react";
+
+import { useRating } from "@/hooks/useRating";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -24,54 +31,96 @@ export const AboutGame = () => {
   }> = useLocation();
 
   const { icebreaker } = location.state;
-  const { name, author, category, fullDescription } = icebreaker;
+  const { name, author, category, fullDescription, feedback } = icebreaker;
+
+  const [rating, setRating] = useState(0);
+  const comments = feedback || [];
+
+  const { meanRating, submitRating } = useRating(icebreaker);
+
 
   return (
-    <div className="flex min-h-screen w-full items-center gap-4 bg-[#E3F2FD]">
+    <div className="bg-[#E3F2FD]">
       <div className="flex w-full flex-col gap-4 p-4">
-        <div>
-          <div className="flex flex-row justify-between">
-            <Link to="/">
-              <b>&#8249; Tilbake til hjemmeside</b>
-            </Link>
-            <div>
-              <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
+        <div className="flex flex-row justify-between">
+          <Link to="/">
+            <b>&#8249; Tilbake til hjemmeside</b>
+          </Link>
+          <div>
+            <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
+          </div>
+        </div>
+        <div className="flex flex-row place-self-center gap-8">
+          <div className="flex flex-col gap-2">
+            <H1>{name}</H1>
+            <div className="flex gap-1">
+              <Checkbox 
+                id="favourite"
+              ></Checkbox>
+              <Label htmlFor="favourite">Legg til i favoritter</Label>
             </div>
           </div>
-        </div>
-        <div className="flex flex-row place-self-center">
-          <div className="flex flex-col">
-            <H1>{name}</H1>
-            <p className="place-self-center">{`Kategori: ${category}`}</p>
+          <div className="bg-[#ebd1d1] p-2 rounded">
+            <p>{`Kategori: ${category}`}</p>
+            <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
+            <p>Anbefalt tidsbruk: ??</p>
           </div>
         </div>
-        <div className="flex h-dvh flex-col gap-6 rounded bg-[#A3CEF1] p-4">
-          <H2>Beskrivelse:</H2>
-          <p>{fullDescription}</p>
+        <div className="flex gap-2">
+          <div className="flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4 m-4">
+            <H2>Beskrivelse:</H2>
+            <p>{fullDescription}</p>
+            <Button className="w-1/6 place-self-center bg-[#ce3c3c]">Rapporter lek</Button>
+          </div>
+          <div className="w-2/5 p-4">
+            <Card className="flex flex-col h-dvh bg-[#bad4ea] gap-2">
+              <form 
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                  e.preventDefault();
+                  submitRating(rating);
+                }}
+              >
+                <CardHeader className="flex flex-col gap-4">
+                  <CardTitle>Rangering</CardTitle>
+                  <CardDescription className="flex flex-col gap-3">
+                    <Input 
+                      placeholder="Gi leken en rangering fra 0 til 100" 
+                      type="number" 
+                      max={100} 
+                      min={0}
+                      value={rating}
+                      onChange={(e) => setRating(e.target.valueAsNumber)}
+                    ></Input>
+                    <Button className="w-1/3 place-self-center" type="submit">Publiser</Button>
+                  </CardDescription>
+                </CardHeader>
+              </form>
+              <CardContent className="flex flex-col gap-4">
+                <CardTitle>Kommentarer</CardTitle>
+                <div className="max-h-48">
+                  <div className="max-h-full overflow-auto">
+                    <ScrollArea className=" p-3 border border-white rounded">
+                        {comments.map((comment) => (
+                          <div>
+                            <div className="flex gap-2">
+                              <p>{comment}</p>
+                              <Button className="w-1/6 bg-[#ce3c3c]">Rapporter</Button>
+                            </div>
+                            <Separator className="my-2"></Separator>
+                          </div>                        
+                        ))}
+                    </ScrollArea>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex flex-col gap-3">
+                <Textarea placeholder="Skriv kommentar her"></Textarea>
+                <Button className="w-1/3">Publiser</Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </div>
-      {/* <div className="w-1/3 p-4">
-        <Card className="flex flex-col h-dvh bg-[#bad4ea] gap-6">
-          <CardHeader className="flex flex-col gap-4">
-            <CardTitle>Rating</CardTitle>
-            <CardDescription>
-              <Input placeholder="Give the game a rating from 1 to 100" type="number" max={100} min={1}></Input>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <CardTitle>Comments</CardTitle>
-            <div>
-              <ScrollArea>
-                List of comments
-              </ScrollArea>
-            </div>
-          </CardContent>
-          <CardFooter className="gap-1">
-            <Textarea placeholder="Write comment here"></Textarea>
-            <Button>Publiser</Button>
-          </CardFooter>
-        </Card>
-      </div> */}
     </div>
   );
 };

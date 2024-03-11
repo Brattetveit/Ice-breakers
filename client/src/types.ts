@@ -5,7 +5,7 @@ export type Icebreaker = {
   author?: User;
   category?: Category;
   feedback?: string[];
-  rating?: number;
+  ratings: number[];
   visibleToOthers?: boolean;
   imageName?: string;
 };
