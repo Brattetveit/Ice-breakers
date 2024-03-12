@@ -8,8 +8,13 @@ export const addToFavorites = async (userId: string, icebreakerId: string) => {
   });
 
   if (!response.ok) {
-    throw new Error("failed to add icebreaker");
+    throw new Error("Failed to add icebreaker to favorites");
   }
 
-  return await response.json();
+  const contentType = response.headers.get("Content-Type");
+  if (contentType && contentType.includes("application/json")) {
+    return await response.json();
+  } else {
+    return await response.text();
+  }
 };
