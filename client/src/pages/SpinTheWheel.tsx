@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import "./SpinTheWheel.css"; // Husk å oppdatere din CSS-fil basert på veiledningen gitt
 import { Icebreaker } from "@/types";
+import { Link } from "react-router-dom";
+
 
 const SpinTheWheel: React.FC = () => {
   const { icebreakers, getIcebreakers } = useGetIcebreakers();
@@ -117,6 +119,7 @@ const SpinTheWheel: React.FC = () => {
             {/* Hjulet her */}
             <div
               style={{
+                textAlign: "center",
                 width: "500px",
                 height: "500px",
                 border: "10px solid #000",
@@ -207,6 +210,17 @@ const SpinTheWheel: React.FC = () => {
           </div>
         </div>
       </div>
+      <Link
+        to="/"
+        className="Hjem"
+        style={{
+          backgroundColor: "#a2d2ff",
+          color: "black",
+          fontSize: "30px",
+        }}
+      >
+        &#8249;
+      </Link>
     </div>
   );
 };

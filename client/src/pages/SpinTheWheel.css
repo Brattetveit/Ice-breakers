@@ -35,7 +35,7 @@
 
 .reset-button {
   font-family: "ZCOOL XiaoWei";
-  background-color: #bc4b51;
+  background-color: #bfd8bd;
   text-align: center;
   border-radius: 10px;
   font-size: 20px;
@@ -56,16 +56,16 @@
 .alt {
   background-color: #c9e1fa;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 7px;
   font-size: 20px;
   width: 350px;
   height: auto;
   padding: 10px;
-  margin: 20px auto;
+  margin: auto;
 }
 .alternativene {
   background-color: #c9e1fa;
-  border-radius: 10px;
+  border-radius: 7px;
   font-size: 20px;
   width: 350px;
   height: auto;
@@ -116,4 +116,12 @@
   min-height: 100vh;
 }
 
-
+.Hjem {
+  position: absolute; /* Endre posisjonering til absolutt */
+  top: 20px; /* Juster avstand fra toppen */
+  left: 20px; /* Juster avstand fra venstre side */
+  color: black;
+  padding: 10px; /* Legger til litt padding rundt teksten */
+  text-decoration: none; /* Fjerner underlinje fra lenker */
+  border-radius: 5px; /* Valgfritt: legger til avrundede hjørner for estetikk */
+}
