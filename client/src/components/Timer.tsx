@@ -112,10 +112,13 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
   }, [time, clockRunning, displayTime, endOfTimerAction, clockSwitch]);
 
   return (
-    <div className="bg-cyan-300 p-4 rounded-lg shadow-lg">
-      <h2 className="text-4xl" id="clock">00:00:00</h2>
-      <Button onClick={clockSwitch} id="clockSwitchButton">Start Klokken</Button>
-      <div>
+    <div className="bg-cyan-300 p-4 rounded-lg shadow-lg grid grid-cols-2 gap-4">
+      <div className="flex place-self-center">
+        <h2 className="text-4xl" id="clock">00:00:00</h2>
+       
+      </div>
+       
+      <div className="">
         <span className="flex p-1">
           <input className="w-8" id="hours" type="text" />
           <p>timer</p>
@@ -129,6 +132,11 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
           <p>sekunder</p>
         </span>
         <Message className="" id="timerError" message={"Må bruke tall"}></Message>
+      </div>
+      <div>
+        <Button onClick={clockSwitch} id="clockSwitchButton">Start Klokken</Button>
+      </div>
+      <div>
         <Button onClick={setTimer}>Set Klokke</Button>
       </div>
     </div>

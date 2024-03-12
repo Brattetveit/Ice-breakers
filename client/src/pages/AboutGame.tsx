@@ -132,9 +132,17 @@ export const AboutGame = () => {
               <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
               <p>Anbefalt tidsbruk: ??</p>
             </div>
+            <div className="bg-[#ebd1d1] p-2 rounded">
+              <p>{`Kategori: ${category}`}</p>
+              <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
+              <p>Anbefalt tidsbruk: ??</p>
+            </div>    
           </div>
           <div className=" col-start-5">
-            <Timer timeProp={10} endOfTimerAction={() => {}}></Timer>
+            <Timer 
+              timeProp={10}
+              endOfTimerAction={() => {}}
+            ></Timer>
           </div>
         </div>
         <div className="flex gap-2">
