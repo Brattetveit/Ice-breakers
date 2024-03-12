@@ -35,9 +35,9 @@
 
 .reset-button {
   font-family: "ZCOOL XiaoWei";
-  background-color: #e1bbf5;
+  background-color: #bc4b51;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 20px;
   width: 200px;
   height: 50px;
@@ -53,24 +53,28 @@
   text-align: center;
 }
 
-.alt,
-.alternativene {
-  background-color: #b2c6e9;
-  border-radius: 20px;
+.alt {
+  background-color: #c9e1fa;
+  font-weight: bold;
+  border-radius: 10px;
   font-size: 20px;
-  width: 250px;
+  width: 350px;
   height: auto;
   padding: 10px;
   margin: 20px auto;
 }
-
 .alternativene {
-  background-color: #b5b3b3;
+  background-color: #c9e1fa;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 350px;
+  height: auto;
+  padding: 10px;
 }
 
 .legg,
 .inp {
-  background-color: #ffe2e2;
+  background-color: #ffffff;
   border-radius: 20px;
   font-size: 20px;
   width: 200px;
@@ -86,8 +90,7 @@
   z-index: 1000;
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-top: none;
   list-style: none;
   padding: 0;
   top: 60px; /* Juster denne verdien basert på høyden på søkefeltet for å posisjonere listen korrekt */
@@ -102,3 +105,15 @@
 .search-results li:hover {
   background-color: #f0f0f0; /* Lys høydepunktsfarge når musen er over */
 }
+
+.wheel-container {
+  display: "flex";
+  background: "#f0f0f0";
+  height: "100%";
+}
+
+.page-container {
+  min-height: 100vh;
+}
+
+
