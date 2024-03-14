@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
 import "./SpinTheWheel.css"; // Husk å oppdatere din CSS-fil basert på veiledningen gitt
@@ -5,6 +6,7 @@ import { Icebreaker } from "@/types";
 import { Link } from "react-router-dom";
 
 const SpinTheWheel: React.FC = () => {
+  const navigate = useNavigate();
   const { icebreakers, getIcebreakers } = useGetIcebreakers();
   const [selectedIcebreaker, setSelectedIcebreaker] =
     useState<Icebreaker | null>(null);
@@ -12,12 +14,15 @@ const SpinTheWheel: React.FC = () => {
   const [result, setResult] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 100);
+  const [favorites] = useState<Icebreaker[]>([]);
+  const [queues] = useState<Icebreaker[]>([]);
   const [options, setOptions] = useState<string[]>([]);
   const [displayOption, setDisplayOption] = useState("Spinn");
   const [filteredIcebreakers, setFilteredIcebreakers] = useState<Icebreaker[]>(
     [],
   );
   const [showWarning, setShowWarning] = useState(false);
+  const [showWarn, setShowWarn] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -38,9 +43,8 @@ const SpinTheWheel: React.FC = () => {
 
   const addOption = (optionName: string) => {
     if (result !== "") {
-      console.log(
-        "Kan ikke legge til flere icebreakers etter at et resultat er generert.",
-      );
+      setShowWarn(true);
+      setTimeout(() => setShowWarn(false), 5000);
       return;
     }
     if (options.includes(optionName)) {
@@ -50,6 +54,7 @@ const SpinTheWheel: React.FC = () => {
       setOptions([...options, optionName]);
       setSearchTerm("");
       setShowWarning(false);
+      setShowWarn(false);
     }
   };
 
@@ -90,6 +95,16 @@ const SpinTheWheel: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleAddFavorites = () => {
+    const favoriteNames = favorites.map((favorite) => favorite.name);
+    setOptions(options.concat(favoriteNames));
+  };
+
+  const handleAddQueue = () => {
+    const queueNames = queues.map((queue) => queue.name);
+    setOptions(options.concat(queueNames));
   };
 
   return (
@@ -134,8 +149,8 @@ const SpinTheWheel: React.FC = () => {
             <div
               style={{
                 textAlign: "center",
-                width: "500px",
-                height: "500px",
+                width: "600px",
+                height: "600px",
                 border: "10px solid #000",
                 borderRadius: "50%",
                 display: "flex",
@@ -165,6 +180,13 @@ const SpinTheWheel: React.FC = () => {
               alignItems: "center",
             }}
           >
+            {showWarn && (
+              <p style={{ color: "red", textAlign: "center" }}>
+                Kan ikke legge til flere alternativer når hjulet allerede har
+                spunnet. <br />
+                Tilbakestill for å legge til.
+              </p>
+            )}
             {/* Søkefunksjon og alternativer her */}
             {showWarning && (
               <p style={{ color: "red" }}>
@@ -189,7 +211,7 @@ const SpinTheWheel: React.FC = () => {
                     top: "100%",
                     zIndex: 1,
                     background: "white",
-                    borderTop: "none",  
+                    borderTop: "none",
                   }}
                 >
                   {filteredIcebreakers.map((icebreaker: Icebreaker) => (
@@ -213,6 +235,24 @@ const SpinTheWheel: React.FC = () => {
                 ))}
               </ul>
             </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "20px",
+                marginTop: "20px",
+              }}
+            >
+              <button
+                onClick={handleAddFavorites}
+                className="hentFraFavoritter"
+              >
+                Legg til dine favoritter
+              </button>
+              <button onClick={handleAddQueue} className="hentFraq">
+                Legg til din kø
+              </button>
+            </div>
             <button
               className="reset-button"
               onClick={resetOptions}
@@ -223,17 +263,20 @@ const SpinTheWheel: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link
-        to="/"
+      <button
+        onClick={() => navigate(-1)}
         className="Hjem"
         style={{
-          backgroundColor: "#a2d2ff",
-          color: "black",
-          fontSize: "30px",
+          background: "none",
+          color: "inherit",
+          border: "none",
+          padding: 0,
+          cursor: "pointer",
+          outline: "inherit",
         }}
       >
-        &#8249;
-      </Link>
+        <b>&#8249; Tilbake</b>
+      </button>
       {showModal && selectedIcebreaker && (
         <div
           className="modal"
@@ -263,8 +306,26 @@ const SpinTheWheel: React.FC = () => {
               fontFamily: "ZCOOL XiaoWei",
             }}
           >
-            <p style={{ fontSize: "50px", textAlign: "center" }}>
-              Vil du prøve ut "{selectedIcebreaker.name}"?
+            <p
+              style={{
+                fontSize: "35px",
+                textAlign: "center",
+                color: "#386641",
+              }}
+            >
+              Resultatet ble:{" "}
+              <span style={{ fontWeight: "bold", color: "black" }}>
+                {selectedIcebreaker.name} &#x1F389;
+              </span>
+            </p>
+            <p
+              style={{
+                fontSize: "40px",
+                textAlign: "center",
+                marginTop: "0px",
+              }}
+            >
+              Vil du prøve ut denne leken?
             </p>
             <div>
               <Link

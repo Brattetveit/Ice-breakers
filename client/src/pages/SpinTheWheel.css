@@ -141,8 +141,30 @@
   padding: 10px; /* Legger til litt padding rundt teksten */
   text-decoration: none; /* Fjerner underlinje fra lenker */
   border-radius: 5px; /* Valgfritt: legger til avrundede hjørner for estetikk */
+  font-family: "ZCOOL XiaoWei";
+  font-size: 20px;
 }
 
 .modal {
   z-index: 1000; /* Dette er bare et eksempel, juster etter behov */
+}
+
+.hentFraFavoritter {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #fdbdc1;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+}
+
+.hentFraq {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #fdbdc1;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
 }
