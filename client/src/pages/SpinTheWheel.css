@@ -77,14 +77,31 @@
   background-color: #ffffff;
   border-radius: 20px;
   font-size: 20px;
-  width: 200px;
+  width: 50%;
   height: 50px;
   margin: 20px auto;
 }
 
+.search-field-container {
+  position: relative;
+  width: 100%; /* Eller tilpasset bredde om nødvendig */
+}
+
 .search-results {
-  max-height: 200px;
-  width: 220px; /* Tilpass denne bredden til bredden på søkefeltet ditt */
+  position: absolute;
+  top: 52px; /* Juster denne verdien basert på høyden på søkefeltet pluss eventuell margin/padding */
+  width: 100%; /* Rullegardinlisten vil matche containerens bredde */
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  z-index: 1; /* Sørger for at den vises over andre elementer */
+  box-sizing: border-box; /* Inkluderer padding og border i elementets totalbredde */
+}
+
+.search-results {
+  z-index: 1;
+  border-radius: 2%;
+  max-height: 500px;
+  width: 50%; /* Tilpass denne bredden til bredden på søkefeltet ditt */
   overflow-y: auto;
   position: absolute;
   z-index: 1000;
@@ -124,4 +141,8 @@
   padding: 10px; /* Legger til litt padding rundt teksten */
   text-decoration: none; /* Fjerner underlinje fra lenker */
   border-radius: 5px; /* Valgfritt: legger til avrundede hjørner for estetikk */
+}
+
+.modal {
+  z-index: 1000; /* Dette er bare et eksempel, juster etter behov */
 }

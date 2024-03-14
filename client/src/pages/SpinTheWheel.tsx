@@ -4,19 +4,21 @@ import "./SpinTheWheel.css"; // Husk å oppdatere din CSS-fil basert på veiledn
 import { Icebreaker } from "@/types";
 import { Link } from "react-router-dom";
 
-
 const SpinTheWheel: React.FC = () => {
   const { icebreakers, getIcebreakers } = useGetIcebreakers();
+  const [selectedIcebreaker, setSelectedIcebreaker] =
+    useState<Icebreaker | null>(null);
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedSearchTerm = useDebounce(searchTerm, 100);
   const [options, setOptions] = useState<string[]>([]);
   const [displayOption, setDisplayOption] = useState("Spinn");
   const [filteredIcebreakers, setFilteredIcebreakers] = useState<Icebreaker[]>(
     [],
   );
   const [showWarning, setShowWarning] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getIcebreakers();
@@ -65,9 +67,16 @@ const SpinTheWheel: React.FC = () => {
 
       if (currentOptionIndex >= totalSpins) {
         clearInterval(interval);
-        setResult(options[(currentOptionIndex - 1) % options.length]);
-        setDisplayOption(options[(currentOptionIndex - 1) % options.length]);
+        const finalOption = options[(currentOptionIndex - 1) % options.length];
+        setResult(finalOption);
+        setDisplayOption(finalOption);
+        // Finn og sett den valgte icebreakeren
+        const icebreakerFound = icebreakers.find(
+          (icebreaker) => icebreaker.name === finalOption,
+        );
+        setSelectedIcebreaker(icebreakerFound || null);
         setSpinning(false);
+        setShowModal(true);
       }
     }, 100);
   };
@@ -76,6 +85,11 @@ const SpinTheWheel: React.FC = () => {
     setOptions([]);
     setResult("");
     setDisplayOption("Spinn");
+    setSelectedIcebreaker(null); // Tilbakestill valgt icebreaker
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -173,10 +187,9 @@ const SpinTheWheel: React.FC = () => {
                     position: "absolute",
                     width: "100%",
                     top: "100%",
-                    left: 0,
                     zIndex: 1,
                     background: "white",
-                    borderTop: "none",
+                    borderTop: "none",  
                   }}
                 >
                   {filteredIcebreakers.map((icebreaker: Icebreaker) => (
@@ -221,6 +234,74 @@ const SpinTheWheel: React.FC = () => {
       >
         &#8249;
       </Link>
+      {showModal && selectedIcebreaker && (
+        <div
+          className="modal"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            fontFamily: "ZCOOL XiaoWei",
+          }}
+        >
+          <div
+            className="modal-content"
+            style={{
+              padding: "5%",
+              backgroundColor: "#fff",
+              borderRadius: "5px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              fontFamily: "ZCOOL XiaoWei",
+            }}
+          >
+            <p style={{ fontSize: "50px", textAlign: "center" }}>
+              Vil du prøve ut "{selectedIcebreaker.name}"?
+            </p>
+            <div>
+              <Link
+                to="/aboutGame"
+                state={{ icebreaker: selectedIcebreaker }}
+                style={{
+                  marginRight: "10px",
+                  padding: "19px",
+                  backgroundColor: "#a2d2ff",
+                  color: "black",
+                  textDecoration: "none",
+                  fontSize: "25px",
+                  fontFamily: "ZCOOL XiaoWei",
+                  borderRadius: "5px",
+                }}
+              >
+                Gå til
+              </Link>
+              <button
+                onClick={handleCloseModal}
+                style={{
+                  marginRight: "10px",
+                  padding: "15px",
+                  backgroundColor: "#ff6868",
+                  color: "white",
+                  border: "none",
+                  fontSize: "25px",
+                  fontFamily: "ZCOOL XiaoWei",
+                  borderRadius: "5px",
+                }}
+              >
+                Avbryt
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
