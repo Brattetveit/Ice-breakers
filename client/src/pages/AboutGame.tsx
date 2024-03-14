@@ -27,6 +27,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
 import useAddToFavorites from "@/hooks/userProfile";
+import { useUser } from "@/hooks/useUser";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -45,6 +46,8 @@ export const AboutGame = () => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const comments = feedback || [];
+
+  const userInfo = useUser();
 
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
@@ -150,7 +153,13 @@ export const AboutGame = () => {
               <form
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                   e.preventDefault();
-                  submitRating(rating);
+                  if (!userInfo.isSignedIn){
+                    console.log("Bruker er ikke logget inn")
+                  }
+                  else{
+                    const username = userInfo.user?.username ?? "";
+                    submitRating(username, rating);
+                  }
                 }}
               >
                 <CardHeader className="flex flex-col gap-4">
