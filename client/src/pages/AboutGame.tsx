@@ -1,6 +1,5 @@
 import { H1 } from "@/components/typography/H1";
 import { H2 } from "@/components/typography/H2";
-import { useNavigate } from "react-router-dom";
 import { Icebreaker } from "@/types";
 
 import {
@@ -17,14 +16,13 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { useLocation, type Location } from "react-router-dom";
+import { Link, useLocation, type Location } from "react-router-dom";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 export const AboutGame = () => {
-  const navigate = useNavigate();
   const location: Location<{
     icebreaker: Icebreaker;
   }> = useLocation();
@@ -38,20 +36,9 @@ export const AboutGame = () => {
     <div className="bg-[#E3F2FD]">
       <div className="flex w-full flex-col gap-4 p-4">
         <div className="flex flex-row justify-between">
-          <button
-            onClick={() => navigate(-1)}
-            style={{
-              background: "none",
-              color: "inherit",
-              border: "none",
-              padding: 0,
-              font: "inherit",
-              cursor: "pointer",
-              outline: "inherit",
-            }}
-          >
-            <b>&#8249; Tilbake</b>
-          </button>
+          <Link to="/">
+            <b>&#8249; Tilbake til hjemmeside</b>
+          </Link>
           <div>
             <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
           </div>
