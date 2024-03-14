@@ -26,7 +26,7 @@ import { Separator } from "@/components/ui/separator";
 import { FormEvent, useEffect, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
-import useAddToFavorites from "@/hooks/userProfile"; // Adjust the path as necessary
+import useAddToFavorites from "@/hooks/userProfile";
 
 export const AboutGame = () => {
   const location: Location<{
