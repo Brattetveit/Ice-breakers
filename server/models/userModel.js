@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
     { type: mongoose.Schema.Types.ObjectId, ref: "Icebreaker" },
   ],
   //avatar: {type: String}
+  role: { type: String, default: "user", enum: ["user", "admin"] },
 });
 
 const User = mongoose.model("User", userSchema);

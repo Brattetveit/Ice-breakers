@@ -61,3 +61,17 @@ export const addRating = async (name: string, username: string, rating: number) 
       const { updatedRatings } = await response.json();
       return updatedRatings.data as number[];
 };
+
+export const addComment = async (name: string, comment: string) => {
+  const response = await fetch("/api/feedback" + name, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({comment})
+  });
+  const { feedback } = await response.json();
+  return feedback
+}
+
+// export const deleteComment 
