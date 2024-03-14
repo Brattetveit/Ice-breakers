@@ -1,5 +1,5 @@
 export const fetchFeedback = async () => {
-  const response = await fetch("api/icebreakers/comment/");
+  const response = await fetch("api/feedback");
   const { data } = await response.json();
   return data;
 };
@@ -8,13 +8,11 @@ export const fetchFeedback = async () => {
 
 export const handleCreateFeedback =  async (
   comment: string,
-  user: string,
-  timesReported: number
+  user: string
 ) => {
   const feedback = {
     feedback: comment,
-    author: user,
-    timesReported: timesReported
+    author: user
   };
 
   try {
