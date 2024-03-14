@@ -13,7 +13,7 @@ export function InCategory() {
 
   useEffect(() => {
     getIcebreakersByCategory(category);
-  }, []);
+  }, [category, getIcebreakersByCategory]);
 
   return (
     <div className="category-page">
