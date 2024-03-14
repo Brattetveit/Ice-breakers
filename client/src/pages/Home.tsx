@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
+import { useGetIcebreakers } from "@/hooks/useIcebreakers";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";

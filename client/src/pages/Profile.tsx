@@ -1,6 +1,6 @@
 import { useUser } from "@/hooks/useUser";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
+import { useIcebreakers } from "@/hooks/useIcebreakers";
 import { useEffect, useState } from "react";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { Icebreaker } from "@/types";
@@ -11,19 +11,23 @@ export const Profile = () => {
   const [favorites, setFavorites] = useState<Icebreaker[]>([]);
 
   const { user } = useUser();
-  const { icebreakers, getIcebreakers } = useGetIcebreakers();
+  const { icebreakers } = useIcebreakers();
+
+  const filterIcebreakers = (icebreakers: Icebreaker[]) => {
+    return icebreakers.filter((icebreaker) => {
+      if (!icebreaker.author) return false;
+
+      return icebreaker.author.username === user?.username;
+    });
+  };
 
   useEffect(() => {
-    getIcebreakers();
+    if (user?.favorites.length) {
+      setFavorites(user.favorites);
+    }
 
     if (icebreakers.length) {
-      setAuthored(
-        icebreakers.filter((icebreaker) => {
-          if (!icebreaker.author) return false;
-
-          return icebreaker.author.username === user?.username;
-        }),
-      );
+      setAuthored(filterIcebreakers(icebreakers));
 
       //TODO: setFavorites
     }
@@ -44,6 +48,11 @@ export const Profile = () => {
             <h1>Mine Ice Breakers</h1>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
               {authored.map((icebreaker, idx) => (
+                <IcebreakerCard key={idx} icebreaker={icebreaker} />
+              ))}
+            </div>
+            <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
+              {favorites.map((icebreaker, idx) => (
                 <IcebreakerCard key={idx} icebreaker={icebreaker} />
               ))}
             </div>

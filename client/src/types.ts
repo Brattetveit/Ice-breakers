@@ -13,6 +13,7 @@ export type Icebreaker = {
 export type User = {
   username: string;
   password: string;
+  favorites: Icebreaker[];
 };
 
 export type Category = "Drikkelek" | "Barnelek" | "Navnelek";
