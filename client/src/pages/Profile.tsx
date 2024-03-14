@@ -1,41 +1,21 @@
 import { useUser } from "@/hooks/useUser";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useIcebreakers } from "@/hooks/useIcebreakers";
-import { useEffect, useState } from "react";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
-import { Icebreaker } from "@/types";
 
 export const Profile = () => {
-  const [authored, setAuthored] = useState<Icebreaker[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [favorites, setFavorites] = useState<Icebreaker[]>([]);
-
   const { user } = useUser();
   const { icebreakers } = useIcebreakers();
 
-  const filterIcebreakers = (icebreakers: Icebreaker[]) => {
+  if (!user) return <div>not signed in</div>;
+
+  const getAuthoredIcebreakers = () => {
     return icebreakers.filter((icebreaker) => {
       if (!icebreaker.author) return false;
 
-      return icebreaker.author.username === user?.username;
+      return icebreaker.author.username === user.username;
     });
   };
-
-  useEffect(() => {
-    if (user?.favorites.length) {
-      setFavorites(user.favorites);
-    }
-
-    if (icebreakers.length) {
-      setAuthored(filterIcebreakers(icebreakers));
-
-      //TODO: setFavorites
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (!user) return <div>not signed in</div>;
 
   return (
     <div className="flex min-h-screen w-full justify-center">
@@ -47,14 +27,16 @@ export const Profile = () => {
           <ScrollArea>
             <h1>Mine Ice Breakers</h1>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
-              {authored.map((icebreaker, idx) => (
+              {getAuthoredIcebreakers().map((icebreaker, idx) => (
                 <IcebreakerCard key={idx} icebreaker={icebreaker} />
               ))}
             </div>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
-              {favorites.map((icebreaker, idx) => (
-                <IcebreakerCard key={idx} icebreaker={icebreaker} />
-              ))}
+              {user.favorites
+                ? user.favorites.map((icebreaker, idx) => (
+                    <IcebreakerCard key={idx} icebreaker={icebreaker} />
+                  ))
+                : null}
             </div>
           </ScrollArea>
         </div>

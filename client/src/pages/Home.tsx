@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
-import { useGetIcebreakers } from "@/hooks/useIcebreakers";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useIcebreakers } from "@/hooks/useIcebreakers";
+import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { NavMenu } from "@/components/NavMenu";
@@ -10,11 +10,8 @@ import { Button } from "@/components/ui/button";
 export const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { isLoading, icebreakers, getIcebreakers } = useGetIcebreakers();
+  const { isLoading, icebreakers } = useIcebreakers();
   const { isSignedIn, logout } = useUser();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getIcebreakers(), []);
 
   const renderFilteredIcebreakers = (query: string) => {
     const filtered = !query
