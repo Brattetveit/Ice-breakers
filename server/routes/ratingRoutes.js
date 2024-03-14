@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/:name", async (req, res) => {
   try {
+
     const rating = await Rating.find({});
 
     return res.status(200).json({
@@ -15,18 +16,19 @@ router.get("/:name", async (req, res) => {
       data: rating,
     });
   } catch (error) {
-    console.log("Dette ble feil");
     console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 });
 
 
-router.post("/create", async (req, res) => {
+router.post("/:name/:username", async (req, res) => {
   try {
-    const { ratingValue, author } = req.body;
+    const { name, username } = req.params;
+    
+    const { ratingValue } = req.body;
 
-    const authorUser = await User.findOne({ username: author });
+    const authorUser = await User.findOne({ username: username });
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -38,19 +40,30 @@ router.post("/create", async (req, res) => {
     };
 
     const rating = await Rating.create(newRating);
+    
+    let icebreaker = await Icebreaker.findOneAndUpdate(
+      { name },
+      { $push: { ratings: req.body.rating } }
+    );
+    
+    if (!icebreaker) {
+      return res.status(404).json({ message: "Icebreaker not found" });
+    }
 
-    return res.status(201).send(rating);
+    icebreaker = await Icebreaker.findOne({ name });
+    
+    res.status(200).send(icebreaker);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 });
 
-router.delete("/:name", async (req, res) => {
+router.delete("/:name/:username", async (req, res) => {
   try {
-    const { author } = req.params;
+    const { name, username } = req.params;
+    author = await User.findOne({ username: username });
     const result = await Rating.deleteOne({ author: author });
-
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Rating not found" });
     }

@@ -28,6 +28,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRating } from "@/hooks/useRating";
 import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
+import { useGetRatings } from "@/hooks/useGetRatings";
+import { deleteRating } from "@/services/icebreakers";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -46,6 +48,12 @@ export const AboutGame = () => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const comments = feedback || [];
+
+  const { ratings, getRatings } = useGetRatings(name);
+
+  const ratingAuthors = ratings.map(rating => rating.author?.toString() || "");
+
+  useEffect(() => getRatings(), [getRatings]);
 
   const userInfo = useUser();
 
@@ -158,6 +166,11 @@ export const AboutGame = () => {
                   }
                   else{
                     const username = userInfo.user?.username ?? "";
+                    const userID = userInfo.user?._id ?? "";
+                    if (ratingAuthors.includes(userID)){
+                      //Delete rating
+                      deleteRating(name, username);
+                    }
                     submitRating(username, rating);
                   }
                 }}

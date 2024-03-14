@@ -15,23 +15,17 @@ export const fetchIcebreakers = async () => {
 //   const { ratings } = await response.json();
 //   return ratings as Record<string, number>;
 // };
+
 export const fetchRatings = async (name: string) => {
-  try {
-    const response = await fetch('/api/icebreakers/rating/' + name);
-    console.log(response);
-    if (!response.ok) {
-      throw new Error('Failed to fetch ratings');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching ratings:', (error as Error).message);
-    throw error;
-  }
+  const response = await fetch("/api/rating/" + name);
+  const { data } = await response.json();
+  return data;
 }
 
-export const deleteRating = async (name: string) => {
+
+export const deleteRating = async (name: string, username: string) => {
   try {
-    const response = await fetch(`/api/icebreakers/rating/` + name, {
+    const response = await fetch(`/api//rating/` + name + '/' + username, {
       method: 'DELETE',
     });
 
@@ -46,20 +40,17 @@ export const deleteRating = async (name: string) => {
   }
 };
 
-export const addRating = async (name: string, username: string, rating: number) => {
-  const ratings = fetchRatings(name);
-  if (Object.values(ratings).includes(username)){
-    await deleteRating(name);
-  }
-  const response = await fetch("/api/icebreakers/rating/" + name, {
+
+export const addRating = async (name: string, username:string, rating: number) => {
+  const response = await fetch("/api/rating/" + name + "/" + username, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, rating }),
+        body: JSON.stringify({ rating }),
       });
-      const { updatedRatings } = await response.json();
-      return updatedRatings.data as number[];
+      const { ratings } = await response.json();
+      return ratings as number[];
 };
 
 export const addComment = async (name: string, comment: string) => {

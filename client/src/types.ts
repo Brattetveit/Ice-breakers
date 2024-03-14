@@ -18,3 +18,8 @@ export type User = {
 };
 
 export type Category = "Drikkelek" | "Barnelek" | "Navnelek";
+
+export type Rating = {
+  rating: number;
+  author: User;
+}
