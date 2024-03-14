@@ -12,7 +12,6 @@
   border-radius: 20px; /* Myke hjørner */
   font-size: 70px; /* Større skrift */
   width: 250mm; /* Bredden på boksen */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Liten skygge for dybde */
   margin-bottom: 100px; /* Mellomrom mellom radene */
   margin-top: 50px;
 }
