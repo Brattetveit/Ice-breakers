@@ -1,21 +1,11 @@
 import { useUser } from "@/hooks/useUser";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useIcebreakers } from "@/hooks/useIcebreakers";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 
 export const Profile = () => {
   const { user } = useUser();
-  const { icebreakers } = useIcebreakers();
 
   if (!user) return <div>not signed in</div>;
-
-  const getAuthoredIcebreakers = () => {
-    return icebreakers.filter((icebreaker) => {
-      if (!icebreaker.author) return false;
-
-      return icebreaker.author.username === user.username;
-    });
-  };
 
   return (
     <div className="flex min-h-screen w-full justify-center">
@@ -27,16 +17,14 @@ export const Profile = () => {
           <ScrollArea>
             <h1>Mine Ice Breakers</h1>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
-              {getAuthoredIcebreakers().map((icebreaker, idx) => (
+              {user.createdIcebreakers.map((icebreaker, idx) => (
                 <IcebreakerCard key={idx} icebreaker={icebreaker} />
               ))}
             </div>
             <div className="grid w-full grid-cols-3 gap-4 bg-blue-500">
-              {user.favorites
-                ? user.favorites.map((icebreaker, idx) => (
-                    <IcebreakerCard key={idx} icebreaker={icebreaker} />
-                  ))
-                : null}
+              {user.favorites.map((icebreaker, idx) => (
+                <IcebreakerCard key={idx} icebreaker={icebreaker} />
+              ))}
             </div>
           </ScrollArea>
         </div>

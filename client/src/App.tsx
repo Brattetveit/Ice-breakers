@@ -6,6 +6,8 @@ import {
   AboutGame,
   IcebreakerForm,
   Profile,
+  InCategory,
+  Categories,
 } from "./pages";
 
 const App = () => {
