@@ -20,11 +20,12 @@ router.get("/", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
 
     const newUser = {
       username,
       password,
+      role,
     };
 
     const user = await User.create(newUser);
@@ -45,7 +46,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(204).send(); // 204 No Content
+    res.status(204).send();
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error: error.message });
