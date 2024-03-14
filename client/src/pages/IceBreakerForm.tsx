@@ -5,19 +5,20 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Message } from "@/components/Message";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { handleCreateIcebreaker } from "@/services/icebreakerMakeService";
-import { useUser } from "@/hooks/useUser"
+import { useUser } from "@/hooks/useUser";
 // import { useDropzone } from "react-dropzone";
 // import type { File } from "buffer";
 
 export const IcebreakerForm = () => {
-  const user = useUser().user
+  const user = useUser().user;
   const [nameText, setNameText] = useState("");
   const [ruleText, setRuleText] = useState("");
   const [summaryText, setSumaryText] = useState("");
   const [category, setCategory] = useState("");
   const [visibility, setVisibility] = useState(true);
+  const [time, setTime] = useState(0);
   // const [files, setFiles] = useState<(File & { preview: string })[]>([]);
 
   const navigate = useNavigate();
@@ -25,6 +26,12 @@ export const IcebreakerForm = () => {
     const path = `/`;
     navigate(path);
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   // const hasFiles = files.length > 0;
 
@@ -61,10 +68,9 @@ export const IcebreakerForm = () => {
   function handleRadio(event: React.MouseEvent<HTMLButtonElement>) {
     const target = event.target as HTMLInputElement;
     if (target.value === "0") {
-      setVisibility(true)
+      setVisibility(true);
     } else {
       setVisibility(false);
-
     }
   }
 
@@ -111,11 +117,83 @@ export const IcebreakerForm = () => {
       }
     }
     if (make && user !== null) {
-      handleCreateIcebreaker(user.username, nameText, ruleText, summaryText, category, visibility)
-   
+      //add send timer to backend
+      handleCreateIcebreaker(
+        user.username,
+        nameText,
+        ruleText,
+        summaryText,
+        category,
+        visibility,
+      );
+
       handleExit();
     }
   }
+
+  const displayTime: () => void = useCallback(() => {
+    let display: string = "";
+    const hours: number = Math.floor(time / 3600);
+    const minutes: number = Math.floor((time % 3600) / 60);
+    const seconds: number = time % 60;
+    const formattedMinutes: string =
+      minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds: string =
+      seconds < 10 ? `0${seconds}` : `${seconds}`;
+    display = `${hours}:${formattedMinutes}:${formattedSeconds}`;
+    const clock: HTMLHeadingElement | null = document.getElementById(
+      "clock",
+    ) as HTMLHeadingElement;
+    if (clock !== null) {
+      clock.textContent = display;
+      hiddeError();
+    }
+  }, [time]);
+
+  function timeChange(newTime: number) {
+    setTime(newTime);
+    console.log(time);
+    displayTime();
+  }
+
+  function showError() {
+    const errorMesage = document.getElementById("timerError");
+    if (errorMesage !== null) {
+      errorMesage.style.display = "block";
+    }
+  }
+
+  function hiddeError() {
+    const errorMesage = document.getElementById("timerError");
+    if (errorMesage !== null) {
+      errorMesage.style.display = "none";
+    }
+  }
+
+  function setTimer() {
+    const hoursInput = document.getElementById("hours") as HTMLInputElement;
+    const minutesInput = document.getElementById("minutes") as HTMLInputElement;
+    const secondsInput = document.getElementById("seconds") as HTMLInputElement;
+
+    const hours = parseInt(hoursInput?.value || "0", 10);
+    const minutes = parseInt(minutesInput?.value || "0", 10);
+    const seconds = parseInt(secondsInput?.value || "0", 10);
+
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+      showError();
+      return;
+    }
+
+    const newTime = seconds + minutes * 60 + hours * 3600;
+    timeChange(newTime);
+    hoursInput.value = "";
+    minutesInput.value = "";
+    secondsInput.value = "";
+  }
+
+  useEffect(() => {
+    displayTime();
+  }, [time, displayTime]);
 
   return (
     <div className="lex flex h-screen flex-col bg-[#E3F2FD]">
@@ -218,6 +296,32 @@ export const IcebreakerForm = () => {
               </Label>
             </div>
           </RadioGroup>
+        </div>
+        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
+          <h2 className="text-xl md:text-right">Anbefalt klokke:</h2>
+          <div>
+            <h2 className="text-4xl" id="clock">
+              00:00:00
+            </h2>
+            <span className="flex p-1">
+              <input className="w-8" id="hours" type="text" />
+              <p>timer</p>
+            </span>
+            <span className="flex p-1">
+              <input className="w-8" id="minutes" type="text" />
+              <p>minutter</p>
+            </span>
+            <span className="flex p-1">
+              <input className="w-8" id="seconds" type="text" />
+              <p>sekunder</p>
+            </span>
+            <Message
+              className=""
+              id="timerError"
+              message={"Må bruke tall"}
+            ></Message>
+            <Button onClick={setTimer}>Set Klokke</Button>
+          </div>
         </div>
         {/* <div className="m-4 min-h-40 md:grid md:grid-cols-5  md:gap-12">
           <h2 className="text-xl md:text-right">Last opp bilder:</h2>

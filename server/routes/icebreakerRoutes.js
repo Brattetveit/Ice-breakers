@@ -124,4 +124,26 @@ router.put("/:id/report", isAdmin, async (req, res) => {
   }
 });
 
+router.post("/rating/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    let icebreaker = await Icebreaker.findOneAndUpdate(
+      { name },
+      { $push: { ratings: req.body.rating } }
+    );
+
+    if (!icebreaker) {
+      return res.status(404).json({ message: "Icebreaker not found" });
+    }
+
+    icebreaker = await Icebreaker.findOne({ name });
+
+    res.status(200).send(icebreaker);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 module.exports = router;
