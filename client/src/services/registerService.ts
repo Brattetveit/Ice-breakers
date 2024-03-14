@@ -1,5 +1,6 @@
 export const handleSubmitt = async (
   event: React.FormEvent<HTMLFormElement>,
+  navigate: (path: string) => void, // Add navigate parameter with its type
 ) => {
   event.preventDefault();
 
@@ -24,6 +25,7 @@ export const handleSubmitt = async (
     if (response.ok) {
       const NewUser = await response.json();
       console.log("User register", NewUser);
+      navigate("/login");
     } else {
       console.log("Registration failed", response.statusText);
     }
