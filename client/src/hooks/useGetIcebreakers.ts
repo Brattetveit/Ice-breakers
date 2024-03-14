@@ -20,7 +20,10 @@ export const useGetIcebreakers = () => {
 
     fetchIcebreakers()
       .then((array: Icebreaker[]) =>
-        array.filter((icebreaker) => icebreaker.category === category),
+        array.filter(
+          (icebreaker) =>
+            icebreaker.category?.toLowerCase() === category.toLowerCase(),
+        ),
       )
       .then(setIcebreakers)
       .then(() => setIsLoading(false));
