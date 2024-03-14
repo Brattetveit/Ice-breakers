@@ -1,0 +1,61 @@
+.Navn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Overskrift {
+  font-family: "ZCOOL XiaoWei";
+
+  background-color: #a3cef1; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
+  color: rgb(0, 0, 0); /* Hvit tekst */
+  text-align: center;
+  padding-top: 10px; /* Vertikal padding */
+  padding-bottom: 10px; /* Vertikal padding */
+  padding-right: 70px; /* Vertikal padding */
+  padding-left: 70px; /* Vertikal padding */
+  margin: 20px auto; /* Sentrerer elementet */
+  border-radius: 20px; /* Myke hjørner */
+  font-size: 80px; /* Større skrift */
+  width: 250mm; /* Bredden på boksen */
+  margin-bottom: 100px; /* Mellomrom mellom radene */
+  margin-top: 50px;
+}
+
+.category-button {
+  font-family: "ZCOOL XiaoWei";
+  width: 76mm;
+  min-height: 35mm;
+  cursor: pointer;
+  margin-left: 6mm;
+  margin-right: 6mm;
+  text-align: center;
+  border-radius: 20px;
+  padding-top: 32px;
+}
+
+.KategoriContainer {
+  padding-top: 50px;
+  padding-bottom: 500px;
+  background-color: #f5f5f5;
+}
+
+.ButtonRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 120px;
+}
+
+.Button:hover {
+  background-color: #000501; /* Legg til ønsket fargeendring ved hover */
+}
+
+.Hjem {
+  text-align: center;
+  font-family: "ZCOOL XiaoWei";
+  border-radius: 20px;
+  position: absolute;
+  width: 100px;
+  bottom: 760px;
+  left: 80px;
+}

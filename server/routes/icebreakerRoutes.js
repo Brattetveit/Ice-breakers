@@ -61,9 +61,16 @@ router.post("/create", async (req, res) => {
       rating,
       visable,
       imageName,
+<<<<<<< HEAD
+=======
+      timesReported,
+      defaultTime,
+>>>>>>> 9abaf44f550536086061465a0c4cde7ab827ddb0
     } = req.body;
 
     const authorUser = await User.findOne({ username: author });
+
+    const feedbacks = [];
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -75,15 +82,39 @@ router.post("/create", async (req, res) => {
       shortDescription,
       author: authorUser,
       category,
-      feedback,
+      feedback: feedbacks,
       rating,
       visable,
       imageName,
+      timesReported,
+      defaultTime,
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
 
     return res.status(201).send(icebreaker);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/rating/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    let icebreaker = await Icebreaker.findOneAndUpdate(
+      { name },
+      { $push: { ratings: req.body.rating } }
+    );
+
+    if (!icebreaker) {
+      return res.status(404).json({ message: "Icebreaker not found" });
+    }
+
+    icebreaker = await Icebreaker.findOne({ name });
+
+    res.status(200).send(icebreaker);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
