@@ -23,7 +23,7 @@ router.get("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const { comment, author, timesReported } = req.body;
+    const { comment, author } = req.body;
 
     const authorUser = await User.findOne({ username: author });
 
@@ -34,7 +34,6 @@ router.post("/create", async (req, res) => {
     const newFeedback = {
       comment,
       author: authorUser,
-      timesReported,
     };
 
     const feedback = await Feedback.create(newFeedback);
@@ -48,8 +47,8 @@ router.post("/create", async (req, res) => {
 
 router.delete("/:name", async (req, res) => {
   try {
-    const { author } = req.params;
-    const result = await Feedback.deleteOne({ author: author });
+    const { feedbackID } = req.params;
+    const result = await Feedback.deleteOne({ feedbackID: feedbackID });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Feedback not found" });
