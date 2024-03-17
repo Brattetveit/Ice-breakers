@@ -61,11 +61,8 @@ router.post("/create", async (req, res) => {
       rating,
       visable,
       imageName,
-<<<<<<< HEAD
-=======
       timesReported,
       defaultTime,
->>>>>>> 9abaf44f550536086061465a0c4cde7ab827ddb0
     } = req.body;
 
     const authorUser = await User.findOne({ username: author });
