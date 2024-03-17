@@ -106,7 +106,9 @@ export const Profile = () => {
             ))}
           </div>
           <div className=" flex w-full flex-col gap-4 ">
-            <h1 className="text-center font-semibold">Favorites</h1>
+            <h1 className="text-center font-semibold">
+              {favoritesTest.length ? "Favoritter" : "Du har ingen favoritter"}
+            </h1>
             {favoritesTest.map((icebreaker, idx) => (
               <IcebreakerCard key={idx} icebreaker={icebreaker} />
             ))}
@@ -116,9 +118,18 @@ export const Profile = () => {
             <h1 className="text-center font-semibold">
               {queue.length ? "Din kø" : "Du har ingen i køen din"}
             </h1>
-            {queue.map((icebreaker, idx) => (
-              <IcebreakerCard key={idx} icebreaker={icebreaker} />
-            ))}
+            {queue.map((icebreaker, idx) => {
+              if (!idx) {
+                return (
+                  <IcebreakerCard
+                    color="bg-green-300"
+                    key={idx}
+                    icebreaker={icebreaker}
+                  />
+                );
+              }
+              return <IcebreakerCard key={idx} icebreaker={icebreaker} />;
+            })}
           </div>
         </div>
       </div>
