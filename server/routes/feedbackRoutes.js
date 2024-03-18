@@ -8,7 +8,12 @@ const router = express.Router();
 
 router.get("/:name", async (req, res) => {
   try {
-    const feedback = await Feedback.find({});
+
+    const { name } = req.params;
+
+    const icebreaker = await Icebreaker.findOne({ name });
+
+    const feedback = await Feedback.find({ icebreaker: icebreaker });
 
     return res.status(200).json({
       count: feedback.length,
@@ -23,22 +28,25 @@ router.get("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const { comment, author } = req.body;
+    const { feedback, author, name } = req.body;
 
     const authorUser = await User.findOne({ username: author });
+
+    const icebreaker = await Icebreaker.findOne({ name });
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
     }
 
     const newFeedback = {
-      comment,
+      comment: feedback,
       author: authorUser,
+      icebreaker: icebreaker
     };
 
-    const feedback = await Feedback.create(newFeedback);
+    const addedFeedback = await Feedback.create(newFeedback);
 
-    return res.status(201).send(feedback);
+    return res.status(201).send(addedFeedback);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -48,7 +56,7 @@ router.post("/create", async (req, res) => {
 router.delete("/:name", async (req, res) => {
   try {
     const { feedbackID } = req.params;
-    const result = await Feedback.deleteOne({ feedbackID: feedbackID });
+    const result = await Feedback.deleteOne({ feedbackID });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Feedback not found" });

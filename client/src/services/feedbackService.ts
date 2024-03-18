@@ -1,13 +1,14 @@
-export const fetchFeedback = async () => {
-  const response = await fetch("api/feedback");
+export const fetchFeedback = async (name: string) => {
+  const response = await fetch("api/feedback/" + name);
   const { data } = await response.json();
   return data;
 };
 
-export const handleCreateFeedback = async (comment: string, user: string) => {
+export const handleCreateFeedback = async (icebreaker: string, comment: string, user: string) => {
   const feedback = {
     feedback: comment,
     author: user,
+    name: icebreaker
   };
 
   try {
