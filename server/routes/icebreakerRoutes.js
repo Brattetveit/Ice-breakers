@@ -110,7 +110,7 @@ router.delete("/:id", isAdmin, async (req, res) => {
   }
 });
 
-router.put("/:id/report", isAdmin, async (req, res) => {
+router.put("/:id/report", async (req, res) => {
   try {
     const icebreaker = await Icebreaker.findById(req.params.id);
     if (!icebreaker) {
