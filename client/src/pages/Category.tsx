@@ -1,25 +1,24 @@
 import "./Category.css";
 import { Link } from "react-router-dom";
-import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
-import { useEffect } from "react";
+import { useIcebreakers } from "@/hooks/useIcebreakers";
 import { useLocation, type Location } from "react-router-dom";
 import { Category } from "@/types";
 import { IcebreakerCard } from "@/components/IcebreakerCard";
 export function InCategory() {
-  const { icebreakers, getIcebreakersByCategory } = useGetIcebreakers();
+  const { icebreakers } = useIcebreakers();
 
   const location: Location<{ category: Category }> = useLocation();
   const { category } = location.state;
 
-  useEffect(() => {
-    getIcebreakersByCategory(category);
-  }, [category, getIcebreakersByCategory]);
+  const getIcebreakersByCategory = (category: Category) => {
+    return icebreakers.filter((icebreaker) => icebreaker.category === category);
+  };
 
   return (
     <div className="category-page">
       <h1 className="category-title">{category}</h1>
       <div className="icebreaker-list">
-        {icebreakers.map((icebreaker, index) => (
+        {getIcebreakersByCategory(category).map((icebreaker, index) => (
           <IcebreakerCard key={index} icebreaker={icebreaker} />
         ))}
       </div>

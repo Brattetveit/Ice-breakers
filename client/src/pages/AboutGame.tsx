@@ -27,6 +27,10 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
 import useAddToFavorites from "@/hooks/userProfile";
+import { useUser } from "@/hooks/useUser";
+import { useGetRatings } from "@/hooks/useGetRatings";
+import { deleteRating } from "@/services/icebreakers";
+import { reportIcebreaker } from "@/services/feedbackService";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -45,6 +49,17 @@ export const AboutGame = () => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const comments = feedback || [];
+
+  const { ratings, getRatings } = useGetRatings(name);
+  // const { ratings } = useGetRatings(name);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getRatings(), []);
+  
+  const ratingAuthors = ratings.map(rating => rating.author?.toString() || "");
+
+
+  const userInfo = useUser();
 
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
@@ -141,7 +156,10 @@ export const AboutGame = () => {
           <div className="m-4 flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4">
             <H2>Beskrivelse:</H2>
             <p>{fullDescription}</p>
-            <Button className="w-1/6 place-self-center bg-[#ce3c3c]">
+            <Button
+              className="w-1/6 place-self-center bg-[#ce3c3c]"
+              onClick={() => reportIcebreaker(icebreaker._id)}
+            >
               Rapporter lek
             </Button>
           </div>
@@ -150,7 +168,27 @@ export const AboutGame = () => {
               <form
                 onSubmit={(e: FormEvent<HTMLFormElement>) => {
                   e.preventDefault();
-                  submitRating(rating);
+                  if (!userInfo.isSignedIn){
+                    console.log("Bruker er ikke logget inn")
+                  }
+                  else{
+                    const user = userInfo.user
+                    if (user == null){
+                      console.log("No user")
+                      return
+                    }
+                    const username = userInfo.user?.username ?? "";
+                    const userID = userInfo.user?._id ?? "";
+                    if (ratingAuthors.includes(userID)){
+                      //Delete rating
+                      deleteRating(name, username);
+                    }
+                    // submitRating(username, rating);
+                    getRatings();
+                    submitRating(username, rating);
+                    getRatings();
+                    
+                  }
                 }}
               >
                 <CardHeader className="flex flex-col gap-4">
