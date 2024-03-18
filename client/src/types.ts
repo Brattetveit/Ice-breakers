@@ -15,6 +15,9 @@ export type User = {
   _id: string;
   username: string;
   password: string;
+  favorites: Icebreaker[];
+  createdIcebreakers: Icebreaker[];
+  queue: Icebreaker[];
 };
 
 export type Category = "Drikkelek" | "Barnelek" | "Navnelek";
