@@ -1,10 +1,14 @@
 import { Icebreaker } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchIcebreakers } from "@/services/icebreakers";
 
-export const useGetIcebreakers = () => {
+export const useIcebreakers = () => {
   const [icebreakers, setIcebreakers] = useState<Icebreaker[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    getIcebreakers();
+  }, []);
 
   const getIcebreakers = () => {
     setIsLoading(true);

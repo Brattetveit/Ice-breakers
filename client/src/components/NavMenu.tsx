@@ -9,12 +9,14 @@ import {
 } from "./ui/navigation-menu";
 
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-import { useUser } from "@/hooks/useUser";
 import { Button } from "./ui/button";
 
-export const NavMenu = () => {
-  const { isSignedIn, logout } = useUser();
+type NavMenuProps = {
+  isSignedIn: boolean;
+  onLogout: () => void;
+};
 
+export const NavMenu = ({ isSignedIn, onLogout }: NavMenuProps) => {
   const MenuLinkItem = ({
     to,
     title,
@@ -42,11 +44,7 @@ export const NavMenu = () => {
       <NavigationMenuList>
         {isSignedIn ? (
           <NavigationMenuItem>
-            <button
-              onClick={() => {
-                logout();
-              }}
-            >
+            <button onClick={onLogout}>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Logg ut
               </NavigationMenuLink>

@@ -1,7 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, Register, AboutGame, IcebreakerForm } from "./pages";
-import { Categories } from "./pages/CategoryPage";
-import { InCategory } from "./pages/Category";
+import {
+  Home,
+  Login,
+  Register,
+  AboutGame,
+  IcebreakerForm,
+  Profile,
+  InCategory,
+  Categories,
+} from "./pages";
 
 const App = () => {
   return (
@@ -10,10 +17,11 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/aboutGame" element={<AboutGame />} />
         <Route path="/icebreakerForm" element={<IcebreakerForm />} />
-        <Route path="/categoryPage" element={<Categories/>} />
-        <Route path="/category" element={<InCategory/>} />
+        <Route path="/categoryPage" element={<Categories />} />
+        <Route path="/category" element={<InCategory />} />
       </Routes>
     </>
   );
