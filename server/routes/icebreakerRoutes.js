@@ -52,6 +52,7 @@ router.post("/create", async (req, res) => {
     const authorUser = await User.findOne({ username: author });
 
     const feedbacks = [];
+    const ratings = []; //lagt til her
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -65,6 +66,7 @@ router.post("/create", async (req, res) => {
       category,
       feedback: feedbacks,
       rating,
+      ratings: ratings, //lagt til her
       visable,
       imageName,
       timesReported,
@@ -162,26 +164,26 @@ router.put("/:id/report", async (req, res) => {
   }
 });
 
-router.post("/rating/:name", async (req, res) => {
-  try {
-    const { name } = req.params;
+// router.post("/rating/:name", async (req, res) => {
+//   try {
+//     const { name } = req.params;
 
-    let icebreaker = await Icebreaker.findOneAndUpdate(
-      { name },
-      { $push: { ratings: req.body.rating } }
-    );
+//     let icebreaker = await Icebreaker.findOneAndUpdate(
+//       { name },
+//       { $push: { ratings: req.body.rating } }
+//     );
 
-    if (!icebreaker) {
-      return res.status(404).json({ message: "Icebreaker not found" });
-    }
+//     if (!icebreaker) {
+//       return res.status(404).json({ message: "Icebreaker not found" });
+//     }
 
-    icebreaker = await Icebreaker.findOne({ name });
+//     icebreaker = await Icebreaker.findOne({ name });
 
-    res.status(200).send(icebreaker);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
+//     res.status(200).send(icebreaker);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send({ message: error.message });
+//   }
+// });
 
 module.exports = router;
