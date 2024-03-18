@@ -31,7 +31,7 @@ export const handleCreateFeedback = async (comment: string, user: string) => {
 };
 
 export function reportIcebreaker(icebreakerId: string) {
-  fetch(`http://localhost:5173/api/icebreakers/${icebreakerId}/report`, {
+  fetch(`api/icebreakers/${icebreakerId}/report`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
