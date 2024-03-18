@@ -105,7 +105,7 @@ export const AboutGame = () => {
             <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-5">
           <div className="col-span-3 col-start-2 flex flex-row gap-4 place-self-center">
             <div
@@ -117,7 +117,7 @@ export const AboutGame = () => {
                 <Button
                   onClick={handleAddToFavorites}
                   disabled={isAddingToFavorites || isFavorited}
-                  className={`rounded px-4 py-2 text-sm font-bold transition-colors duration-300 ${
+                  className={`rounded px-4 py-2 text-lg transition-colors duration-300 ${
                     isAddingToFavorites || isFavorited
                       ? "cursor-not-allowed bg-gray-400 text-gray-700"
                       : "bg-[#A3CEF1] text-white hover:bg-[#172554]"
@@ -136,8 +136,14 @@ export const AboutGame = () => {
               </div>
             </div>
             <div
-              className="rounded bg-[#fde2e4] p-2"
-              style={{ fontFamily: "ZCOOL XiaoWei" }}
+              className="rounded bg-[#fde2e4]"
+              style={{
+                fontFamily: "ZCOOL XiaoWei",
+                fontSize: "18px",
+                maxHeight: "55px",
+                width: "auto",
+                textAlign: "center",
+              }}
             >
               <p>{`Kategori: ${category}`}</p>
               <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
@@ -155,7 +161,8 @@ export const AboutGame = () => {
             <H2>Beskrivelse:</H2>
             <p>{fullDescription}</p>
             <Button
-              className="w-1/6 place-self-center bg-[#ce3c3c]"
+              className="w-1/6 place-self-center bg-[#dc5b5b]"
+              style={{ fontSize: "16px" }}
               onClick={() => reportIcebreaker(icebreaker._id)}
             >
               Rapporter lek
