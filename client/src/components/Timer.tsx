@@ -118,44 +118,95 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
 
   return (
     <div
-      className=" grid grid-cols-2 gap-4 rounded-lg p-4 shadow-lg"
-      style={{
-        backgroundColor: "#A3CEF1",
-        color: "black",
-      }}
+      className="grid grid-cols-2 gap-4 rounded-lg p-2 "
+      style={{ backgroundColor: "#89ccf6", color: "black" }}
     >
-      <div className="flex place-self-center">
-        <h2 className="text-4xl" id="clock">
+      <div
+        className="flex place-self-center"
+        style={{ fontFamily: "ZCOOL XiaoWei" }}
+      >
+        <h2 className="text-4xl text-[#014f86]" id="clock">
           00:00:00
         </h2>
       </div>
 
-      <div className="">
-        <span className="flex p-1">
-          <input className="w-8" id="hours" type="text" />
-          <p>timer</p>
+      <div>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="hours"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Timer
+          </p>
         </span>
-        <span className="flex p-1">
-          <input className="w-8" id="minutes" type="text" />
-          <p>minutter</p>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="minutes"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Minutter
+          </p>
         </span>
-        <span className="flex p-1">
-          <input className="w-8" id="seconds" type="text" />
-          <p>sekunder</p>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="seconds"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Sekunder
+          </p>
         </span>
         <Message
-          className=""
+          className="text-2xs"
           id="timerError"
-          message={"Må bruke tall"}
+          message="Må bruke tall"
         ></Message>
       </div>
       <div>
-        <Button onClick={clockSwitch} id="clockSwitchButton">
-          Start Klokken
+        <Button
+          className="px-2 py-1 text-xs"
+          style={{
+            fontFamily: "ZCOOL XiaoWei",
+            fontSize: "16px",
+            backgroundColor: "#ffff",
+            color: "#014f86",
+          }}
+          onClick={clockSwitch}
+          id="clockSwitchButton"
+        >
+          Start klokken
         </Button>
       </div>
       <div>
-        <Button onClick={setTimer}>Set Klokke</Button>
+        <Button
+          className="px-2 py-1 text-xs"
+          style={{
+            fontFamily: "ZCOOL XiaoWei",
+            fontSize: "16px",
+            backgroundColor: "#fff",
+            color: "#014f86",
+          }}
+          onClick={setTimer}
+        >
+          Sett klokken
+        </Button>
       </div>
     </div>
   );
