@@ -26,3 +26,9 @@ export type Rating = {
   rating: number;
   author?: User;
 }
+
+export type Feedback = {
+  _id: string;
+  comment: string;
+  author?: User;
+}

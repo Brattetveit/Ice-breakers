@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const icebreakerRoutes = require("./routes/icebreakerRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 
 const cors = require("cors");
 const colors = require("colors");
@@ -23,6 +24,7 @@ app.get("/api", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/icebreakers", icebreakerRoutes);
 app.use("/api/rating", ratingRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

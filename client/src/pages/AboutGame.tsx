@@ -30,7 +30,8 @@ import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
 import { useGetRatings } from "@/hooks/useGetRatings";
 import { deleteRating } from "@/services/icebreakers";
-import { reportIcebreaker } from "@/services/feedbackService";
+import { handleCreateFeedback, reportIcebreaker } from "@/services/feedbackService";
+import { useGetFeedback } from "@/hooks/useGetFeedback";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -38,7 +39,7 @@ export const AboutGame = () => {
   }> = useLocation();
 
   const { icebreaker } = location.state;
-  const { name, author, category, fullDescription, feedback } = icebreaker;
+  const { name, author, category, fullDescription /*, feedback*/ } = icebreaker;
   const {
     addFavorite,
     isLoading: isAddingToFavorites,
@@ -46,9 +47,14 @@ export const AboutGame = () => {
   } = useAddToFavorites();
 
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   const [isFavorited, setIsFavorited] = useState(false);
 
-  const comments = feedback || [];
+  // const comments = feedback || [];
+  const { comments, getComments } = useGetFeedback(name)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getComments(), []);
 
   const { ratings, getRatings } = useGetRatings(name);
   // const { ratings } = useGetRatings(name);
@@ -214,9 +220,9 @@ export const AboutGame = () => {
                   <div className="max-h-full overflow-auto">
                     <ScrollArea className=" rounded border border-white p-3">
                       {comments.map((comment) => (
-                        <div>
+                        <div key={comment._id}>
                           <div className="flex gap-2">
-                            <p>{comment}</p>
+                            <p>{comment.comment}</p>
                             <Button className="w-1/6 bg-[#ce3c3c]">
                               Rapporter
                             </Button>
@@ -228,10 +234,32 @@ export const AboutGame = () => {
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="flex flex-col gap-3">
-                <Textarea placeholder="Skriv kommentar her"></Textarea>
-                <Button className="w-1/3">Publiser</Button>
-              </CardFooter>
+              <form
+                onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                  e.preventDefault();
+                  if (!userInfo.isSignedIn){
+                    console.log("Bruker er ikke logget inn")
+                  }
+                  else{
+                    const username = userInfo.user?.username ?? "";
+                    console.log(comment);
+                    getComments();
+                    handleCreateFeedback(name, comment, username);
+                    getComments();
+                    console.log(comments);
+                    console.log(comments.map(c => c.comment));
+                  }
+                }}
+              >
+                <CardFooter className="flex flex-col gap-3">
+                  <Textarea 
+                    placeholder="Skriv kommentar her"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></Textarea>
+                  <Button className="w-1/3" type="submit">Publiser</Button>
+                </CardFooter>
+              </form>
             </Card>
           </div>
         </div>
