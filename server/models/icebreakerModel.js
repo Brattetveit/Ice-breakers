@@ -8,7 +8,7 @@ const icebreakerSchema = Schema({
   shortDescription: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: "User" },
   category: String,
-  feedback: [{ type: Schema.Types.ObjectId, ref: "Feedback"}],
+  feedback: [{ type: Schema.Types.ObjectId, ref: "Feedback" }],
   ratings: [Number],
   visableToOthers: Boolean,
   imageName: String,

@@ -68,15 +68,20 @@ router.post("/create", async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
-function isAdmin(req, res, next) {
-  if (req.user.role === "admin") {
-    next();
-  } else {
-    res.status(403).send("Access denied");
-  }
-}
+// function isAdmin(req, res, next) {
+//   console.log(req.user);
+//   if (req.user && req.user.role === "admin") {
+//     next();
+//   } else {
+//     console.log(
+//       "Access denied. User role:",
+//       req.user ? req.user.role : "No user"
+//     );
+//     res.status(403).send("Access denied");
+//   }
+// }
 
-router.get("/reported", isAdmin, async (req, res) => {
+router.get("/reported", async (req, res) => {
   try {
     const reportedIcebreakers = await Icebreaker.find({
       timesReported: { $gt: 0 },
@@ -87,7 +92,7 @@ router.get("/reported", isAdmin, async (req, res) => {
   }
 });
 
-router.put("/:id/clear-reports", isAdmin, async (req, res) => {
+router.put("/:id/clear-reports", async (req, res) => {
   try {
     const icebreaker = await Icebreaker.findById(req.params.id);
     if (!icebreaker) {
@@ -100,7 +105,7 @@ router.put("/:id/clear-reports", isAdmin, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-router.delete("/:id", isAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Icebreaker.findByIdAndDelete(req.params.id);
     res.send("Icebreaker deleted successfully");
@@ -110,7 +115,7 @@ router.delete("/:id", isAdmin, async (req, res) => {
   }
 });
 
-router.put("/:id/report", isAdmin, async (req, res) => {
+router.put("/:id/report", async (req, res) => {
   try {
     const icebreaker = await Icebreaker.findById(req.params.id);
     if (!icebreaker) {

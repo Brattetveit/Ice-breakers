@@ -12,8 +12,8 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/aboutGame" element={<AboutGame />} />
         <Route path="/icebreakerForm" element={<IcebreakerForm />} />
-        <Route path="/categoryPage" element={<Categories/>} />
-        <Route path="/category" element={<InCategory/>} />
+        <Route path="/categoryPage" element={<Categories />} />
+        <Route path="/category" element={<InCategory />} />
       </Routes>
     </>
   );

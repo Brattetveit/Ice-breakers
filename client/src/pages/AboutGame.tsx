@@ -27,6 +27,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
 import useAddToFavorites from "@/hooks/userProfile";
+import { reportIcebreaker } from "@/services/feedbackService";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -141,7 +142,10 @@ export const AboutGame = () => {
           <div className="m-4 flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4">
             <H2>Beskrivelse:</H2>
             <p>{fullDescription}</p>
-            <Button className="w-1/6 place-self-center bg-[#ce3c3c]">
+            <Button
+              className="w-1/6 place-self-center bg-[#ce3c3c]"
+              onClick={() => reportIcebreaker(icebreaker._id)}
+            >
               Rapporter lek
             </Button>
           </div>
