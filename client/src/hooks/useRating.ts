@@ -1,38 +1,3 @@
-
-// import { Icebreaker, Rating } from "@/types";
-// import { useEffect, useState } from "react";
-// import { useGetRatings } from "@/hooks/useGetRatings";
-
-// import { addRating } from "@/services/icebreakers";
-
-// export const useRating = (icebreaker: Icebreaker) => {
-//   const { ratings, getRatings } = useGetRatings(icebreaker.name);
-//   useEffect(() => getRatings(), [getRatings]);
-//   // console.log(ratings);
-//   const calculateMean = (ratings: Rating[]) => {
-//     // console.log(ratings.length);
-//     if (!ratings || ratings.length == 0){
-//       console.log("hei");
-//       return 0;
-//     }
-//     const ratingValues = ratings.map(r => r.rating);
-//     // console.log(ratingValues);
-//     return ratingValues.reduce((acc: number, value: number) => acc + value, 0) /
-//     ratingValues.length;
-//   }
-//   const [meanRating, setMeanRating] = useState(
-//     // calculateMean(icebreaker.ratings),
-//     calculateMean(ratings),
-//   );
-
-//   const submitRating = async (username: string, rating: number) => {
-//     const newRatings = await addRating(icebreaker.name, username, rating);
-//     setMeanRating(calculateMean(newRatings));
-//   };
-
-//   return { meanRating, submitRating };
-// };
-
 import { Icebreaker } from "@/types";
 import { useEffect, useState } from "react";
 import { useGetRatings } from "@/hooks/useGetRatings";
@@ -40,7 +5,9 @@ import { addRating } from "@/services/icebreakers";
 
 export const useRating = (icebreaker: Icebreaker) => {
   const { ratings, getRatings } = useGetRatings(icebreaker.name);
-  useEffect(() => getRatings(), [getRatings]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getRatings(), []);
 
   const [meanRating, setMeanRating] = useState<number>(0);
 

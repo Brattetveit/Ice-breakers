@@ -50,8 +50,10 @@ export const AboutGame = () => {
   const comments = feedback || [];
 
   const { ratings, getRatings } = useGetRatings(name);
+  // const { ratings } = useGetRatings(name);
 
-  useEffect(() => getRatings(), [getRatings]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getRatings(), []);
   
   const ratingAuthors = ratings.map(rating => rating.author?.toString() || "");
 
@@ -178,7 +180,10 @@ export const AboutGame = () => {
                       deleteRating(name, username);
                     }
                     // submitRating(username, rating);
+                    getRatings();
                     submitRating(username, rating);
+                    getRatings();
+                    
                   }
                 }}
               >
