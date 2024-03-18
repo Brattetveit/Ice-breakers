@@ -72,6 +72,9 @@ router.post("/create", async (req, res) => {
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
+    await User.findByIdAndUpdate(authorUser._id, {
+      $push: { createdIcebreakers: icebreaker._id }, // Use the _id from the created icebreaker document
+    });
 
     return res.status(201).send(icebreaker);
   } catch (error) {
@@ -79,6 +82,25 @@ router.post("/create", async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+router.get("/createdby/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const icebreakers = await Icebreaker.find({ author: userId });
+
+    if (icebreakers.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No icebreaker found for this user" });
+    }
+
+    res.json(icebreakers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // function isAdmin(req, res, next) {
 //   console.log(req.user);
 //   if (req.user && req.user.role === "admin") {

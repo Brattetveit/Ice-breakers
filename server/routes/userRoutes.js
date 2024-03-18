@@ -100,24 +100,17 @@ router.post("/:userId/favorites", async (req, res) => {
   const { icebreakerId } = req.body;
 
   try {
-    // First, find the icebreaker by its ID
-    const icebreaker = await Icebreaker.findById(icebreakerId);
-    if (!icebreaker) {
-      return res.status(404).send("Icebreaker not found");
-    }
-
-    // Then, add the icebreaker's ID to the user's favorites
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { $addToSet: { favorites: icebreaker._id } }, // Assuming you still want to reference by ID
+      { $addToSet: { favorites: icebreakerId } },
       { new: true }
-    ).populate("favorites"); // Populate the favorites field to return the full icebreaker objects
+    );
 
     if (!updatedUser) {
       return res.status(404).send("User not found");
     }
 
-    res.status(200).json(updatedUser.favorites); // Return the populated favorites
+    res.status(200).send("Added Icebreaker to favorites");
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
