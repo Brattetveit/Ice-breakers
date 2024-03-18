@@ -25,12 +25,12 @@ export const Home = () => {
     ));
   };
 
-  const renderAds = (numAds = 20) => (
+  const renderAds = (numAds = 10) => (
     <>
       {Array.from({ length: numAds }).map((_, idx) => (
         <div
           key={idx}
-          className="mb-4 h-40 w-full rounded-lg bg-gray-300 last:mb-0"
+          className="mb-4 mt-6 h-40 w-full rounded-lg bg-gray-200 last:mb-0"
         >
           <div className="p-4">
             <div className="mb-2 text-xs font-bold">Din reklame her</div>
@@ -44,7 +44,7 @@ export const Home = () => {
   return (
     <div className="flex min-h-screen w-full items-start bg-background p-4 text-foreground">
       {/* Venstre reklameboks med scroll */}
-      <div className="hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
+      <div className="mt-20 hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
         {renderAds()}
       </div>
       {/* Hovedinnhold */}
@@ -84,7 +84,7 @@ export const Home = () => {
       </div>
 
       {/* Høyre reklameboks med scroll */}
-      <div className="hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
+      <div className="mt-20 hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
         {renderAds()}
       </div>
     </div>
