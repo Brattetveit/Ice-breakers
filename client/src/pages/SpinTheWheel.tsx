@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
+import { useIcebreakers } from "@/hooks/useIcebreakers";
 import "./SpinTheWheel.css";
-import { Icebreaker } from "@/types";
+import { Icebreaker, User } from "@/types";
 import { Link } from "react-router-dom";
+import { fetchFavorites } from "@/services/userService";
 
 const SpinTheWheel: React.FC = () => {
-  const { icebreakers, getIcebreakers } = useGetIcebreakers();
+  const { icebreakers, getIcebreakers } = useIcebreakers();
   const [selectedIcebreaker, setSelectedIcebreaker] =
     useState<Icebreaker | null>(null);
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 100);
-  const [favorites] = useState<Icebreaker[]>([]);
+  const [favorites, setFavorites] = useState<Icebreaker[]>([]);
   const [queues] = useState<Icebreaker[]>([]);
   const [options, setOptions] = useState<string[]>([]);
   const [displayOption, setDisplayOption] = useState("Spinn");
@@ -95,9 +96,35 @@ const SpinTheWheel: React.FC = () => {
     setShowModal(false);
   };
 
-  const handleAddFavorites = () => {
-    const favoriteNames = favorites.map((favorite) => favorite.name);
-    setOptions(options.concat(favoriteNames));
+  const handleAddFavorites = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      const user: User | null = storedUser ? JSON.parse(storedUser) : null;
+
+      if (!user?._id) {
+        console.error("No user ID available");
+        return;
+      }
+
+      const fetchedFavorites = await fetchFavorites(user._id);
+      setFavorites(fetchedFavorites);
+      // Oppdaterer valgmulighetene med de hentede favorittene
+      const favoriteNames = fetchedFavorites.map(
+        (favorite: { name: any }) => favorite.name,
+      );
+      const newFavorites = favoriteNames.filter(
+        (name: string) => !options.includes(name),
+      );
+
+      // Legger kun til nye favoritter i 'options'
+      if (newFavorites.length > 0) {
+        setOptions(options.concat(newFavorites));
+      } else {
+        console.log("Alle valgte favoritter er allerede lagt til.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch favorites:", error);
+    }
   };
 
   const handleAddQueue = () => {

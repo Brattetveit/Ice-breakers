@@ -6,11 +6,10 @@ import {
   AboutGame,
   IcebreakerForm,
   Profile,
-import SpinTheWheel from "./pages/SpinTheWheel";
   InCategory,
   Categories,
 } from "./pages";
-
+import SpinTheWheel from "./pages/SpinTheWheel";
 const App = () => {
   return (
     <>
