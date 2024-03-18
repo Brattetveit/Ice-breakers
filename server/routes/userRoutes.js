@@ -96,14 +96,14 @@ router.get("/:userId/favorites", async (req, res) => {
 });
 
 router.post("/:userId/favorites", async (req, res) => {
-  const { userId } = req.params; // Corrected to match the route parameter name
+  const { userId } = req.params;
   const { icebreakerId } = req.body;
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $addToSet: { favorites: icebreakerId } },
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!updatedUser) {
@@ -112,7 +112,7 @@ router.post("/:userId/favorites", async (req, res) => {
 
     res.status(200).send("Added Icebreaker to favorites");
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error);
     res.status(500).send("Server error");
   }
 });
