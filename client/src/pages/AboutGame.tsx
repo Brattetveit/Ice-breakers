@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardDescription,
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";

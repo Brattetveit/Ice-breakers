@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useGetIcebreakers } from "@/hooks/useGetIcebreakers";
-import "./SpinTheWheel.css"; // Husk å oppdatere din CSS-fil basert på veiledningen gitt
+import "./SpinTheWheel.css";
 import { Icebreaker } from "@/types";
 import { Link } from "react-router-dom";
 
 const SpinTheWheel: React.FC = () => {
-  const navigate = useNavigate();
   const { icebreakers, getIcebreakers } = useGetIcebreakers();
   const [selectedIcebreaker, setSelectedIcebreaker] =
     useState<Icebreaker | null>(null);
@@ -263,8 +261,8 @@ const SpinTheWheel: React.FC = () => {
           </div>
         </div>
       </div>
-      <button
-        onClick={() => navigate(-1)}
+      <Link
+        to="/"
         className="Hjem"
         style={{
           background: "none",
@@ -276,7 +274,7 @@ const SpinTheWheel: React.FC = () => {
         }}
       >
         <b>&#8249; Tilbake</b>
-      </button>
+      </Link>
       {showModal && selectedIcebreaker && (
         <div
           className="modal"
