@@ -30,6 +30,7 @@ import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
 import { useGetRatings } from "@/hooks/useGetRatings";
 import { deleteRating } from "@/services/icebreakers";
+import { reportIcebreaker } from "@/services/feedbackService";
 
 export const AboutGame = () => {
   const location: Location<{
