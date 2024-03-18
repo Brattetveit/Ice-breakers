@@ -4,11 +4,14 @@ export const fetchIcebreakers = async () => {
   return data;
 };
 
-export const updateRating = async (name: string, rating: number) => {
+export const addRating = async (name: string, rating: number) => {
   const response = await fetch("/api/icebreakers/rating/" + name, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ rating }),
   });
-  const data = await response.json();
-  return data;
+  const { ratings } = await response.json();
+  return ratings as number[];
 };

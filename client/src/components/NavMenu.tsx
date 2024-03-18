@@ -91,7 +91,7 @@ export const NavMenu = () => {
         <NavigationMenuItem>
           <Link to="/">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Kategorier
+              <Link to="/categoryPage">Kategorier</Link>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

@@ -40,7 +40,19 @@ router.delete("/:name", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const { name, fullDescription, shortDescription, author, category, feedback, rating, visable, imageName, timesReported, defaultTime } = req.body;
+    const {
+      name,
+      fullDescription,
+      shortDescription,
+      author,
+      category,
+      feedback,
+      rating,
+      visable,
+      imageName,
+      timesReported,
+      defaultTime,
+    } = req.body;
 
     const authorUser = await User.findOne({ username: author });
 
@@ -79,7 +91,7 @@ router.post("/rating/:name", async (req, res) => {
 
     let icebreaker = await Icebreaker.findOneAndUpdate(
       { name },
-      { rating: req.body.rating }
+      { $push: { ratings: req.body.rating } }
     );
 
     if (!icebreaker) {

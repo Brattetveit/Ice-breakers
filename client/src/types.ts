@@ -6,12 +6,13 @@ export type Icebreaker = {
   author?: User;
   category?: Category;
   feedback?: string[];
-  rating?: number;
+  ratings: number[];
   visibleToOthers?: boolean;
   imageName?: string;
 };
 
 export type User = {
+  _id: string;
   username: string;
   password: string;
 };

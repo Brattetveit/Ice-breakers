@@ -1,0 +1,45 @@
+.category-title {
+  font-family: "ZCOOL XiaoWei";
+
+  background-color: #ffb5a7; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
+  color: rgb(0, 0, 0); /* Hvit tekst */
+  text-align: center;
+  padding-top: 10px; /* Vertikal padding */
+  padding-bottom: 10px; /* Vertikal padding */
+  padding-right: 70px; /* Vertikal padding */
+  padding-left: 70px; /* Vertikal padding */
+  margin: 20px auto; /* Sentrerer elementet */
+  border-radius: 20px; /* Myke hjørner */
+  font-size: 70px; /* Større skrift */
+  width: 250mm; /* Bredden på boksen */
+  margin-bottom: 100px; /* Mellomrom mellom radene */
+  margin-top: 50px;
+}
+.icebreaker-list {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    minmax(20%, 1fr)
+  ); /* Tre kort per rad, justert størrelse */
+  grid-gap: 5%; /* Mer plass mellom kortene */
+  margin: 5%; /* Sentrer kortene og legg til margen for å gi mer plass rundt dem */
+}
+.SpillContainer {
+  padding-top: 50px;
+  padding-bottom: 120px;
+  background-color: #f5f5f5;
+}
+
+.Button:hover {
+  background-color: #000501; /* Legg til ønsket fargeendring ved hover */
+}
+
+.Tilbake {
+  text-align: center;
+  font-family: "ZCOOL XiaoWei";
+  border-radius: 20px;
+  position: absolute;
+  width: 100px;
+  bottom: 760px;
+  left: 80px;
+}
