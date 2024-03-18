@@ -3,9 +3,17 @@ import { IcebreakerCard } from "@/components/IcebreakerCard";
 import { type Icebreaker } from "@/types";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  fetchCreatedIcebreakers,
+  fetchFavorites,
+} from "@/services/userService";
 
 export const Profile = () => {
   const { user, login } = useUser();
+  const [favorites, setFavorites] = useState<Icebreaker[]>([]);
+  const [createdIcebreakers, setCreatedIcebreakers] = useState<Icebreaker[]>(
+    [],
+  );
 
   const [queue, setQueue] = useState<Icebreaker[]>(user?.queue || []);
 
@@ -14,16 +22,30 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      // update user info
-      login(user.username, user.password);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchData = async () => {
+      if (user) {
+        try {
+          await login(user.username, user.password);
+
+          const fetchedFavorites = await fetchFavorites(user._id);
+          setFavorites(fetchedFavorites);
+
+          const fetchedCreatedIcebreakers = await fetchCreatedIcebreakers(
+            user._id,
+          );
+          setCreatedIcebreakers(fetchedCreatedIcebreakers);
+        } catch (error) {
+          console.error("Failed to fetch data:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [user, login]);
 
   if (!user) return <div>Not signed in....</div>;
 
-  const { username, createdIcebreakers, favorites } = user;
+  const { username } = user;
 
   return (
     <div className="flex min-h-screen w-full justify-center p-6">
