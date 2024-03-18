@@ -52,6 +52,7 @@ router.post("/create", async (req, res) => {
     const authorUser = await User.findOne({ username: author });
 
     const feedbacks = [];
+    const ratings = []; //lagt til her
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -65,6 +66,7 @@ router.post("/create", async (req, res) => {
       category,
       feedback: feedbacks,
       rating,
+      ratings: ratings, //lagt til her
       visable,
       imageName,
       timesReported,
@@ -72,6 +74,9 @@ router.post("/create", async (req, res) => {
     };
 
     const icebreaker = await Icebreaker.create(newIcebreaker);
+    await User.findByIdAndUpdate(authorUser._id, {
+      $push: { createdIcebreakers: icebreaker._id }, // Use the _id from the created icebreaker document
+    });
 
     return res.status(201).send(icebreaker);
   } catch (error) {
@@ -79,6 +84,25 @@ router.post("/create", async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+router.get("/createdby/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const icebreakers = await Icebreaker.find({ author: userId });
+
+    if (icebreakers.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No icebreaker found for this user" });
+    }
+
+    res.json(icebreakers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // function isAdmin(req, res, next) {
 //   console.log(req.user);
 //   if (req.user && req.user.role === "admin") {
@@ -140,26 +164,26 @@ router.put("/:id/report", async (req, res) => {
   }
 });
 
-router.post("/rating/:name", async (req, res) => {
-  try {
-    const { name } = req.params;
+// router.post("/rating/:name", async (req, res) => {
+//   try {
+//     const { name } = req.params;
 
-    let icebreaker = await Icebreaker.findOneAndUpdate(
-      { name },
-      { $push: { ratings: req.body.rating } }
-    );
+//     let icebreaker = await Icebreaker.findOneAndUpdate(
+//       { name },
+//       { $push: { ratings: req.body.rating } }
+//     );
 
-    if (!icebreaker) {
-      return res.status(404).json({ message: "Icebreaker not found" });
-    }
+//     if (!icebreaker) {
+//       return res.status(404).json({ message: "Icebreaker not found" });
+//     }
 
-    icebreaker = await Icebreaker.findOne({ name });
+//     icebreaker = await Icebreaker.findOne({ name });
 
-    res.status(200).send(icebreaker);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
+//     res.status(200).send(icebreaker);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send({ message: error.message });
+//   }
+// });
 
 module.exports = router;
