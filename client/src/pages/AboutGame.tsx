@@ -1,4 +1,3 @@
-import { H1 } from "@/components/typography/H1";
 import { H2 } from "@/components/typography/H2";
 import { Icebreaker, User } from "@/types";
 
@@ -128,7 +127,9 @@ export const AboutGame = () => {
                 className="flex h-full flex-col items-center justify-center gap-2"
                 style={{ alignItems: "center", fontFamily: "ZCOOL XiaoWei" }}
               >
-                <h1 style={{ fontSize: "65px", fontWeight: "bold" }}>{name} </h1>
+                <h1 style={{ fontSize: "65px", fontWeight: "bold" }}>
+                  {name}{" "}
+                </h1>
                 <p style={{ fontSize: "18px" }}>{`Kategori: ${category}`}</p>
                 <p
                   style={{ fontSize: "18px" }}
@@ -230,7 +231,7 @@ export const AboutGame = () => {
                         style={{
                           fontFamily: "ZCOOL XiaoWei",
                           fontSize: "18px",
-                          backgroundColor: "#014f86"
+                          backgroundColor: "#014f86",
                         }}
                       >
                         Publiser
@@ -268,7 +269,11 @@ export const AboutGame = () => {
                   <Textarea placeholder="Skriv kommentar her"></Textarea>
                   <Button
                     className="w-1/3"
-                    style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "18px", backgroundColor: "#014f86"}}
+                    style={{
+                      fontFamily: "ZCOOL XiaoWei",
+                      fontSize: "18px",
+                      backgroundColor: "#014f86",
+                    }}
                   >
                     Publiser
                   </Button>
