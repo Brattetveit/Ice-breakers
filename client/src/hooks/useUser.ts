@@ -18,7 +18,6 @@ export const useUser = () => {
 
     setUser(userString);
     setIsSignedIn(true);
-    navigate("/");
   };
 
   const logout = () => {

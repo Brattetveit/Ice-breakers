@@ -1,6 +1,6 @@
 // import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,6 +17,8 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const { login } = useUser();
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
@@ -32,6 +34,7 @@ export const Login = () => {
             onSubmit={(e: FormEvent<HTMLFormElement>) => {
               e.preventDefault();
               login(username, password);
+              navigate("/");
             }}
           >
             <div className="grid w-full items-center gap-4 md:gap-6">
