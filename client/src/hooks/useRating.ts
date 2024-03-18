@@ -1,17 +1,28 @@
-// import { Icebreaker } from "@/types";
-// import { useState } from "react";
+
+// import { Icebreaker, Rating } from "@/types";
+// import { useEffect, useState } from "react";
+// import { useGetRatings } from "@/hooks/useGetRatings";
 
 // import { addRating } from "@/services/icebreakers";
 
 // export const useRating = (icebreaker: Icebreaker) => {
-//   const calculateMean = (ratings: Record<string, number>) => {
-//     const ratingValues = Object.values(ratings);
+//   const { ratings, getRatings } = useGetRatings(icebreaker.name);
+//   useEffect(() => getRatings(), [getRatings]);
+//   // console.log(ratings);
+//   const calculateMean = (ratings: Rating[]) => {
+//     // console.log(ratings.length);
+//     if (!ratings || ratings.length == 0){
+//       console.log("hei");
+//       return 0;
+//     }
+//     const ratingValues = ratings.map(r => r.rating);
+//     // console.log(ratingValues);
 //     return ratingValues.reduce((acc: number, value: number) => acc + value, 0) /
-//     ratings.length;
-//   };
-
+//     ratingValues.length;
+//   }
 //   const [meanRating, setMeanRating] = useState(
-//     calculateMean(icebreaker.ratings),
+//     // calculateMean(icebreaker.ratings),
+//     calculateMean(ratings),
 //   );
 
 //   const submitRating = async (username: string, rating: number) => {
@@ -21,24 +32,36 @@
 
 //   return { meanRating, submitRating };
 // };
+
 import { Icebreaker } from "@/types";
-import { useState } from "react";
-
-
+import { useEffect, useState } from "react";
+import { useGetRatings } from "@/hooks/useGetRatings";
 import { addRating } from "@/services/icebreakers";
 
 export const useRating = (icebreaker: Icebreaker) => {
-  const calculateMean = (ratings: number[]) =>
-    ratings.reduce((acc: number, value: number) => acc + value, 0) /
-    ratings.length;
+  const { ratings, getRatings } = useGetRatings(icebreaker.name);
+  useEffect(() => getRatings(), [getRatings]);
 
-  const [meanRating, setMeanRating] = useState(
-    calculateMean(icebreaker.ratings),
-  );
+  const [meanRating, setMeanRating] = useState<number>(0);
+
+  useEffect(() => {
+    if (ratings && ratings.length > 0) {
+      const calculateMean = () => {
+        const ratingValues = ratings.map((r) => r.rating);
+        const total = ratingValues.reduce((acc, value) => acc + value, 0);
+        return total / ratingValues.length;
+      };
+      setMeanRating(calculateMean());
+    }
+  }, [ratings]);
 
   const submitRating = async (username: string, rating: number) => {
     const newRatings = await addRating(icebreaker.name, username, rating);
-    setMeanRating(calculateMean(newRatings));
+    if (newRatings && newRatings.length > 0) {
+      const ratingValues = newRatings.map((r) => r.rating);
+      const total = ratingValues.reduce((acc, value) => acc + value, 0);
+      setMeanRating(total / ratingValues.length);
+    }
   };
 
   return { meanRating, submitRating };

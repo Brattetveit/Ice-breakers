@@ -41,6 +41,7 @@ router.post("/create", async (req, res) => {
     const authorUser = await User.findOne({ username: author });
 
     const feedbacks = [];
+    const ratings = []; //lagt til her
 
     if (!authorUser) {
       return res.status(404).json({ message: "Author not found" });
@@ -54,6 +55,7 @@ router.post("/create", async (req, res) => {
       category,
       feedback: feedbacks,
       rating,
+      ratings: ratings, //lagt til her
       visable,
       imageName,
       timesReported,

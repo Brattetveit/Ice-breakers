@@ -6,7 +6,7 @@ export type Icebreaker = {
   author?: User;
   category?: Category;
   feedback?: string[];
-  ratings: number[];
+  ratings: Rating[];
   visibleToOthers?: boolean;
   imageName?: string;
 };
@@ -21,5 +21,5 @@ export type Category = "Drikkelek" | "Barnelek" | "Navnelek";
 
 export type Rating = {
   rating: number;
-  author: User;
+  author?: User;
 }

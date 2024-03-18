@@ -51,9 +51,10 @@ export const AboutGame = () => {
 
   const { ratings, getRatings } = useGetRatings(name);
 
+  useEffect(() => getRatings(), [getRatings]);
+  
   const ratingAuthors = ratings.map(rating => rating.author?.toString() || "");
 
-  useEffect(() => getRatings(), [getRatings]);
 
   const userInfo = useUser();
 
@@ -165,12 +166,18 @@ export const AboutGame = () => {
                     console.log("Bruker er ikke logget inn")
                   }
                   else{
+                    const user = userInfo.user
+                    if (user == null){
+                      console.log("No user")
+                      return
+                    }
                     const username = userInfo.user?.username ?? "";
                     const userID = userInfo.user?._id ?? "";
                     if (ratingAuthors.includes(userID)){
                       //Delete rating
                       deleteRating(name, username);
                     }
+                    // submitRating(username, rating);
                     submitRating(username, rating);
                   }
                 }}

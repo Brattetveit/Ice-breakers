@@ -1,3 +1,5 @@
+import { Rating } from "@/types";
+
 export const fetchIcebreakers = async () => {
   const response = await fetch("api/icebreakers");
   const { data } = await response.json();
@@ -25,7 +27,7 @@ export const fetchRatings = async (name: string) => {
 
 export const deleteRating = async (name: string, username: string) => {
   try {
-    const response = await fetch(`/api//rating/` + name + '/' + username, {
+    const response = await fetch(`/api/rating/` + name + '/' + username, {
       method: 'DELETE',
     });
 
@@ -41,16 +43,21 @@ export const deleteRating = async (name: string, username: string) => {
 };
 
 
-export const addRating = async (name: string, username:string, rating: number) => {
-  const response = await fetch("/api/rating/" + name + "/" + username, {
+export const addRating = async (name: string, username: string, rating: number) => {
+    const newRating = {
+      rating: rating,
+      author: username
+    }
+    const response = await fetch("/api/rating/" + name, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ rating }),
+        body: JSON.stringify(newRating),
       });
       const { ratings } = await response.json();
-      return ratings as number[];
+      console.log(ratings);
+      return ratings as Rating[];
 };
 
 export const addComment = async (name: string, comment: string) => {
