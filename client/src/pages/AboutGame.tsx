@@ -30,7 +30,7 @@ import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
 import { useGetRatings } from "@/hooks/useGetRatings";
 import { deleteRating } from "@/services/icebreakers";
-import { handleCreateFeedback, reportIcebreaker } from "@/services/feedbackService";
+import { handleCreateFeedback, reportFeedback, reportIcebreaker } from "@/services/feedbackService";
 import { useGetFeedback } from "@/hooks/useGetFeedback";
 
 export const AboutGame = () => {
@@ -193,7 +193,7 @@ export const AboutGame = () => {
                     getRatings();
                     submitRating(username, rating);
                     getRatings();
-                    
+                    setRating(0);
                   }
                 }}
               >
@@ -223,7 +223,10 @@ export const AboutGame = () => {
                         <div key={comment._id}>
                           <div className="flex gap-2">
                             <p>{comment.comment}</p>
-                            <Button className="w-1/6 bg-[#ce3c3c]">
+                            <Button 
+                            className="w-1/6 bg-[#ce3c3c]"
+                            onClick={() => reportFeedback(comment._id)}
+                            >
                               Rapporter
                             </Button>
                           </div>
@@ -242,12 +245,10 @@ export const AboutGame = () => {
                   }
                   else{
                     const username = userInfo.user?.username ?? "";
-                    console.log(comment);
                     getComments();
                     handleCreateFeedback(name, comment, username);
                     getComments();
-                    console.log(comments);
-                    console.log(comments.map(c => c.comment));
+                    setComment("");
                   }
                 }}
               >

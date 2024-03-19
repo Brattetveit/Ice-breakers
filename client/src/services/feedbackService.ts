@@ -1,5 +1,5 @@
 export const fetchFeedback = async (name: string) => {
-  const response = await fetch("api/feedback/" + name);
+  const response = await fetch("api/feedback/getByName/" + name);
   const { data } = await response.json();
   return data;
 };
@@ -30,6 +30,30 @@ export const handleCreateFeedback = async (icebreaker: string, comment: string, 
     console.error("error submiting new Feedback", error);
   }
 };
+
+export function reportFeedback(feedbackId: string) {
+  fetch(`api/feedback/${feedbackId}/report`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.text();
+      }
+      throw new Error("Failed to report feedback");
+    })
+    .then((message) => {
+      console.log("Server response: ", message);
+      alert("Feedback reported successfully");
+    })
+    .catch((error) => {
+      console.error("Error reporting feedback:", error);
+      alert("Error reporting feedback");
+    });
+}
+
 
 export function reportIcebreaker(icebreakerId: string) {
   fetch(`api/icebreakers/${icebreakerId}/report`, {
