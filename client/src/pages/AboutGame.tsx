@@ -29,7 +29,8 @@ import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
 import { useGetRatings } from "@/hooks/useGetRatings";
 import { deleteRating } from "@/services/icebreakers";
-import { reportIcebreaker } from "@/services/feedbackService";
+import { handleCreateFeedback, reportFeedback, reportIcebreaker } from "@/services/feedbackService";
+import { useGetFeedback } from "@/hooks/useGetFeedback";
 
 export const AboutGame = () => {
   const location: Location<{
@@ -37,7 +38,7 @@ export const AboutGame = () => {
   }> = useLocation();
 
   const { icebreaker } = location.state;
-  const { name, author, category, fullDescription, feedback } = icebreaker;
+  const { name, author, category, fullDescription /*, feedback*/ } = icebreaker;
   const {
     addFavorite,
     isLoading: isAddingToFavorites,
@@ -45,9 +46,14 @@ export const AboutGame = () => {
   } = useAddToFavorites();
 
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   const [isFavorited, setIsFavorited] = useState(false);
 
-  const comments = feedback || [];
+  // const comments = feedback || [];
+  const { comments, getComments } = useGetFeedback(name)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getComments(), []);
 
   const { ratings, getRatings } = useGetRatings(name);
   // const { ratings } = useGetRatings(name);

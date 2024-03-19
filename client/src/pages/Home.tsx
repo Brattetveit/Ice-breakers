@@ -25,9 +25,30 @@ export const Home = () => {
     ));
   };
 
+  const renderAds = (numAds = 10) => (
+    <>
+      {Array.from({ length: numAds }).map((_, idx) => (
+        <div
+          key={idx}
+          className="mb-4 mt-6 h-40 w-full rounded-lg bg-gray-200 last:mb-0"
+        >
+          <div className="p-4">
+            <div className="mb-2 text-xs font-bold">Din reklame her</div>
+            <div className="text-xs">Oppdag fantastiske tilbud!</div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+
   return (
-    <div className="flex min-h-screen w-full justify-center bg-background p-4 text-foreground">
-      <div className="flex w-2/3 flex-col gap-6">
+    <div className="flex min-h-screen w-full items-start bg-background p-4 text-foreground">
+      {/* Venstre reklameboks med scroll */}
+      <div className="mt-20 hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
+        {renderAds()}
+      </div>
+      {/* Hovedinnhold */}
+      <div className="flex flex-1 flex-col gap-6">
         <div className="flex items-center justify-between gap-4 p-4">
           <div className="flex items-center gap-4">
             <Link to="/" className="text-lg font-semibold">
@@ -43,7 +64,7 @@ export const Home = () => {
             )}
             <Input
               placeholder="finn en ice breaker..."
-              className="text-input-foreground w-3/12 grow rounded-md bg-input p-3"
+              className="text-input-foreground w-full grow rounded-md bg-input p-3 md:w-3/12"
               type="text"
               value={searchQuery}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -56,10 +77,15 @@ export const Home = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {renderFilteredIcebreakers(searchQuery)}
           </div>
         )}
+      </div>
+
+      {/* Høyre reklameboks med scroll */}
+      <div className="mt-20 hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
+        {renderAds()}
       </div>
     </div>
   );
