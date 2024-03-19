@@ -1,40 +1,46 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Message } from "@/components/Message";
-import alarmSound from "@/assets/alarm.wav"
+import alarmSound from "@/assets/alarm.wav";
 
 interface TimerProps {
   timeProp: number;
   endOfTimerAction: () => void;
 }
 
-export function Timer({timeProp, endOfTimerAction}: TimerProps){
+export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
   const [time, setTime] = useState(timeProp);
-  const [clockRunning, setClockRunning] = useState(false)
+  const [clockRunning, setClockRunning] = useState(false);
 
   const displayTime: () => void = useCallback(() => {
     let display: string = "";
     const hours: number = Math.floor(time / 3600);
-    const minutes: number = Math.floor((time % 3600) / 60)
+    const minutes: number = Math.floor((time % 3600) / 60);
     const seconds: number = time % 60;
-    const formattedMinutes: string = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    const formattedSeconds: string = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    const formattedMinutes: string =
+      minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds: string =
+      seconds < 10 ? `0${seconds}` : `${seconds}`;
     display = `${hours}:${formattedMinutes}:${formattedSeconds}`;
-    const clock: HTMLHeadingElement | null = document.getElementById("clock") as HTMLHeadingElement;
+    const clock: HTMLHeadingElement | null = document.getElementById(
+      "clock",
+    ) as HTMLHeadingElement;
     if (clock !== null) {
-      clock.textContent = display
+      clock.textContent = display;
       hiddeError();
     }
   }, [time]);
 
   const clockSwitch: () => void = useCallback(() => {
-    const clockSwitchButton = document.getElementById("clockSwitchButton") as HTMLButtonElement
+    const clockSwitchButton = document.getElementById(
+      "clockSwitchButton",
+    ) as HTMLButtonElement;
     if (clockRunning) {
       setClockRunning(false);
-      clockSwitchButton.textContent = "Start Klokken"
+      clockSwitchButton.textContent = "Start Klokken";
     } else {
       setClockRunning(true);
-      clockSwitchButton.textContent = "Stop klokken"
+      clockSwitchButton.textContent = "Stop klokken";
     }
   }, [clockRunning]);
 
@@ -46,14 +52,14 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
   function showError() {
     const errorMesage = document.getElementById("timerError");
     if (errorMesage !== null) {
-      errorMesage.style.display = "block"
+      errorMesage.style.display = "block";
     }
   }
 
   function hiddeError() {
     const errorMesage = document.getElementById("timerError");
     if (errorMesage !== null) {
-      errorMesage.style.display = "none"
+      errorMesage.style.display = "none";
     }
   }
 
@@ -61,16 +67,16 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
     const hoursInput = document.getElementById("hours") as HTMLInputElement;
     const minutesInput = document.getElementById("minutes") as HTMLInputElement;
     const secondsInput = document.getElementById("seconds") as HTMLInputElement;
-  
-    const hours = parseInt(hoursInput?.value || '0', 10);
-    const minutes = parseInt(minutesInput?.value || '0', 10);
-    const seconds = parseInt(secondsInput?.value || '0', 10);
+
+    const hours = parseInt(hoursInput?.value || "0", 10);
+    const minutes = parseInt(minutesInput?.value || "0", 10);
+    const seconds = parseInt(secondsInput?.value || "0", 10);
 
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
-      showError();  
+      showError();
       return;
     }
-  
+
     const newTime = seconds + minutes * 60 + hours * 3600;
 
     timeChange(newTime);
@@ -82,17 +88,16 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
 
   function turnClockColor(color: string) {
     const clock = document.getElementById("clock");
-    clock !== null ? clock.style.color = `${color}`: void 0;
+    clock !== null ? (clock.style.color = `${color}`) : void 0;
   }
 
   function playAlarm() {
-    const alarm = new Audio(alarmSound)
+    const alarm = new Audio(alarmSound);
     alarm.play();
   }
 
-
   useEffect(() => {
-    displayTime()
+    displayTime();
     let timer: NodeJS.Timeout;
     if (clockRunning) {
       timer = setInterval(() => {
@@ -112,34 +117,97 @@ export function Timer({timeProp, endOfTimerAction}: TimerProps){
   }, [time, clockRunning, displayTime, endOfTimerAction, clockSwitch]);
 
   return (
-    <div className="bg-cyan-300 p-4 rounded-lg shadow-lg grid grid-cols-2 gap-4">
-      <div className="flex place-self-center">
-        <h2 className="text-4xl" id="clock">00:00:00</h2>
-       
+    <div
+      className="grid grid-cols-2 gap-4 rounded-lg p-2 "
+      style={{ backgroundColor: "#89ccf6", color: "black" }}
+    >
+      <div
+        className="flex place-self-center"
+        style={{ fontFamily: "ZCOOL XiaoWei" }}
+      >
+        <h2 className="text-4xl text-[#014f86]" id="clock">
+          00:00:00
+        </h2>
       </div>
-       
-      <div className="">
-        <span className="flex p-1">
-          <input className="w-8" id="hours" type="text" />
-          <p>timer</p>
+
+      <div>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="hours"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Timer
+          </p>
         </span>
-        <span className="flex p-1">
-          <input className="w-8" id="minutes" type="text" />
-          <p>minutter</p>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="minutes"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Minutter
+          </p>
         </span>
-        <span className="flex p-1">
-          <input className="w-8" id="seconds" type="text" />
-          <p>sekunder</p>
+        <span className="flex items-center p-1">
+          <input
+            className="text-s mr-2 w-8"
+            id="seconds"
+            type="text"
+            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+          />
+          <p
+            className="text-xs text-[#014f86]"
+            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
+          >
+            Sekunder
+          </p>
         </span>
-        <Message className="" id="timerError" message={"Må bruke tall"}></Message>
+        <Message
+          className="text-2xs"
+          id="timerError"
+          message="Må bruke tall"
+        ></Message>
       </div>
       <div>
-        <Button onClick={clockSwitch} id="clockSwitchButton">Start Klokken</Button>
+        <Button
+          className="px-2 py-1 text-xs"
+          style={{
+            fontFamily: "ZCOOL XiaoWei",
+            fontSize: "16px",
+            backgroundColor: "#ffff",
+            color: "#014f86",
+          }}
+          onClick={clockSwitch}
+          id="clockSwitchButton"
+        >
+          Start klokken
+        </Button>
       </div>
       <div>
-        <Button onClick={setTimer}>Set Klokke</Button>
+        <Button
+          className="px-2 py-1 text-xs"
+          style={{
+            fontFamily: "ZCOOL XiaoWei",
+            fontSize: "16px",
+            backgroundColor: "#fff",
+            color: "#014f86",
+          }}
+          onClick={setTimer}
+        >
+          Sett klokken
+        </Button>
       </div>
     </div>
-  )
-
+  );
 }
