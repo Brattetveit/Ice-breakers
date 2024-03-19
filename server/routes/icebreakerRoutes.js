@@ -18,20 +18,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:userId", async (req, res) => {
-  console.log("GET /userId");
-  try {
-    const icebreakers = await Icebreaker.find({ author: req.params.userId });
+// router.get("/:userId", async (req, res) => {
+//   console.log("GET /userId");
+//   try {
+//     const icebreakers = await Icebreaker.find({ author: req.params.userId });
 
-    return res.status(200).json({
-      count: icebreakers.length,
-      data: icebreakers,
-    });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
+//     return res.status(200).json({
+//       count: icebreakers.length,
+//       data: icebreakers,
+//     });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send({ message: error.message });
+//   }
+// });
 
 router.post("/create", async (req, res) => {
   try {

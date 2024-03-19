@@ -6,7 +6,7 @@ const User = require("../models/userModel.js");
 const router = express.Router();
 
 
-router.get("/:name", async (req, res) => {
+router.get("/getByName/:name", async (req, res) => {
   try {
 
     const { name } = req.params;
@@ -53,16 +53,49 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.delete("/:name", async (req, res) => {
+router.put("/:id/report", async (req, res) => {
   try {
-    const { feedbackID } = req.params;
-    const result = await Feedback.deleteOne({ feedbackID });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Feedback not found" });
+    const feedback = await Feedback.findById(req.params.id);
+    if (!feedback) {
+      return res.status(404).send("Feedback not found");
     }
+    feedback.timesReported += 1;
+    await feedback.save();
+    res.send("Feedback reported");
+  } catch (error) {
+    res.status(500).send("Server Error");
+  }
+});
 
-    res.status(204).send(); // 204 No Content
+router.get("/reported", async (req, res) => {
+  try {
+    const reportedFeedback = await Feedback.find({
+      timesReported: { $gt: 0 },
+    });
+    res.json(reportedFeedback);
+  } catch (error) {
+    res.status(500).send("Server Error");
+  }
+});
+
+router.put("/:id/clear-reports", async (req, res) => {
+  try {
+    const feedback = await Feedback.findById(req.params.id);
+    if (!feedback) {
+      return res.status(404).send("Feedback not found");
+    }
+    feedback.timesReported = 0;
+    await feedback.save();
+    res.send("Reports cleared from feedback");
+  } catch (error) {
+    res.status(500).send("Server Error");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    await Feedback.findByIdAndDelete(req.params.id);
+    res.send("Feedback deleted successfully");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error: error.message });
