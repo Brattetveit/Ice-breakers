@@ -199,7 +199,7 @@ export const AboutGame = () => {
                         <div className="flex gap-2">
                           <p>{comment.comment}</p>
                           <Button
-                            className="w-1/6 bg-[#ce3c3c]"
+                            className="w-1/5 bg-[#ce3c3c]"
                             onClick={() => reportFeedback(comment._id)}
                           >
                             Rapporter
