@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Message } from "@/components/Message";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from "react";
 import { handleCreateIcebreaker } from "@/services/icebreakerMakeService";
 import { useUser } from "@/hooks/useUser";
@@ -196,134 +196,193 @@ export const IcebreakerForm = () => {
   }, [time, displayTime]);
 
   return (
-    <div className="lex flex h-screen flex-col bg-[#E3F2FD]">
-      <h1 className="text-center text-4xl">Opprett ny lek</h1>
-      <div className="lex h-full bg-[#C9DEEE]   ">
-        <div className="m-4 flex justify-end md:grid md:grid-cols-5 md:gap-12">
-          <div />
-          <div />
-          <div />
-          <div className="mt-4 flex justify-end">
-            <Button className="mr-4 text-xl" onClick={handleCreate}>
-              Create
-            </Button>
-            <Button className="text-xl" onClick={handleExit}>
-              Cancel
-            </Button>
+    <div
+      className="flex min-h-screen flex-col"
+      style={{ fontFamily: "ZCOOL XiaoWei" }}
+    >
+      <div
+        style={{
+          backgroundColor: "white",
+          fontSize: "18px",
+          marginLeft: "10px",
+        }}
+      >
+        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <b>&#8249; Tilbake</b>
+        </Link>
+      </div>
+      <h1
+        className="w-full bg-white py-10 text-center text-4xl"
+        style={{ fontSize: "70px" }}
+      >
+        Opprett ny lek
+      </h1>
+      <div className="flex grow items-center justify-center  bg-[#d9f0ff]">
+        <div className="w-full max-w-4xl p-4">
+          <div className="m-4 flex justify-end md:grid md:grid-cols-5 md:gap-12 ">
+            <div />
+            <div />
+            <div />
+            <div className="mt-4 flex justify-end">
+              <Button
+                className="text-xl"
+                style={{ backgroundColor: "#5aa9e6" }}
+                onClick={handleCreate}
+              >
+                Opprett
+              </Button>
+            </div>
+            <div />
           </div>
-          <div />
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Navn på leke:</h2>
-          <Input
-            className="col-span-3 text-xl"
-            onChange={handleNameText}
-            placeholder="Hva heter din Ice-breaker"
-          ></Input>
-          <Message
-            className="text-right md:text-left"
-            message={"Må ha et navn"}
-            id={"mName"}
-          />
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Hvordan skal leken spilles:</h2>
-          <Textarea
-            className="col-span-3 h-96 text-xl"
-            onChange={handleRuleText}
-            placeholder="Hva er reglene for din Ice-Breaker"
-          ></Textarea>
-          <Message
-            className="text-right md:text-left"
-            message={"Må ha regler"}
-            id={"mRules"}
-          />
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Kort oppsumering:</h2>
-          <Textarea
-            className="col-span-3 text-xl"
-            onChange={handleSumarytext}
-            placeholder="Hva er reglene for din Ice-Breaker"
-          ></Textarea>
-          <Message
-            className="text-right md:text-left"
-            message={"Må ha regler"}
-            id={"mSummary"}
-          />
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Kategori:</h2>
-          <select
-            className="rounded-lg p-4 text-xl"
-            id="categories"
-            name="categories"
-            onChange={handleCategory}
-            defaultValue="default"
-          >
-            <option value="default" key={0} disabled>
-              Velg her
-            </option>
-            {categories.map((category, index) => (
-              <option value={category} key={index + 1}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <Message
-            className="col-span-3"
-            message={"Må velge kategori"}
-            id={"mCategory"}
-          />
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Synlighet:</h2>
-          <RadioGroup
-            className="md:rid md:col-span-3 md:grid-cols-3 md:gap-4"
-            defaultValue="0"
-            id="radio"
-          >
-            <div>
-              <RadioGroupItem value="0" id="forAlle" onClick={handleRadio} />
-              <Label className="text-xl" htmlFor="forAlle">
-                For alle
-              </Label>
-            </div>
-            <div>
-              <RadioGroupItem value="1" id="kunMeg" onClick={handleRadio} />
-              <Label className="text-xl" htmlFor="kunMeg">
-                Kun meg
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
-        <div className="m-4 md:grid md:grid-cols-5 md:gap-12">
-          <h2 className="text-xl md:text-right">Anbefalt klokke:</h2>
-          <div>
-            <h2 className="text-4xl" id="clock">
-              00:00:00
-            </h2>
-            <span className="flex p-1">
-              <input className="w-8" id="hours" type="text" />
-              <p>timer</p>
-            </span>
-            <span className="flex p-1">
-              <input className="w-8" id="minutes" type="text" />
-              <p>minutter</p>
-            </span>
-            <span className="flex p-1">
-              <input className="w-8" id="seconds" type="text" />
-              <p>sekunder</p>
-            </span>
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text-xl font-bold md:text-right">Navn på leken:</h2>
+            <Input
+              style={{ width: "500px" }}
+              className="text-xl"
+              onChange={handleNameText}
+              placeholder="Hva heter din Ice-Breaker?"
+            ></Input>
             <Message
-              className=""
-              id="timerError"
-              message={"Må bruke tall"}
-            ></Message>
-            <Button onClick={setTimer}>Set Klokke</Button>
+              className="text-right md:text-left"
+              message={"Må ha et navn"}
+              id={"mName"}
+            />
           </div>
-        </div>
-        {/* <div className="m-4 min-h-40 md:grid md:grid-cols-5  md:gap-12">
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text-xl font-bold md:text-right">
+              Hvordan skal leken spilles:
+            </h2>
+            <Textarea
+              style={{ width: "500px" }}
+              className="col-span-2 h-96 text-xl"
+              onChange={handleRuleText}
+              placeholder="Hva er reglene for din Ice-Breake?"
+            ></Textarea>
+            <Message
+              className="text-right md:text-left"
+              message={"Må ha regler"}
+              id={"mRules"}
+            />
+          </div>
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text-xl font-bold md:text-right">
+              Kort oppsumering:
+            </h2>
+            <Textarea
+              style={{ width: "500px" }}
+              className="col-span-2 text-xl"
+              onChange={handleSumarytext}
+              placeholder="Hva er reglene for din Ice-Breaker?"
+            ></Textarea>
+            <Message
+              className="text-right md:text-left"
+              message={"Må ha regler"}
+              id={"mSummary"}
+            />
+          </div>
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text-xl font-bold md:text-right">Kategori:</h2>
+            <select
+              className="rounded-lg p-2 text-xl"
+              id="categories"
+              name="categories"
+              onChange={handleCategory}
+              defaultValue="default"
+            >
+              <option value="default" key={0} disabled>
+                Velg her
+              </option>
+              {categories.map((category, index) => (
+                <option value={category} key={index + 1}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <Message
+              className="col-span-3"
+              message={"Må velge kategori"}
+              id={"mCategory"}
+            />
+          </div>
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text-xl font-bold md:text-right">Synlighet:</h2>
+            <RadioGroup
+              className="md:rid md:col-span-3 md:grid-cols-3 md:gap-4"
+              defaultValue="0"
+              id="radio"
+            >
+              <div>
+                <RadioGroupItem value="0" id="forAlle" onClick={handleRadio} />
+                <Label className="ml-2 text-xl" htmlFor="forAlle">
+                  For alle
+                </Label>
+              </div>
+              <div>
+                <RadioGroupItem value="1" id="kunMeg" onClick={handleRadio} />
+                <Label className="ml-2 text-xl" htmlFor="kunMeg">
+                  Kun meg
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+          <div className="m-4 md:grid md:grid-cols-5 md:gap-4">
+            <h2 className="text text-xl font-bold md:text-right">
+              Anbefalt tid:
+            </h2>
+            <div>
+              <h2 className="text-4xl" id="clock">
+                00:00:00
+              </h2>
+              <span className="flex p-1">
+                <input
+                  className="mr-2 w-8"
+                  style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+                  id="hours"
+                  type="text"
+                />
+                <p>Timer</p>
+              </span>
+              <span className="flex p-1">
+                <input
+                  className="mr-2 w-8"
+                  style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+                  id="minutes"
+                  type="text"
+                />
+                <p>Minutter</p>
+              </span>
+              <span className="flex p-1">
+                <input
+                  className="mr-2 w-8"
+                  style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+                  id="seconds"
+                  type="text"
+                />
+                <p>Sekunder</p>
+              </span>
+              <Message
+                className=""
+                id="timerError"
+                message={"Må bruke tall"}
+              ></Message>
+              <Button
+                onClick={setTimer}
+                style={{ backgroundColor: "#5aa9e6", fontSize: "20px" }}
+              >
+                Sett tiden
+              </Button>
+            </div>
+          </div>
+          <div className="mt-10 flex flex-col items-center">
+            <Button
+              className="w-7/12 py-2 text-xl"
+              style={{ backgroundColor: "#ad2831" }}
+              onClick={handleExit}
+            >
+              Avbryt
+            </Button>
+          </div>
+          {/* <div className="m-4 min-h-40 md:grid md:grid-cols-5  md:gap-12">
           <h2 className="text-xl md:text-right">Last opp bilder:</h2>
           <div
             {...getRootProps()}
@@ -344,6 +403,7 @@ export const IcebreakerForm = () => {
             )}
           </div>
         </div> */}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import { H1 } from "@/components/typography/H1";
 import { H2 } from "@/components/typography/H2";
 import { Icebreaker, User } from "@/types";
 
@@ -20,58 +19,50 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Link, useLocation, type Location } from "react-router-dom";
 
-// import { Checkbox } from "@/components/ui/checkbox";
-// import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useRating } from "@/hooks/useRating";
 import useAddToFavorites from "@/hooks/userProfile";
 import { useUser } from "@/hooks/useUser";
 import { useGetRatings } from "@/hooks/useGetRatings";
 import { deleteRating } from "@/services/icebreakers";
-import { handleCreateFeedback, reportFeedback, reportIcebreaker } from "@/services/feedbackService";
+import {
+  handleCreateFeedback,
+  reportFeedback,
+  reportIcebreaker,
+} from "@/services/feedbackService";
 import { useGetFeedback } from "@/hooks/useGetFeedback";
 
 export const AboutGame = () => {
-  const location: Location<{
-    icebreaker: Icebreaker;
-  }> = useLocation();
+  const location: Location<{ icebreaker: Icebreaker }> = useLocation();
 
   const { icebreaker } = location.state;
-  const { name, author, category, fullDescription /*, feedback*/ } = icebreaker;
-  const {
-    addFavorite,
-    isLoading: isAddingToFavorites,
-    error: favoritesError,
-  } = useAddToFavorites();
+  const { name, author, category, fullDescription } = icebreaker;
+
+  const { addFavorite, isLoading: isAddingToFavorites } = useAddToFavorites();
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [isFavorited, setIsFavorited] = useState(false);
 
-  // const comments = feedback || [];
-  const { comments, getComments } = useGetFeedback(name)
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getComments(), []);
-
+  const { comments, getComments } = useGetFeedback(name);
   const { ratings, getRatings } = useGetRatings(name);
-  // const { ratings } = useGetRatings(name);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getRatings(), []);
-  
-  const ratingAuthors = ratings.map(rating => rating.author?.toString() || "");
-
+  const ratingAuthors = ratings.map(
+    (rating) => rating.author?.toString() || "",
+  );
 
   const userInfo = useUser();
 
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
-  // const dummyComments = ["Gøy lek", "Denne leken suger", "10/10", "Gøy lek", "Denne leken suger", "10/10"];
 
   const { meanRating, submitRating } = useRating(icebreaker);
+
+  useEffect(() => {
+    getComments();
+    getRatings();
+  }, [getComments, getRatings]);
 
   useEffect(() => {
     const checkFavorites = async () => {
@@ -86,7 +77,7 @@ export const AboutGame = () => {
           throw new Error("Failed to fetch favorites");
         }
 
-        const favorites: Icebreaker[] = await response.json(); // Assuming the response is an array of icebreaker objects
+        const favorites: Icebreaker[] = await response.json();
         const isFavorited = favorites.some((fav) => fav._id === icebreaker._id);
         setIsFavorited(isFavorited);
       } catch (error) {
@@ -112,91 +103,60 @@ export const AboutGame = () => {
   };
 
   return (
-    <div className="bg-[#E3F2FD]">
-      <div className="flex w-full flex-col gap-4 p-4">
-        <div className="flex flex-row justify-between">
-          <Link to="/">
-            <b>&#8249; Tilbake til hjemmeside</b>
-          </Link>
-          <div>
-            <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
+    <div className="bg-[#ffffff]">
+      <div className="max-w-8xl mx-auto px-4">
+        <div className="flex w-full flex-col gap-4 p-4">
+          <div className="flex flex-row justify-between">
+            <Link to="/">
+              <b>&#8249; Tilbake</b>
+            </Link>
+            <div>
+              <b>{`Laget av: ${author ?? "Anonymous"}`}</b>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-5">
-          <div className="col-span-3 col-start-2 flex flex-row gap-4 place-self-center">
-            <div className="flex flex-col gap-2">
-              <H1>{name}</H1>
-              <div className="flex gap-1">
+
+          <div className="grid grid-cols-5 gap-4 p-4">
+            <div className="col-span-3 col-start-2 flex flex-row gap-4 place-self-center">
+              <div className="flex h-full flex-col items-center justify-center gap-2">
+                <h1 className="text-5xl font-bold">{name}</h1>
+                <p>{`Kategori: ${category}`}</p>
+                <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
                 <Button
                   onClick={handleAddToFavorites}
                   disabled={isAddingToFavorites || isFavorited}
-                  className={`rounded px-4 py-2 text-sm font-bold transition-colors duration-300 ${
+                  className={`rounded px-4 py-2 text-lg transition-colors duration-300 ${
                     isAddingToFavorites || isFavorited
                       ? "cursor-not-allowed bg-gray-400 text-gray-700"
-                      : "bg-blue-500 text-white hover:bg-blue-600"
+                      : "bg-[#89ccf6] text-white hover:bg-[#172554]"
                   }`}
                 >
                   {isAddingToFavorites
                     ? "Legger til..."
                     : isFavorited
-                      ? "Lagt til i favoritter"
-                      : "Legg til i favoritter"}
+                      ? `Lagt til i favoritter ${String.fromCharCode(9733)}`
+                      : `Legg til i favoritter ${String.fromCharCode(9733)}`}
                 </Button>
-                {isAddingToFavorites && <span>Adding to favorites...</span>}
-                {favoritesError && (
-                  <span className="text-red-500">Error: {favoritesError}</span>
-                )}
               </div>
             </div>
-            <div className="rounded bg-[#ebd1d1] p-2">
-              <p>{`Kategori: ${category}`}</p>
-              <p>{`Rangering: ${meanRating.toFixed(1)}%`}</p>
-              <p>Anbefalt tidsbruk: ??</p>
+            <div className="col-start-5 mt-8">
+              <Timer timeProp={10} endOfTimerAction={() => {}}></Timer>
             </div>
           </div>
-          <div className=" col-start-5">
-            <Timer timeProp={10} endOfTimerAction={() => {}}></Timer>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="m-4 flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#A3CEF1] p-4">
-            <H2>Beskrivelse:</H2>
-            <p>{fullDescription}</p>
-            <Button
-              className="w-1/6 place-self-center bg-[#ce3c3c]"
-              onClick={() => reportIcebreaker(icebreaker._id)}
-            >
-              Rapporter lek
-            </Button>
-          </div>
-          <div className="w-2/5 p-4">
-            <Card className="flex h-dvh flex-col gap-2 bg-[#bad4ea]">
-              <form
-                onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                  e.preventDefault();
-                  if (!userInfo.isSignedIn){
-                    console.log("Bruker er ikke logget inn")
-                  }
-                  else{
-                    const user = userInfo.user
-                    if (user == null){
-                      console.log("No user")
-                      return
-                    }
-                    const username = userInfo.user?.username ?? "";
-                    const userID = userInfo.user?._id ?? "";
-                    if (ratingAuthors.includes(userID)){
-                      //Delete rating
-                      deleteRating(name, username);
-                    }
-                    // submitRating(username, rating);
-                    getRatings();
-                    submitRating(username, rating);
-                    getRatings();
-                    setRating(0);
-                  }
-                }}
+
+          <div className="flex gap-2">
+            <div className="m-4 flex h-dvh w-3/5 flex-col gap-6 rounded bg-[#d9f0ff] p-4">
+              <H2>Beskrivelse:</H2>
+              <p className="text-lg">{fullDescription}</p>
+              <Button
+                className="rounded bg-[#89ccf6] px-4 py-4 font-bold text-white"
+                onClick={() => reportIcebreaker(icebreaker._id)}
               >
+                Rapporter lek
+              </Button>
+            </div>
+
+            <div className="w-2/5 p-4">
+              <Card className="flex h-dvh flex-col gap-2 rounded bg-[#d9f0ff]">
                 <CardHeader className="flex flex-col gap-4">
                   <CardTitle>Rangering</CardTitle>
                   <CardDescription className="flex flex-col gap-3">
@@ -207,61 +167,75 @@ export const AboutGame = () => {
                       min={0}
                       value={rating}
                       onChange={(e) => setRating(e.target.valueAsNumber)}
-                    ></Input>
-                    <Button className="w-1/3 place-self-center" type="submit">
+                    />
+                    <Button
+                      className="w-1/3 place-self-center bg-[#014f86] font-bold text-white"
+                      type="submit"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        if (!userInfo.isSignedIn) {
+                          console.log("Bruker er ikke logget inn");
+                        } else {
+                          const username = userInfo.user?.username ?? "";
+                          const userID = userInfo.user?._id ?? "";
+                          if (ratingAuthors.includes(userID)) {
+                            await deleteRating(name, username);
+                          }
+                          await submitRating(username, rating);
+                          getRatings();
+                        }
+                      }}
+                    >
                       Publiser
                     </Button>
                   </CardDescription>
                 </CardHeader>
-              </form>
-              <CardContent className="flex flex-col gap-4">
-                <CardTitle>Kommentarer</CardTitle>
-                <div className="max-h-40">
-                  <div className="max-h-full overflow-auto">
-                    <ScrollArea className=" rounded border border-white p-3">
-                      {comments.map((comment) => (
-                        <div key={comment._id}>
-                          <div className="flex gap-2">
-                            <p>{comment.comment}</p>
-                            <Button 
+
+                <CardContent className="flex flex-col gap-4">
+                  <CardTitle>Kommentarer</CardTitle>
+                  <ScrollArea className="max-h-40 overflow-auto rounded border border-white p-3">
+                    {comments.map((comment, index) => (
+                      <div key={index}>
+                        <div className="flex gap-2">
+                          <p>{comment.comment}</p>
+                          <Button
                             className="w-1/6 bg-[#ce3c3c]"
                             onClick={() => reportFeedback(comment._id)}
-                            >
-                              Rapporter
-                            </Button>
-                          </div>
-                          <Separator className="my-2"></Separator>
+                          >
+                            Rapporter
+                          </Button>
                         </div>
-                      ))}
-                    </ScrollArea>
-                  </div>
-                </div>
-              </CardContent>
-              <form
-                onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                  e.preventDefault();
-                  if (!userInfo.isSignedIn){
-                    console.log("Bruker er ikke logget inn")
-                  }
-                  else{
-                    const username = userInfo.user?.username ?? "";
-                    getComments();
-                    handleCreateFeedback(name, comment, username);
-                    getComments();
-                    setComment("");
-                  }
-                }}
-              >
+                        <Separator className="my-2"></Separator>
+                      </div>
+                    ))}
+                  </ScrollArea>
+                </CardContent>
+
                 <CardFooter className="flex flex-col gap-3">
-                  <Textarea 
+                  <Textarea
                     placeholder="Skriv kommentar her"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   ></Textarea>
-                  <Button className="w-1/3" type="submit">Publiser</Button>
+                  <Button
+                    className="w-1/3 bg-[#014f86] font-bold text-white"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      if (!userInfo.isSignedIn) {
+                        console.log("Bruker er ikke logget inn");
+                      } else {
+                        const username = userInfo.user?.username ?? "";
+                        await handleCreateFeedback(name, comment, username);
+                        getComments();
+                        setComment("");
+                      }
+                    }}
+                  >
+                    Publiser
+                  </Button>
                 </CardFooter>
-              </form>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
