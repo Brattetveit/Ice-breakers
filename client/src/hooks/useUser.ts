@@ -10,7 +10,7 @@ export const useUser = () => {
   const [user, setUser] = useState(localStorage.getItem("user"));
   const [role, setRole] = useState(() => {
     const user = localStorage.getItem("user");
-    return user ? JSON.parse(user).role : null; // Assuming the stored user object includes a 'role' property
+    return user ? JSON.parse(user).role : null;
   });
 
   const navigate = useNavigate();
