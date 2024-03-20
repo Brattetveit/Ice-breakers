@@ -19,7 +19,7 @@
  }
  .button-container {
   display: flex; /* Oppretter en flex-container */
-  justify-content: start; /* Justerer knappene til venstre side */
+  justify-content: flex-start; /* Justerer knappene til venstre side */
  }
  .sidebar button {
   margin-bottom: 20px;
