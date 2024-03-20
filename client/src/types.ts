@@ -9,6 +9,7 @@ export type Icebreaker = {
   ratings: Rating[];
   visibleToOthers?: boolean;
   imageName?: string;
+  defaultTime?: number;
 };
 
 export type User = {

@@ -117,7 +117,6 @@ export const IcebreakerForm = () => {
       }
     }
     if (make && user !== null) {
-      //add send timer to backend
       handleCreateIcebreaker(
         user.username,
         nameText,
@@ -125,6 +124,7 @@ export const IcebreakerForm = () => {
         summaryText,
         category,
         visibility,
+        time
       );
 
       handleExit();

@@ -4,12 +4,12 @@ import { Message } from "@/components/Message";
 import alarmSound from "@/assets/alarm.wav";
 
 interface TimerProps {
-  timeProp: number;
+  timeProp: number | undefined;
   endOfTimerAction: () => void;
 }
 
 export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
-  const [time, setTime] = useState(timeProp);
+  const [time, setTime] = useState(timeProp || 0);
   const [clockRunning, setClockRunning] = useState(false);
 
   const displayTime: () => void = useCallback(() => {
@@ -97,10 +97,13 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
   }
 
   useEffect(() => {
-    displayTime();
+    // console.log("useEffect triggered because of changes in:", { time, clockRun ning, displayTime, endOfTimerAction, clockSwitch });
+    displayTime();  
     let timer: NodeJS.Timeout;
     if (clockRunning) {
       timer = setInterval(() => {
+        console.log(time)
+        
         if (time == 0) {
           endOfTimerAction();
           clockSwitch();

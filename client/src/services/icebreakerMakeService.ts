@@ -6,7 +6,8 @@ export const handleCreateIcebreaker =  async (
     ruleText: string, 
     summaryText: string,
     category: string,
-    visibility: boolean
+    visibility: boolean,
+    defaultTime: number
   ) => {
     const icebreaker = {
       author: user,
@@ -14,7 +15,8 @@ export const handleCreateIcebreaker =  async (
       fullDescription: ruleText,
       shortDescription: summaryText,
       category: category,
-      visibility: visibility
+      visibility: visibility,
+      defaultTime: defaultTime
     };
 
     try {
