@@ -1,8 +1,9 @@
-export const fetchReportedIcebreakers = async () => {
+export const fetchReportedIcebreakers = async (role: string) => {
   const response = await fetch("api/icebreakers/reported", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "x-user-role": role,
     },
   });
   if (!response.ok) {
@@ -11,11 +12,12 @@ export const fetchReportedIcebreakers = async () => {
   return await response.json();
 };
 
-export const fetchReportedFeedback = async () => {
+export const fetchReportedFeedback = async (role: string) => {
   const response = await fetch("api/feedback/reported", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "x-user-role": role,
     },
   });
   if (!response.ok) {
@@ -24,11 +26,12 @@ export const fetchReportedFeedback = async () => {
   return await response.json();
 };
 
-export const deleteIcebreaker = async (icebreakerId: string) => {
+export const deleteIcebreaker = async (icebreakerId: string, role: string) => {
   const response = await fetch(`api/icebreakers/${icebreakerId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      "x-user-role": role,
     },
   });
   if (!response.ok) {
@@ -37,11 +40,12 @@ export const deleteIcebreaker = async (icebreakerId: string) => {
   return response.text();
 };
 
-export const deleteFeedback = async (feedbackId: string) => {
+export const deleteFeedback = async (feedbackId: string, role: string) => {
   const response = await fetch(`api/feedback/${feedbackId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      "x-user-role": role,
     },
   });
   if (!response.ok) {
@@ -50,13 +54,14 @@ export const deleteFeedback = async (feedbackId: string) => {
   return response.text();
 };
 
-export const clearIcebreakerReports = async (icebreakerId: string) => {
+export const clearIcebreakerReports = async (icebreakerId: string, role: string) => {
   const response = await fetch(
     `api/icebreakers/${icebreakerId}/clear-reports`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "x-user-role": role,
       },
     },
   );
@@ -66,13 +71,14 @@ export const clearIcebreakerReports = async (icebreakerId: string) => {
   return response.text();
 };
 
-export const clearFeedbackReports = async (feedbackId: string) => {
+export const clearFeedbackReports = async (feedbackId: string, role: string) => {
   const response = await fetch(
     `api/feedback/${feedbackId}/clear-reports`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "x-user-role": role,
       },
     },
   );

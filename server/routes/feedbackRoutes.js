@@ -5,7 +5,6 @@ const User = require("../models/userModel.js");
 
 const router = express.Router();
 
-
 router.get("/getByName/:name", async (req, res) => {
   try {
 
@@ -67,7 +66,20 @@ router.put("/:id/report", async (req, res) => {
   }
 });
 
-router.get("/reported", async (req, res) => {
+function isAdmin(req, res, next) {
+  const userRole = req.headers["x-user-role"];
+  if (userRole === "admin") {
+    next();
+  } else {
+    console.log(
+      "Access denied. User role:",
+      req.user ? req.user.role : "No user"
+    );
+    res.status(403).send("Access denied");
+  }
+}
+
+router.get("/reported", isAdmin, async (req, res) => {
   try {
     const reportedFeedback = await Feedback.find({
       timesReported: { $gt: 0 },
@@ -78,7 +90,7 @@ router.get("/reported", async (req, res) => {
   }
 });
 
-router.put("/:id/clear-reports", async (req, res) => {
+router.put("/:id/clear-reports", isAdmin, async (req, res) => {
   try {
     const feedback = await Feedback.findById(req.params.id);
     if (!feedback) {
@@ -92,7 +104,7 @@ router.put("/:id/clear-reports", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     await Feedback.findByIdAndDelete(req.params.id);
     res.send("Feedback deleted successfully");

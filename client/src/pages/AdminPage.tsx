@@ -89,7 +89,7 @@ export const AdminPage = () => {
     <div className="container">
       <div className="sidebar">
         <button>
-          <Link to="/">Min side</Link>
+          <Link to="/">Tilbake</Link>
         </button>
       </div>
       <div className="header">
