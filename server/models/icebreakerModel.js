@@ -14,6 +14,7 @@ const icebreakerSchema = Schema({
   visableToOthers: Boolean,
   imageName: String,
   timesReported: { type: Number, default: 0 },
+  defaultTime: Number,
 });
 
 const Icebreaker = mongoose.model("Icebreaker", icebreakerSchema);
