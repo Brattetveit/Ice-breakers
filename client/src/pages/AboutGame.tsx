@@ -38,7 +38,7 @@ export const AboutGame = () => {
   const location: Location<{ icebreaker: Icebreaker }> = useLocation();
 
   const { icebreaker } = location.state;
-  const { name, author, category, fullDescription } = icebreaker;
+  const { name, author, category, fullDescription, defaultTime } = icebreaker;
 
   const { addFavorite, isLoading: isAddingToFavorites } = useAddToFavorites();
 
@@ -139,7 +139,7 @@ export const AboutGame = () => {
               </div>
             </div>
             <div className="col-start-5 mt-8">
-              <Timer timeProp={10} endOfTimerAction={() => {}}></Timer>
+              <Timer timeProp={defaultTime} endOfTimerAction={() => {}}></Timer>
             </div>
           </div>
 
