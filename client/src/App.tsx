@@ -8,6 +8,7 @@ import {
   Profile,
   InCategory,
   Categories,
+  AdminPage,
 } from "./pages";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/icebreakerForm" element={<IcebreakerForm />} />
         <Route path="/categoryPage" element={<Categories />} />
         <Route path="/category" element={<InCategory />} />
+        <Route path="/adminPage" element={<AdminPage />} />
       </Routes>
     </>
   );
