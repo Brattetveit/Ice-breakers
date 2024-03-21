@@ -13,7 +13,7 @@ const SpinTheWheel: React.FC = () => {
   const [result, setResult] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 100);
-  const [favorites, setFavorites] = useState<Icebreaker[]>([]);
+  const [, setFavorites] = useState<Icebreaker[]>([]);
   const [queues] = useState<Icebreaker[]>([]);
   const [options, setOptions] = useState<string[]>([]);
   const [displayOption, setDisplayOption] = useState("Spinn");
@@ -110,7 +110,7 @@ const SpinTheWheel: React.FC = () => {
       setFavorites(fetchedFavorites);
       // Oppdaterer valgmulighetene med de hentede favorittene
       const favoriteNames = fetchedFavorites.map(
-        (favorite: { name: any }) => favorite.name,
+        (favorite: { name: String }) => favorite.name,
       );
       const newFavorites = favoriteNames.filter(
         (name: string) => !options.includes(name),
