@@ -5,9 +5,8 @@
 }
 
 .Overskrift {
-  font-family: "ZCOOL XiaoWei";
-
-  background-color: #a3cef1; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
+  font-weight: bold;
+  background-color: #c9e1fa; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
   color: rgb(0, 0, 0); /* Hvit tekst */
   text-align: center;
   padding-top: 10px; /* Vertikal padding */
@@ -16,14 +15,13 @@
   padding-left: 70px; /* Vertikal padding */
   margin: 20px auto; /* Sentrerer elementet */
   border-radius: 20px; /* Myke hjørner */
-  font-size: 80px; /* Større skrift */
+  font-size: 70px; /* Større skrift */
   width: 250mm; /* Bredden på boksen */
   margin-bottom: 100px; /* Mellomrom mellom radene */
   margin-top: 50px;
 }
 
 .category-button {
-  font-family: "ZCOOL XiaoWei";
   width: 76mm;
   min-height: 35mm;
   cursor: pointer;
@@ -52,7 +50,6 @@
 
 .Hjem {
   text-align: center;
-  font-family: "ZCOOL XiaoWei";
   border-radius: 20px;
   position: absolute;
   width: 100px;

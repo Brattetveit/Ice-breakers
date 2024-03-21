@@ -98,12 +98,12 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
 
   useEffect(() => {
     // console.log("useEffect triggered because of changes in:", { time, clockRun ning, displayTime, endOfTimerAction, clockSwitch });
-    displayTime();  
+    displayTime();
     let timer: NodeJS.Timeout;
     if (clockRunning) {
       timer = setInterval(() => {
-        console.log(time)
-        
+        console.log(time);
+
         if (time == 0) {
           endOfTimerAction();
           clockSwitch();
@@ -126,9 +126,8 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
     >
       <div
         className="flex place-self-center"
-        style={{ fontFamily: "ZCOOL XiaoWei" }}
       >
-        <h2 className="text-4xl text-[#014f86]" id="clock">
+        <h2 className="text-3xl text-[#014f86]" id="clock">
           00:00:00
         </h2>
       </div>
@@ -139,12 +138,9 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
             className="text-s mr-2 w-8"
             id="hours"
             type="text"
-            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+            style={{ borderRadius: "5px" }}
           />
-          <p
-            className="text-xs text-[#014f86]"
-            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
-          >
+          <p className="text-xs text-[#014f86]" style={{ fontSize: "16px" }}>
             Timer
           </p>
         </span>
@@ -153,12 +149,9 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
             className="text-s mr-2 w-8"
             id="minutes"
             type="text"
-            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+            style={{ borderRadius: "5px" }}
           />
-          <p
-            className="text-xs text-[#014f86]"
-            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
-          >
+          <p className="text-xs text-[#014f86]" style={{ fontSize: "16px" }}>
             Minutter
           </p>
         </span>
@@ -167,12 +160,9 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
             className="text-s mr-2 w-8"
             id="seconds"
             type="text"
-            style={{ borderRadius: "5px", fontFamily: "ZCOOL XiaoWei" }}
+            style={{ borderRadius: "5px" }}
           />
-          <p
-            className="text-xs text-[#014f86]"
-            style={{ fontFamily: "ZCOOL XiaoWei", fontSize: "16px" }}
-          >
+          <p className="text-xs text-[#014f86]" style={{ fontSize: "16px" }}>
             Sekunder
           </p>
         </span>
@@ -186,7 +176,6 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
         <Button
           className="px-2 py-1 text-xs"
           style={{
-            fontFamily: "ZCOOL XiaoWei",
             fontSize: "16px",
             backgroundColor: "#ffff",
             color: "#014f86",
@@ -201,7 +190,6 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
         <Button
           className="px-2 py-1 text-xs"
           style={{
-            fontFamily: "ZCOOL XiaoWei",
             fontSize: "16px",
             backgroundColor: "#fff",
             color: "#014f86",

@@ -27,7 +27,7 @@ export function InCategory() {
         to="/categoryPage"
         className="Tilbake"
         style={{
-          backgroundColor: "#EEC5F8",
+          backgroundColor: "#ffc8dd",
           color: "black",
           fontSize: "30px",
         }}

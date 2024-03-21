@@ -42,7 +42,7 @@ export const Home = () => {
   );
 
   return (
-    <div className="flex min-h-screen w-full items-start bg-background p-4 text-foreground">
+    <div className="flex min-h-screen w-full items-start bg-background p-4 text-foreground" >
       {/* Venstre reklameboks med scroll */}
       <div className="mt-20 hidden w-1/6 flex-col items-center overflow-auto px-4 lg:flex">
         {renderAds()}
@@ -59,7 +59,7 @@ export const Home = () => {
           <div className="flex justify-around gap-4">
             {isSignedIn && (
               <Link to="/profile">
-                <Button>Min side</Button>
+                <Button style={{backgroundColor:"#bde0fe", color: "black"}}>Min side</Button>
               </Link>
             )}
             <Input

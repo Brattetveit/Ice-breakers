@@ -199,7 +199,12 @@ export const AboutGame = () => {
                         <div className="flex gap-2">
                           <p>{comment.comment}</p>
                           <Button
-                            className="w-1/5 bg-[#ce3c3c]"
+                            className="bg-[#ce3c3c]"
+                            style={{
+                              fontSize: "12px",
+                              width: "70px",
+                              height: "20px",
+                            }}
                             onClick={() => reportFeedback(comment._id)}
                           >
                             Rapporter

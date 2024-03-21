@@ -1,7 +1,6 @@
 .category-title {
-  font-family: "ZCOOL XiaoWei";
-
-  background-color: #ffb5a7; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
+  font-weight: bold;
+  background-color: #fadde1; /* Blå farge, erstatt med den nøyaktige fargen fra bildet */
   color: rgb(0, 0, 0); /* Hvit tekst */
   text-align: center;
   padding-top: 10px; /* Vertikal padding */
@@ -36,7 +35,6 @@
 
 .Tilbake {
   text-align: center;
-  font-family: "ZCOOL XiaoWei";
   border-radius: 20px;
   position: absolute;
   width: 100px;

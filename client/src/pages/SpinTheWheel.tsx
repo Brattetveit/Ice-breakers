@@ -145,9 +145,9 @@ const SpinTheWheel: React.FC = () => {
           padding: "20px 0",
           boxSizing: "border-box",
           fontSize: "70px",
-          fontFamily: '"ZCOOL XiaoWei"',
           color: "rgb(0, 0, 0)",
           textAlign: "center",
+          fontWeight: "bold",
         }}
       >
         Spinn hjulet!
@@ -183,7 +183,6 @@ const SpinTheWheel: React.FC = () => {
                 alignItems: "center",
                 fontSize: "90px",
                 fontWeight: "bold",
-                fontFamily: "ZCOOL XiaoWei",
                 cursor: "pointer",
                 background: result ? "#99e2b4" : spinning ? "#c9e1fa" : "#fff",
                 transition: "background-color 0.5s ease",
@@ -315,7 +314,6 @@ const SpinTheWheel: React.FC = () => {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
-            fontFamily: "ZCOOL XiaoWei",
           }}
         >
           <div
@@ -328,7 +326,6 @@ const SpinTheWheel: React.FC = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "space-between",
-              fontFamily: "ZCOOL XiaoWei",
             }}
           >
             <p
@@ -363,7 +360,6 @@ const SpinTheWheel: React.FC = () => {
                   color: "black",
                   textDecoration: "none",
                   fontSize: "25px",
-                  fontFamily: "ZCOOL XiaoWei",
                   borderRadius: "5px",
                 }}
               >
@@ -378,7 +374,6 @@ const SpinTheWheel: React.FC = () => {
                   color: "white",
                   border: "none",
                   fontSize: "25px",
-                  fontFamily: "ZCOOL XiaoWei",
                   borderRadius: "5px",
                 }}
               >

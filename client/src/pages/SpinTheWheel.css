@@ -1,5 +1,4 @@
 .tittel {
-  font-family: "ZCOOL XiaoWei";
   background-color: #c9e1fa;
   color: rgb(0, 0, 0);
   text-align: center;
@@ -34,7 +33,6 @@
 }
 
 .reset-button {
-  font-family: "ZCOOL XiaoWei";
   background-color: #bfd8bd;
   text-align: center;
   border-radius: 10px;
@@ -49,7 +47,6 @@
 .alternativene,
 .legg,
 .inp {
-  font-family: "ZCOOL XiaoWei";
   text-align: center;
 }
 
@@ -141,7 +138,6 @@
   padding: 10px; /* Legger til litt padding rundt teksten */
   text-decoration: none; /* Fjerner underlinje fra lenker */
   border-radius: 5px; /* Valgfritt: legger til avrundede hjørner for estetikk */
-  font-family: "ZCOOL XiaoWei";
   font-size: 20px;
 }
 
@@ -150,7 +146,6 @@
 }
 
 .hentFraFavoritter {
-  font-family: "ZCOOL XiaoWei";
   background-color: #fdbdc1;
   text-align: center;
   border-radius: 10px;
@@ -160,7 +155,6 @@
 }
 
 .hentFraq {
-  font-family: "ZCOOL XiaoWei";
   background-color: #fdbdc1;
   text-align: center;
   border-radius: 10px;

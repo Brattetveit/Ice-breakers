@@ -11,7 +11,7 @@ export function Categories() {
         to="/category"
         state={{ category }}
         className="category-button"
-        style={{ backgroundColor: "#FFB5A7", color: "black", fontSize: "40px" }}
+        style={{ backgroundColor: "#fadde1", color: "black", fontSize: "40px" }}
       >
         {category}
       </Link>
@@ -24,9 +24,9 @@ export function Categories() {
       <div className="ButtonRow">{renderCategoryButtons(CATEGORIES)}</div>
       <Link
         to="/"
-        className="Hjem"
+        className="Tilbake"
         style={{
-          backgroundColor: "#EEC5F8",
+          backgroundColor: "#ffc8dd",
           color: "black",
           fontSize: "30px",
         }}

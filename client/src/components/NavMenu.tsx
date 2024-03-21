@@ -96,7 +96,7 @@ export const NavMenu = ({ isSignedIn, onLogout }: NavMenuProps) => {
         {isSignedIn && (
           <NavigationMenuItem className="pl-4">
             <Link to="/icebreakerForm">
-              <Button>Lag en ny ice breaker!</Button>
+              <Button style={{backgroundColor:"#bde0fe", color: "black"}}>Lag en ny ice breaker!</Button>
             </Link>
           </NavigationMenuItem>
         )}
