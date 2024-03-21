@@ -7,6 +7,7 @@ import {
   fetchCreatedIcebreakers,
   fetchFavorites,
 } from "@/services/userService";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const { user, login } = useUser();
@@ -15,12 +16,17 @@ export const Profile = () => {
     [],
   );
 
-  const [queue, setQueue] = useState<Icebreaker[]>(user?.queue || []);
+  const navigate = useNavigate();
+
+  const [queue] = useState<Icebreaker[]>(user?.queue || []);
 
   const handleNext = () => {
-    setQueue((prev) => prev.slice(1));
+    navigate("/"); // Navigerer til hjemmesiden etter vellykket innlogging
   };
 
+  const navigateToAdminpage = () => {
+    navigate("/adminpage");
+  };
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
@@ -45,7 +51,7 @@ export const Profile = () => {
 
   if (!user) return <div>Not signed in....</div>;
 
-  const { username } = user;
+  const { username, role } = user;
 
   return (
     <div className="flex min-h-screen w-full justify-center p-6">
@@ -54,9 +60,12 @@ export const Profile = () => {
           {username}
         </h1>
         <div className="mb-10">
-          <Button disabled={!queue.length} onClick={handleNext}>
-            Neste
-          </Button>
+          <Button onClick={handleNext}>Tilbake</Button>
+          {role === "admin" && (
+            <Button onClick={navigateToAdminpage} className="ml-4">
+              Admin Side
+            </Button>
+          )}
         </div>
 
         <div className="flex w-5/6 justify-center gap-4">
