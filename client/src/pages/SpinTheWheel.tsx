@@ -110,7 +110,7 @@ const SpinTheWheel: React.FC = () => {
       setFavorites(fetchedFavorites);
       // Oppdaterer valgmulighetene med de hentede favorittene
       const favoriteNames = fetchedFavorites.map(
-        (favorite: { name: String }) => favorite.name,
+        (favorite: { name: string }) => favorite.name,
       );
       const newFavorites = favoriteNames.filter(
         (name: string) => !options.includes(name),
