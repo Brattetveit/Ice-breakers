@@ -122,11 +122,9 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
   return (
     <div
       className="grid grid-cols-2 gap-4 rounded-lg p-2 "
-      style={{ backgroundColor: "#ffe5ec", color: "black" }}
+      style={{ backgroundColor: "#a2d2ff", color: "black" }}
     >
-      <div
-        className="flex place-self-center"
-      >
+      <div className="flex place-self-center">
         <h2 className="text-3xl text-[#014f86]" id="clock">
           00:00:00
         </h2>
