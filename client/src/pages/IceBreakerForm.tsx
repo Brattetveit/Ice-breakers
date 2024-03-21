@@ -198,7 +198,6 @@ export const IcebreakerForm = () => {
   return (
     <div
       className="flex min-h-screen flex-col"
-      style={{ fontFamily: "ZCOOL XiaoWei" }}
     >
       <div
         style={{
@@ -213,7 +212,7 @@ export const IcebreakerForm = () => {
       </div>
       <h1
         className="w-full bg-white py-10 text-center text-4xl"
-        style={{ fontSize: "70px" }}
+        style={{ fontSize: "70px", fontWeight: "bold" }}
       >
         Opprett ny lek
       </h1>
