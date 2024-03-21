@@ -24,6 +24,7 @@ const App = () => {
         <Route path="/categoryPage" element={<Categories />} />
         <Route path="/category" element={<InCategory />} />
         <Route path="/spinTheWheel" element={<SpinTheWheel/>} />
+        <Route path="/adminPage" element={<AdminPage/>} />
       </Routes>
     </>
   );
