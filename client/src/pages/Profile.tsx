@@ -18,7 +18,7 @@ export const Profile = () => {
 
   const navigate = useNavigate();
 
-  const [queue] = useState<Icebreaker[]>(user?.queue || []);
+  // const [queue] = useState<Icebreaker[]>(user?.queue || []);
 
   const handleNext = () => {
     navigate("/"); // Navigerer til hjemmesiden etter vellykket innlogging
@@ -88,7 +88,7 @@ export const Profile = () => {
             ))}
           </div>
 
-          <div className=" flex w-full flex-col gap-4 ">
+          {/* <div className=" flex w-full flex-col gap-4 ">
             <h1 className="text-center font-semibold">
               {queue.length ? "Min kø" : "Du har ingen i køen din"}
             </h1>
@@ -104,7 +104,7 @@ export const Profile = () => {
               }
               return <IcebreakerCard key={idx} icebreaker={icebreaker} />;
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
