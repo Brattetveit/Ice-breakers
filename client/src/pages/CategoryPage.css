@@ -53,6 +53,7 @@
   border-radius: 20px;
   position: absolute;
   width: 100px;
-  bottom: 760px;
+  /* bottom: 760px; */
+  top: 20px;
   left: 80px;
 }

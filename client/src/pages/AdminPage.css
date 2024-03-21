@@ -1,0 +1,201 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+  padding: 20px;
+  background-color: #FFFDFD;
+ }
+ .sidebar {
+  align-self: stretch; /*gjør at sidebar strekker seg hele veien*/
+  display: flex;
+  position: fixed; /* Gjør at sidebar ikke flytter seg ved scrolling */
+  top: 0;
+  left: 0;
+  padding: 20px;
+ }
+ .h2 {
+  margin-bottom: 20px;
+ }
+ .button-container {
+  display: flex; /* Oppretter en flex-container */
+  justify-content: flex-start; /* Justerer knappene til venstre side */
+ }
+ .sidebar button {
+  margin-bottom: 20px;
+  background-color: #A3C7F1;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+ }
+ .header {
+  position: fixed; /* Gjør at header ikke flytter seg ved scrolling */
+  top: 0;
+  right: 0;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 24px;
+ }
+ .card1 {
+  width: 80%;
+  min-width: 800px;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #FDD0D0;
+  box-shadow: none;
+  margin: 20px auto; /* sentrerer kortene horisontalt */
+ }
+ .card1 ul {
+  list-style-type: none; /* Fjerner listepunktene */
+  padding: 0; /* Fjerner padding som er standard for lister */
+ }
+ .card1 ul li {
+  display: flex; /* Dette vil plassere innholdet på samme rad */
+  align-items: center; /* Dette sikrer at alt innhold på linjen er sentrert vertikalt */
+  justify-content: space-between; /* Dette fordeler plasseringen jevnt */
+  margin-bottom: 10px; /* Legger til litt plass mellom hver liste-element */
+ }
+ .card1 ul li h1 {
+  margin-right: 20px; /* Legger til plass til høyre for spillnavnet */
+ }
+ .approve-button {
+  background-color: #4CAF50; /* Grønn farge for godkjenn-knappen */
+  /* resten av dine stiler for knappen */
+ }
+ .disapprove-button {
+  background-color: #F44336; /* Rød farge for ikke godkjenn-knappen */
+  /* resten av dine stiler for knappen */
+ }
+ /* Stil for Godkjenn-knappen */
+ .card1 ul li button.approve {
+  background-color: #4CAF50; /* Grønn farge */
+  color: white;
+ }
+ .card1 ul li button.disapprove {
+  background-color: #F44336; /* Rød farge */
+  color: white;
+ }
+ .card1 ul li button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin: 0 5px;
+ }
+ .card1 ul li .button-container {
+  display: flex; /* Setter opp flex-container for knappene */
+ }
+ .card1 ul li button:nth-child(3) {
+  background-color: #F44336; /* Rød farge for ikke godkjenn-knappen */
+ }
+ .card1 ul li .button-container button:first-child {
+  margin-right: 10px; /* Legger til litt plass mellom knappene */
+ }
+ /* .card2 {
+  width: 80%;
+  min-width: 800px;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #A3C7F1;
+  box-shadow: none;
+  margin: 20px auto;
+ } */
+ .card2 {
+  width: 80%;
+  min-width: 800px;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #FDD0D0; /* Same background color as card1 */
+  box-shadow: none; /* Remove the box-shadow if you don't want it */
+  margin: 20px auto; /* Center the card horizontally */
+}
+
+.card2 ul {
+  list-style-type: none; /* Remove the bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+.card2 ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card2 ul li h1 {
+  margin-right: 20px;
+}
+
+.card2 .button-container {
+  display: flex;
+}
+
+.card2 ul li button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin: 0 5px;
+}
+
+.card2 ul li button:first-child {
+  margin-right: 10px;
+}
+
+.card2 ul li button.approve-button {
+  background-color: #4CAF50; /* Green color for the approve button */
+  color: white;
+}
+
+.card2 ul li button.disapprove-button {
+  background-color: #F44336; /* Red color for the disapprove button */
+  color: white;
+}
+
+
+ .admin {
+  background-color: #C6E0EF;
+  margin: 20px auto;
+ }
+ .content {
+  margin-top: 60px;
+  width: calc(100% - 160px); /* Juster bredden så den tar hensyn til sidebar */
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 270px;
+ }
+ .report {
+  width: 100%;
+  padding: 20px 0;
+  text-align: left;
+ }
+ /* Legger til stil for loading tilstand */
+ .button-container button.loading {
+  background-color: #F0AD4E; /* Oransje farge for loading-tilstand */
+  pointer-events: none; /* Deaktiverer klikk på knappen mens den loader */
+ }
+ /* Legger til stil for error tilstand */
+ .button-container button.error {
+  background-color: #D9534F; /* Rød farge for feil-tilstand */
+  pointer-events: none; /* Deaktiverer klikk på knappen når det er en feil */
+ }
+ .message {
+  position: fixed; /* eller en annen styling basert på ditt design */
+  top: 20px; /* Juster dette etter behov */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #F44336; /* eller en annen farge basert på godkjenn/ikke godkjenn */
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000; /* Sørger for at meldingen vises over annet innhold */
+ }

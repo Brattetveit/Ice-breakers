@@ -8,6 +8,7 @@ import {
   Profile,
   InCategory,
   Categories,
+  AdminPage,
 } from "./pages";
 import SpinTheWheel from "./pages/SpinTheWheel";
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/categoryPage" element={<Categories />} />
         <Route path="/category" element={<InCategory />} />
         <Route path="/spinTheWheel" element={<SpinTheWheel/>} />
+        <Route path="/adminPage" element={<AdminPage/>} />
       </Routes>
     </>
   );
