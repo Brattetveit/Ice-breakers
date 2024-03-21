@@ -220,10 +220,7 @@ export const IcebreakerForm = () => {
       <div className="flex grow items-center justify-center  bg-[#d9f0ff]">
         <div className="w-full max-w-4xl p-4">
           <div className="m-4 flex justify-end md:grid md:grid-cols-5 md:gap-12 ">
-            <div />
-            <div />
-            <div />
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 col-start-4 flex justify-end">
               <Button
                 className="text-xl"
                 style={{ backgroundColor: "#5aa9e6" }}
