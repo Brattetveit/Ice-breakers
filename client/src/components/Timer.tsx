@@ -122,7 +122,7 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
   return (
     <div
       className="grid grid-cols-2 gap-4 rounded-lg p-2 "
-      style={{ backgroundColor: "#89ccf6", color: "black" }}
+      style={{ backgroundColor: "#ffe5ec", color: "black" }}
     >
       <div
         className="flex place-self-center"
