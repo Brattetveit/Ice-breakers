@@ -16,7 +16,7 @@ export const Register = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     // Call handleSubmitt with both the event and navigate
-    handleSubmitt(event);
+    handleSubmitt(event, navigate);
     navigate("/login");
   };
   return (
