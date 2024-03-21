@@ -1,5 +1,4 @@
 // import { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,13 +12,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormEvent, useState } from "react";
 import { useUser } from "@/hooks/useUser";
+
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  
+  const { login } = useUser(); 
 
-  const { login } = useUser();
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await login(username, password); // Anta at denne funksjonen er asynkron
+      localStorage.setItem('justLoggedIn', 'true'); // Setter markør i localStorage for å indikere nylig innlogging
+      navigate("/"); // Navigerer til hjemmesiden etter vellykket innlogging
+    } catch (error) {
+      console.error("Login feilet", error);
+      // Håndter feil ved innlogging her (f.eks., vis en feilmelding til brukeren)
+    }
+  };
+  
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#E3F2FD]">
       <Card className="w-11/12 bg-[#A3CEF1] p-2 md:w-3/5 md:p-4 lg:w-2/5 lg:p-6">
@@ -29,14 +42,7 @@ export const Login = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="m-5">
-          <form
-            className="m-6"
-            onSubmit={(e: FormEvent<HTMLFormElement>) => {
-              e.preventDefault();
-              login(username, password);
-              navigate("/");
-            }}
-          >
+          <form className="m-6" onSubmit={handleLogin}>
             <div className="grid w-full items-center gap-4 md:gap-6">
               <div className="flex flex-col gap-1 md:gap-2">
                 <Label htmlFor="username" className="text-lg md:text-xl">
@@ -58,9 +64,9 @@ export const Login = () => {
                   id="password"
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Passord"
                   className="bg-[#d9d9d9]"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -73,11 +79,11 @@ export const Login = () => {
               </p>
               <div className="flex w-full justify-between">
                 <Link to="/">
-                  <Button variant="outline" className="">
+                  <Button variant="outline">
                     Avbryt
                   </Button>
                 </Link>
-                <Button type="submit" className="">
+                <Button type="submit">
                   Logg inn
                 </Button>
               </div>
