@@ -76,7 +76,7 @@ export const AdminPage = () => {
   const handleDisapproveFeedback = async (id: string) => {
     const success = await deleteFeedback(id);
     if (success) {
-      setMessage('Leken er ikke godkjent og vil fjernes fra nettsiden');
+      setMessage('Kommentaren er ikke godkjent og vil fjernes fra nettsiden');
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
