@@ -14,7 +14,6 @@ const SpinTheWheel: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 100);
   const [, setFavorites] = useState<Icebreaker[]>([]);
-  const [queues] = useState<Icebreaker[]>([]);
   const [options, setOptions] = useState<string[]>([]);
   const [displayOption, setDisplayOption] = useState("Spinn");
   const [filteredIcebreakers, setFilteredIcebreakers] = useState<Icebreaker[]>(
@@ -125,11 +124,6 @@ const SpinTheWheel: React.FC = () => {
     } catch (error) {
       console.error("Failed to fetch favorites:", error);
     }
-  };
-
-  const handleAddQueue = () => {
-    const queueNames = queues.map((queue) => queue.name);
-    setOptions(options.concat(queueNames));
   };
 
   return (
@@ -272,9 +266,6 @@ const SpinTheWheel: React.FC = () => {
                 className="hentFraFavoritter"
               >
                 Legg til dine favoritter
-              </button>
-              <button onClick={handleAddQueue} className="hentFraq">
-                Legg til din kø
               </button>
             </div>
             <button
