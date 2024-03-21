@@ -10,7 +10,7 @@ import {
   Categories,
   AdminPage,
 } from "./pages";
-
+import SpinTheWheel from "./pages/SpinTheWheel";
 const App = () => {
   return (
     <>
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/icebreakerForm" element={<IcebreakerForm />} />
         <Route path="/categoryPage" element={<Categories />} />
         <Route path="/category" element={<InCategory />} />
-        <Route path="/adminPage" element={<AdminPage />} />
+        <Route path="/spinTheWheel" element={<SpinTheWheel/>} />
       </Routes>
     </>
   );

@@ -1,0 +1,170 @@
+.tittel {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #c9e1fa;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 20px;
+  font-size: 70px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin: 50px auto;
+}
+
+.spin-wheel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+¨ .spin-wheel {
+  width: 300px;
+  height: 300px;
+  border: 10px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  background: #fff;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Legg til en margin øverst for å sentrere hjulet vertikalt */
+}
+
+.reset-button {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #bfd8bd;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  display: block;
+}
+
+.alt,
+.alternativene,
+.legg,
+.inp {
+  font-family: "ZCOOL XiaoWei";
+  text-align: center;
+}
+
+.alt {
+  background-color: #c9e1fa;
+  font-weight: bold;
+  border-radius: 7px;
+  font-size: 20px;
+  width: 350px;
+  height: auto;
+  padding: 10px;
+  margin: auto;
+}
+.alternativene {
+  background-color: #c9e1fa;
+  border-radius: 7px;
+  font-size: 20px;
+  width: 350px;
+  height: auto;
+  padding: 10px;
+}
+
+.legg,
+.inp {
+  background-color: #ffffff;
+  border-radius: 20px;
+  font-size: 20px;
+  width: 50%;
+  height: 50px;
+  margin: 20px auto;
+}
+
+.search-field-container {
+  position: relative;
+  width: 100%; /* Eller tilpasset bredde om nødvendig */
+}
+
+.search-results {
+  position: absolute;
+  top: 52px; /* Juster denne verdien basert på høyden på søkefeltet pluss eventuell margin/padding */
+  width: 100%; /* Rullegardinlisten vil matche containerens bredde */
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  z-index: 1; /* Sørger for at den vises over andre elementer */
+  box-sizing: border-box; /* Inkluderer padding og border i elementets totalbredde */
+}
+
+.search-results {
+  z-index: 1;
+  border-radius: 2%;
+  max-height: 500px;
+  width: 50%; /* Tilpass denne bredden til bredden på søkefeltet ditt */
+  overflow-y: auto;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  list-style: none;
+  padding: 0;
+  top: 60px; /* Juster denne verdien basert på høyden på søkefeltet for å posisjonere listen korrekt */
+  left: 0; /* Juster om nødvendig for å justere listen horisontalt */
+}
+
+.search-results li {
+  padding: 10px; /* Tilpass som nødvendig */
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0; /* Lys høydepunktsfarge når musen er over */
+}
+
+.wheel-container {
+  display: "flex";
+  background: "#f0f0f0";
+  height: "100%";
+}
+
+.page-container {
+  min-height: 100vh;
+}
+
+.Hjem {
+  position: absolute; /* Endre posisjonering til absolutt */
+  top: 20px; /* Juster avstand fra toppen */
+  left: 20px; /* Juster avstand fra venstre side */
+  color: black;
+  padding: 10px; /* Legger til litt padding rundt teksten */
+  text-decoration: none; /* Fjerner underlinje fra lenker */
+  border-radius: 5px; /* Valgfritt: legger til avrundede hjørner for estetikk */
+  font-family: "ZCOOL XiaoWei";
+  font-size: 20px;
+}
+
+.modal {
+  z-index: 1000; /* Dette er bare et eksempel, juster etter behov */
+}
+
+.hentFraFavoritter {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #fdbdc1;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+}
+
+.hentFraq {
+  font-family: "ZCOOL XiaoWei";
+  background-color: #fdbdc1;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
+}

@@ -80,23 +80,11 @@ export const NavMenu = ({ isSignedIn, onLogout }: NavMenuProps) => {
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-popover text-popover-foreground">
-            Om oss
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <div className="grid w-[400px] grid-cols-2 p-6">
-              <MenuLinkItem
-                to="/"
-                title="Hvem er vi?"
-                description="Her kan du lese mer om hvem vi er og hva vi driver med"
-              />
-              <MenuLinkItem
-                to="/"
-                title="Hva er dette?"
-                description="Her kan du lese mer om produktet vårt"
-              />
-            </div>
-          </NavigationMenuContent>
+          <Link to="/spinTheWheel">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Spinn hjulet!   
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link to="/">

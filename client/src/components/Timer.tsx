@@ -102,8 +102,6 @@ export function Timer({ timeProp, endOfTimerAction }: TimerProps) {
     let timer: NodeJS.Timeout;
     if (clockRunning) {
       timer = setInterval(() => {
-        console.log(time)
-        
         if (time == 0) {
           endOfTimerAction();
           clockSwitch();
